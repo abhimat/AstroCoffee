@@ -1,0 +1,8 @@
+<Limit POST PUT>
+ order deny,allow
+ deny from all
+ # Limit posting access to NMSU network addresses
+ allow from 128.123.0.0/16
+ # Home
+ allow from 69.254.136.29
+</Limit>

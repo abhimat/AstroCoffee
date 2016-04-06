@@ -1,0 +1,4 @@
+.DS_Store
+*.pyc
+status.log
+Private/passwords.py

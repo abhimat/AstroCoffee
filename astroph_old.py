@@ -1,0 +1,565 @@
+#!/usr/bin/python
+"""
+A module to generate HTML code using specified ArXiV file IDs.
+
+The main function is:
+   docoffee -- read in a file of arxiv IDs or interesting URLs, and
+               write HTML code to specified file.
+
+There should be no need to edit this file or any of the asssociated parsing
+functions (get*.py).  There is a wrapper script, runcoffee.py, that does most
+of the front-end organization and contains the user changable variables.
+
+This code created 2010-02-05 at UC Los Angeles by Ian J. Crossfield and
+Nathaniel Ross.  It has been heavily modified and is under active development
+by Ryan T. Hamilton at New Mexico State University. Re-use or modification is
+allowed and encouraged, so long as proper acknowledgement is made to the
+original authors and institutions.
+"""
+# 2010-10-20       RTH: v0.98: Spun off parsers into own files.  Removed all
+#                                changes to the CHANGELOG/online repository
+
+__version__ = '0.98.9'
+
+
+class preprint(object):
+    """Empty object container for preprints"""
+    def __init__(self):
+        self.url = ''
+        self.author = ''
+        self.numauth = ''
+        self.title = ''
+        self.date = ''
+        self.abstract = ''
+        self.subject = ''
+        self.comments = ''
+        self.sources = ''
+        self.commentid = ''
+        self.errors = '0'
+
+
+def getunique(seq):
+    """Take an input list and return list of unique elements, order preserved
+    """
+    checked = []
+    for e in seq:
+        if e not in checked:
+            checked.append(e)
+    return checked
+
+
+def getinfo(id, server='http://arxiv.org/abs/'):
+    """Take an ArXiV ID and return the title, authors, abstract, sub. date
+
+    INPUT:
+       id -- (str): ArXiV ID (e.g. '1002.0504v1' or 1002.0504)
+              _OR_
+             (str) URL, from which TITLE tag will be extracted.
+
+    OUTPUT:
+       a preprint-class object.
+    """
+    from getadsinfo import getadsinfo
+    from getarxivinfo import getarxivinfo
+    from getnatureinfo import getnatureinfo
+    from getwebinfo import getwebinfo
+    import urllib2
+
+    servererr = False
+    # Set up the ID
+    id = str(id).strip().lower()
+
+    # Check for the various types of arXiv identifiers
+    try:
+        # Check for plain numbers with no lead/trail and a period in it
+        if (id.find('.') > -1):
+            idnum = float(id[0:9])
+            isValidArxiv = len(id) >= 9
+            # Ok, it's just a number so put the proper url stuff in front of it
+            id = server + id
+            servererr = False
+    except:
+        # Ok, wasn't just numbers.  Look for arxiv:###... style, but not
+        #   valid arxiv.org addresses that were submitted
+        if (id.find('arxiv') > -1) and \
+           (id.find('.org') == -1) and \
+           (id.find('.gov') == -1):
+            isValidArxiv = True
+            id = server + id
+        elif (id.find('astro-ph') > -1):
+            isValidArxiv = True
+            id = 'http://arxiv.org/abs/' + id
+        else:
+            isValidArxiv = False
+
+    try:
+        html = urllib2.urlopen(id).read()
+        urlpage = id  # For compatibility down lower in the code
+    except urllib2.HTTPError, e:
+#        print e.code
+        html = e.read()
+        urlpage = id
+        servererr = True
+    except:
+        # Hm...didn't open, and not a 404 or something; try adding http://
+        if (id.startswith('http://') is False):
+            urlpage = 'http://' + id
+            try:
+                html = urllib2.urlopen(urlpage).read()
+            except:
+                # Ok...try adding www. if it's not there
+                if (urlpage.startswith('http://www.') is False):
+                    urlpage = 'http://www.' + id
+                try:
+                    html = urllib2.urlopen(urlpage).read()
+                except:
+                    html = '<html><head>' + \
+                           '<title>BAD LINK: ' + id + \
+                           '</title>' + \
+                           '</head><body></body></html>'
+                    servererr = True
+        else:
+            html = '<html><head>' + \
+                   '<title>BAD LINK: ' + id + \
+                   '</title>' + \
+                   '</head><body></body></html>'
+
+    if servererr is False:
+        # Nature Article
+        if urlpage.find('nature.com') > -1:
+            thispaper = getnatureinfo(urlpage, html)
+            if thispaper.errors == '0':
+                thispaper.errors = 'Success reading ' + urlpage
+            else:
+                thispaper.errors = 'Some ERRORS reading ' + urlpage
+            thispaper.id = ''
+        # ADS Result
+        elif urlpage.find('adsabs.harvard.edu') > -1:
+            thispaper = getadsinfo(urlpage, html)
+            if thispaper.errors == '0':
+                thispaper.errors = 'Success reading ' + urlpage
+            else:
+                thispaper.errors = 'Some ERRORS reading ' + urlpage
+            thispaper.id = ''
+        # arXiv Article
+        elif urlpage.find('arxiv.org') > -1 or \
+             urlpage.find('xxx.lanl.gov') > -1 or (isValidArxiv):
+            thispaper = getarxivinfo(urlpage, html)
+            if thispaper.errors == '0':
+                thispaper.errors = 'Success reading ' + urlpage
+            else:
+                thispaper.errors = 'Some ERRORS reading ' + urlpage
+            thispaper.id = ''
+        # Anything Else
+        else:
+            thispaper = getwebinfo(urlpage, html)
+            if thispaper.errors == '0':
+                thispaper.errors = 'Success reading ' + urlpage
+            else:
+                thispaper.errors = 'Some ERRORS reading ' + urlpage
+            thispaper.id = ''
+    # Error Handler
+    else:
+        thispaper = getwebinfo(urlpage, html)
+        thispaper.errors = 'ERRORS reading ' + id
+        thispaper.id = ''
+        thispaper.url = id
+
+    return thispaper
+
+
+def readlist(filelist, sleep=60):
+    """Get data for all papers with IDs or URLs specified.
+
+    INPUT:
+        filelist:  one of the following:
+           (list) python list of IDs for astroph.getinfo
+           (str) filename of an ascii file containing IDs
+
+    OPTIONAL INPUT:
+        sleep -- (float) number of seconds to wait between URL
+                 requests, so aRxIv doesn't think you're a robot and
+                 ban your connection.
+
+    OUTPUT:
+        a list of preprint-class objects
+    """
+    import time
+    papers = []
+    errors = ''
+
+    if isinstance(filelist, list):
+        ids = filelist
+    else:  # Must be the name of a file to read:
+        try:
+            f = open(filelist, 'r')
+            ids = f.readlines()
+            f.close()
+        except:
+            errors = "Could not open file: %s" % filelist
+#            print "Could not open file: %s" % filelist
+            ids = ['']
+
+    for id in ids:
+        if len(id) > 5:
+            thispaper = getinfo(id)
+            errors = errors + thispaper.errors + "\n"
+            if isinstance(thispaper, preprint):
+                papers.append(thispaper)
+                time.sleep(sleep)
+
+    return errors, papers
+
+
+def getnextduedate(d, h, m):
+    """Get the next due date for meeting.
+
+    INPUT:
+        d:  datetime object day of the week to meet
+        h:  datetime object hour of day to meet (24h)
+        m:  datetime object minute of hour to meet
+
+    OUTPUT:
+        datetime of next meeting
+    """
+
+    import datetime
+    from dateutil.relativedelta import relativedelta, \
+        MO, TU, WE, TH, FR, SA, SU
+
+    today = datetime.datetime.now()
+    nextmeet1 = today+relativedelta(weeks=+1, weekday=d, hour=h,
+                                    minute=m+35, second=0, microsecond=0)
+    nextmeet2 = today+relativedelta(weekday=d, hour=h, minute=m+35, second=0,
+                                    microsecond=0)
+    msg = ''
+
+    if abs(nextmeet2.day-today.day) < 1 and today < nextmeet2:
+        nextmeet = nextmeet2
+        msg = "Less than one day difference, so the next meeting is today"
+    elif today < nextmeet2:
+        nextmeet = nextmeet2
+    else:
+        nextmeet = nextmeet1
+
+    return msg, nextmeet
+
+
+def getprevduedate(d, h, m):
+    """Get the previous date for meeting.
+
+    INPUT:
+        d:  datetime object day of the week to meet
+        h:  datetime object hour of day to meet (24h)
+        m:  datetime object minute of hour to meet
+
+    OUTPUT:
+        datetime of the previous meeting
+    """
+
+    import datetime
+    from dateutil.relativedelta import relativedelta, \
+        MO, TU, WE, TH, FR, SA, SU
+
+    # Get current date
+    today = datetime.datetime.now()
+    prevmeet1 = today+relativedelta(weeks=-1, weekday=d, hour=h, minute=m+35,
+                                    second=0, microsecond=0)
+    prevmeet2 = today+relativedelta(weekday=d, hour=h, minute=m+35, second=0,
+                                    microsecond=0)
+    msg = ''
+
+#    print prevmeet1, prevmeet2
+
+    if abs(prevmeet2.day-today.day) < 1 and today > prevmeet2:
+        prevmeet = prevmeet2
+        msg = "Less than one day difference, so the last meeting was today"
+    else:
+        prevmeet = prevmeet1
+
+    return msg, prevmeet
+
+
+def makeheader(day, hour, min, php=False):
+    """Return the HTML header info.  If specified, use PHP and submission form.
+    """
+
+    import datetime
+    from dateutil.relativedelta import relativedelta, \
+        MO, TU, WE, TH, FR, SA, SU
+
+    # Need this dummy return value because of the way I write the status file
+    mgs = ''
+    msg, nextdate = getnextduedate(day, hour, min)#+relativedelta(minutes=-35)
+    nextdate = nextdate+relativedelta(minutes=-35)
+    datestr = nextdate.strftime('%a, %b %d, %Y at %I:%M %p')
+    
+    ## Get previous date astro-ph coffee is held in week
+    nextdate_early = nextdate+relativedelta(days=-2, minutes=-0)
+    datestr_early = nextdate_early.strftime('%a, %b %d, %Y at %I:%M %p')
+
+    head = []
+
+    titleString1 = '<div class="entry">'
+    titleString2 = '<p>Suggested papers for <strong>{0}</strong><br>and <strong>{1}</strong></p>\n'.format(datestr_early, datestr)
+    head.append(titleString1)
+    head.append(titleString2)
+
+    # head.append('<p>astro-ph coffee is held Mondays at 1:30 PM and Wednesdays at 2:00 PM.')
+    # head.append('Some suggested papers of interest are listed below.')
+    # head.append('</p></div>')
+    head.append('</div>')
+
+    return head
+
+
+def makefooter(php=False):
+    """
+    Return the HTML footer (list of str).  If called, append PHP scripting.
+    """
+
+    from time import localtime
+    f = []
+    yr, mo, day, hr, min, sec, wd, yd, ii = localtime()
+    f.append("<hr><p>")
+    f.append("<a href='http://astronomy.nmsu.edu/rthamilt/astrocoffee/'>")
+    f.append("astroph.py v%s</a> based on the " % __version__)
+    f.append("<a href='http://www.astro.ucla.edu/~ianc/astroph.shtml'>")
+    f.append("original astroph.py</a>.  ")
+    f.append("Updated %i/%02i/%02i %02i:%02i:%02i</p>" %
+            (yr, mo, day, hr, min, sec))
+    foot = [line+'\n' for line in f]
+
+    return foot
+
+
+def makehtml(papers, day, hour, min, idcomments=False, php=False):
+    """Return HTML code for a public ArXiV web page from paper list.
+
+    INPUT:
+       papers -- (list) python list of preprint-class objects.
+
+    OPTIONAL INPUT:
+       php -- (bool) whether to generate HTML containing PHP scripting
+                for paper submissions
+
+    OUTPUT:
+       html -- HTML code for generating a web page
+    """
+
+    import time
+    import re
+
+    # Generate header
+    h = makeheader(day, hour, min, php=php)
+    # h = ['<p>Test!</p>\n']
+
+    # generate footer
+    f = makefooter(php=php)
+
+    # Generate text from preprints
+    body = []
+    date = ''
+    for paper in papers[::-1]:
+        date = paper.date
+        if isinstance(paper, preprint):
+            if paper.errors.startswith("Success"):
+                if paper.sources != '':
+                    if date != "":
+                        body.append('<div class="entry">')
+                        body.append('<p><div class="container">')
+                        body.append('<div class="left">%s</div>' % paper.date)
+                    # Remove any stray/extra whitespaces
+                    paper.sources = paper.sources.lstrip()
+                    paper.sources = paper.sources.rstrip()
+                    body.append('<div class="right">[%s]</div>' %
+                                paper.sources)
+                    body.append('</div></p>')
+                    title = '<p><a href="%s">%s</a></p>' \
+                            % (paper.url, paper.title)
+                else:
+                    if date != "":
+                        body.append('<div class="entry">')
+                        body.append('<p>%s</p>' % paper.date)
+                    title = '<a href="%s">%s</a>' % (paper.url, paper.title)
+                body.append('<div id="ptitle">%s</div>' % title)
+                if paper.numauth > 5 and \
+                   paper.author != "Error Grabbing Authors":
+                    authremain = paper.numauth-5
+                    aexstring = ", + " + str(authremain) + " more"
+                    paper.author = paper.author + aexstring
+                body.append('<div id="pauthors">%s</div>' % paper.author)
+                # Limit the length of the abstract displayed, and if its
+                #   shorter then just display the whole thing
+                abslength = 500
+                # Hopefully remove links and other HTML things in there
+                if len(paper.abstract) > abslength:
+                    paper.shortabs = paper.abstract[0:abslength] + '...'
+                    paper.shortabs = paper.shortabs.rstrip()
+                else:
+                    paper.shortabs = paper.abstract
+                paper.shortabs = paper.shortabs.lstrip()
+                paper.shortabs = paper.shortabs.rstrip()
+                body.append('<div id="pabstract">%s</div>' % paper.shortabs)
+                # Needed a comment ID, so use the md5 hash of the title
+                #   enough for uniqueness and repeatability
+                if idcomments and paper.title != "Error Grabbing Title":
+                    import hashlib
+                    commentscript = '<script>var idcomments_acct=' + \
+                                  idcomments + ';var idcomments_post_id=\'' + \
+                                  str(hashlib.md5(paper.title).hexdigest()) + \
+                                  '\';var idcomments_post_url=\'' + \
+                                  str(hashlib.md5(paper.title).hexdigest()) + \
+                                  '\';var idcomments_post_title = \'' + \
+                                  str(hashlib.md5(paper.title).hexdigest()) + \
+                                  '\';</script>' + \
+                                  '<script type="text/javascript" src=' + \
+         ' "http://www.intensedebate.com/js/genericLinkWrapperV2.js"></script>'
+                    body.append('%s' % commentscript)
+                    body.append('</div>')
+                else:
+                    body.append('</div>')
+            else:
+                body.append('<div class="entry">')
+                if (paper.url.find('.pdf') > -1):
+                    paper.date = "Please Do NOT Submit Direct PDF Links:"
+                else:
+                    paper.date = "Unknown Submission/Link:"
+                body.append('<p>%s</p>' % paper.date)
+                title = '%s' % paper.url
+                body.append('<div id="ptitle">%s</div>' % title)
+                body.append('</div>')
+
+    body = [line+'\n' for line in body]
+
+    # Concatenate everything together
+    html = h + body + f
+
+    return html
+
+
+def doarchivepage(file, outfile):
+    """Create the archive file, clear the papers file
+
+    INPUTS:
+       file: (str) path to the papers file
+       outfile: (str) path to archive file to create
+    """
+
+    import glob
+    import shutil
+    import re
+
+    arcstat = ''
+
+    try:
+        f = open(outfile)
+        arcstat = "Old papers already archived\n\n"
+        f.close()
+    except:
+        arcstat = "Past previous deadline, so archiving old papers\n\n"
+
+        # Easy file concatenation:
+        f = open(outfile, 'wb')
+        shutil.copyfileobj(open('./archive_top.php', 'rb'), f)
+        shutil.copyfileobj(open('./astro_coffee.php', 'rb'), f)
+        shutil.copyfileobj(open('./archive_bottom.php', 'rb'), f)
+        f.close()
+
+        # Get a list of all the current archived papers
+        archived = glob.glob('./archive/*papers.php')
+        # Now make the index page for archive, the long way since we add html
+        page = open('./archive_top.php', 'r').read()
+        page = page + '<ul>\n'
+        arclinks = ''
+        for files in sorted(archived):
+            files = re.sub(r'\./archive\/', '', files)
+            linkname = re.sub(r'[\.\-]papers\.php', '', files)
+            arclinks = arclinks + '<li><a href="' + files + '">' + \
+                       linkname + '</a></li>\n'
+        page = page + arclinks
+        page = page + '</ul>\n'
+        page = page + open('./archive_bottom.php', 'r').read()
+        # Append it to our output file
+        outfile = './archive/index.php'
+        f = open(outfile, 'w')
+        f.write(page)
+        f.close()
+
+        try:
+            # Clear the papers file for the new week, but save the last
+            # entry because it was what triggered the update/archive
+            f = open(file, 'r')
+            ids = f.readlines()
+            f.close()
+
+            f = open(file, 'w')
+            f.write(ids[len(ids)-1])
+            f.close()
+        except:
+            html = ['Could not get the papers info in the archive loop']
+            papers = []
+            arcstat = arcstat + "Could not get paper info in archive loop\n\n"
+    return arcstat
+
+
+def docoffeepage(file, url, day, hour, min, sleep=60, idid=False, php=False):
+    """Read in arxiv IDs from a specified ASCII file, and write HTML.
+
+    INPUTS:
+       file: (str) path of ASCII file with arxiv IDs
+       url:  (str) path of HTML file to write
+       day:  (dateutil) day of meeting time
+       hour: (flt) hour of meeting time
+       min:  (flt) minute of meeting time
+
+    OPTIONAL INPUT:
+        sleep -- (float) number of seconds to wait between URL
+                 requests, so aRxIv doesn't think you're a robot and
+                 ban your connection.
+    """
+
+    import datetime
+
+    today = datetime.datetime.now()
+    msg1, prevdate = getprevduedate(day, hour, min)
+    msg2, nextdate = getnextduedate(day, hour, min)
+
+    outstat = msg1 + "\n" + msg2
+    outstat = outstat + "\nPrevious: " + prevdate.strftime('%Y-%m-%d')
+    outstat = outstat + "\nNow:      " + today.strftime('%Y-%m-%d %H:%M:%S')
+    outstat = outstat + "\nNext:     " + nextdate.strftime('%Y-%m-%d') + "\n\n"
+
+    outfile='./archive/' + prevdate.strftime('%Y-%m-%d') + '-papers.php'
+    arcstat = doarchivepage(file, outfile)
+    paperrs = ''
+
+    # Ok, now read the papers for real
+    try:  # Read in the papers
+        paperrs, papers = readlist(file, sleep=sleep)
+        html = []
+    except Exception, why:
+        html = ['Could not get the papers info']
+        papers = []
+        outstat = outstat + 'Could not get the paper info\n\n'
+        outstat += str(why) + "\n\n"
+    
+    try:
+        html = makehtml(papers, day, hour, min, idcomments=idid, php=php)
+    except:
+        html.append('Could not generate HTML')
+        outstat = outstat + 'Could not generate HTML code\n\n'
+
+    # Write the file
+	print 'I got here!'
+    try:
+		# with open(url, 'w') as f:
+		# 			f.writelines(html)
+        f = open(url, 'w')
+        f.writelines(html)
+        f.close()
+    except:
+        outstat = outstat + 'Could not write HTML code to file ' + url + "\n\n"
+
+    outstat = str(outstat) + str(arcstat) + str(paperrs)
+    return (html, outstat)

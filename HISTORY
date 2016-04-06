@@ -1,0 +1,129 @@
+-----------------------------
+History:
+-----------------------------
+
+The following history is probably incomplete, since I stopped updating it when
+I moved everything to the BitBucket Repository
+
+2010-02-11 09:41 IJC: v0.4  -- First edition w/documentation.
+2010-02-12 13:05 IJC: v0.41 -- Corrected "nexthursday" bug.
+2010-04-04       RTH: v0.75 -- Added many features, including archiving and 
+                                 ability to comment on papers via IntenseDebate
+2010-04-09       RTH: v0.77 -- Fixed arXiv date scraping bug
+2010-04-12       RTH: v0.85 -- Added ADS scraper
+                                 Second edition w/documentation
+2010-05-04       RTH: v0.90 -- Fixed Nature scraper due to website changes
+                                 Improved exception handling to avoid making 
+                                 the entire website useless when one preprint 
+                                 fails for whatever reason
+2010-05-09       RTH: v0.91 -- Added .htaccess file to restrict access and 
+                                 hopefully cut out spam
+2010-05-24       RTH: v0.92 -- Added xxx.lanl.gov server checking for arXiv
+2010-07-19       RTH: v0.95 -- More exception handling to catch stray PDFs
+                                also changed error reporting to log file.
+
+------------------------------------
+Comments removed from source code:
+------------------------------------
+General Comments
+
+# 2010-02-05 15:24 IJC: v0.1: URLs are valid IDs.  "Next Thursday"
+# automatically calculated.
+# 2010-02-06 16:15 IJC: v0.2: Adding submission field.
+# 2010-02-08 18:04 IJC: v0.21: Added logfile
+# 2010-02-09 11:08 IJC: v0.3: Using text files for header/footer
+# 2010-02-11 09:30 IJC: v0.4: Using PHP article list manager.
+# 2010-02-12 11:45 IJC: v0.41: Using multiple PHP headers (for day-of-week)
+# 2010-02-21 17:00 RTH: v0.42: Started NMSU customizations 
+# 2010-02-22 12:50 RTH: v0.43: Works, shortened time, added refresh when 
+#                               changing submission file
+# 2010-03-01 01:00 RTH: v0.50: Major changes & style updates
+# 2010-03-06 13:00 RTH: v0.55: Major changes to calculation of meeting dates
+#                               added auto-archive functionality
+# 2010-03-16 19:00 RTH: v0.56: Fixed bug in next meeting calculation, added
+#                               passing of meeting date info for simplicity
+#                               as well as direct links for arXiv submissions
+# 2010-03-20 21:00 RTH: v0.60: Implimented preprint class type constructor
+# 2010-03-22 16:00 RTH: v0.65: Full archive capabilities, code cleanup
+# 2010-03-23 19:00 RTH: v0.67: Got IntenseDebate comments working
+# 2010-04-02       RTH: v0.75: Major code organization/cleanup, including using
+#                               BeautifulSoup to parse pages instead of reg exps
+#                               Also added IntenseDebate id input for easy setup
+# 2010-04-06       RTH: v0.77: Bugfix, changed handling of 'www' links and 
+#                               arxiv date scraping
+# 2010-04-12       RTH: v0.85: Added ADS scraper, works same as the others :)
+# 2010-04-29       RTH: v0.88: Fixed Nature scraper
+# 2010-05-04       RTH: v0.90: Much better exception handling; one failure to 
+#                               find a particular element of the preprint object
+#                               shouldn't bring down the whole page (I hope)
+# 2010-05-24       RTH: v0.92: Added xxx.lanl.gov server checking for arXiv
+# 2010-07-19       RTH: v0.95: More exception handling to catch stray PDFs
+#                               also changed error reporting to log file.
+
+getunique
+# 2010-04-06 RTH: Created, though just copied and pasted from
+#                   http://www.peterbe.com/plog/uniqifiers-benchmark
+
+getinfo
+# 2010-02-03 09:38 IJC: Created
+# 2010-02-05 15:08 IJC: Now gets title of HTML pages, too!  And
+# corrects "author" links.
+# 2010-02-09 11:05 IJC: Now do a better check for arxiv-IDs and valid URLs
+# 2010-04-02       RTH: Change to better detect astro-ph types
+# 2010-04-06       RTH: Kludge to pass error info about each submission
+# 2010-04-12       RTH: Added ADS scraper
+
+readlist
+# 2010-02-03 10:06 IJC: Created
+# 2010-02-05 11:24 IJC: Added 'sleep' command
+
+getnextduedate
+# 2010-03-05 RTH: Created
+# 2010-03-16 RTH: Fixed bug where next meeting would be 2 weeks away, added
+#                  passing of meeting info for easier use
+# 2010-04-02 RTH: Changed status message to be passed back to main function
+
+getprevduedate
+# 2010-03-05 RTH: Created
+# 2010-04-02 RTH: Changed status message to be passed back to main function
+
+makeheader
+# 2010-02-12 11:45 IJC: Now get correct Thursday
+# 2010-03-05 RTH: Get next date in a much easier way
+
+makefooter
+# 2010-02-09 10:29 IJC: Updated to use coffee_footer_php.txt
+# 2010-04-09       RTH: Removed that dependence since I don't use it
+
+makehtml
+# 2010-02-03 10:13 IJC: Created
+# 2010-02-05 11:16 IJC: Added nextThursday call to automatically
+#                       update the next meeting.  Formated
+#                       last-updated string.  Changed intro string.
+# 2010-02-06 16:36 IJC: Adding PHP scripting.
+# 2010-02-12 11:45 IJC: Reverse papers order (most recent on top)
+# 2010-03-16 21:00 RTH: Added direct links to PS, PDF, Other for arXiv
+# 2010-03-23 19:00 RTH: Added comment links via IntenseDebate, works
+# 2010-04-02       RTH: Now pass the IntenseDebate ID for easy setup
+# 2010-04-13 16:02 IJC: Moved 'import hashlib' inside idid block
+
+doarchivepage
+# 2010-03-22 RTH: Created
+# 2010-04-02 RTH: Cleaned up the output generation to make it simpler
+
+docoffeepage
+# 2010-02-03 10:43 IJC: Created.  
+# 2010-02-05 11:18 IJC: Updated comments and error-handling.  Added 'sleep' call
+# 2010-03-05 RTH: Added archive capability
+# 2010-03-16 RTH: Moved date/time to runcoffee.py for easier maintaining
+
+runcoffee
+# 2010-02-03 11:44 IJC: Script to write UCLA astro-coffee page
+# 2010-02-06 IJC: updated with PHP     
+# 2010-02-08 18:30 IJC: Moved 'sleep' location to eat up less CPU time.
+# 2010-02-09 11:25 IJC: Trying out a new format -- only update (1)
+#                        when called and (2) when papers file is more
+#                        recent than the PHP page.
+# 2010-04-02       RTH: Changed status file output generation, and added a 
+#                        simple enable/disable comments thing for easier setup
+# 2010-07-19       RTH: Added email notification of error

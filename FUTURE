@@ -1,0 +1,22 @@
+====================================
+Future revisions:
+====================================
+
+Anyone with a mind toward improvements is welcome to attempt implementation of
+the following, or other, desired future features.  As always, keep the original
+authors in the loop.
+
+-- smarter handling of IO, file permissions, and general web security
+
+-- Someone with better understanding of PHP security can probably tell me which
+   is better, to have the username/password in plaintext and the salt hidden
+   or vice versa.  I just don't see how to combine it all in a totally secure
+   way at the moment
+
+-- A locally generated article information database, so that articles' data
+   don't have to be re-loaded from the web each time the script is run.  Doing
+   this would allow a much shorter delay between processing each submission, 
+   and much quicker updating.
+
+-- Options for sorting by, e.g., web submission date, paper submission
+   date, type, etc.
