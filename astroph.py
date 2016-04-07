@@ -92,9 +92,10 @@ def getinfo(id, server='http://arxiv.org/abs/'):
             id = 'http://arxiv.org/abs/' + id
         else:
             isValidArxiv = False
-
+    
+    # HTTP request for a webpage URL
     try:
-        # Add headers to HTTP request so don't get 403 error
+        ## Add headers to HTTP request so don't get 403 error
         hdr = {'User-Agent': 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.11 (KHTML, like Gecko) Chrome/23.0.1271.64 Safari/537.11',
                'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
                'Accept-Charset': 'ISO-8859-1,utf-8;q=0.7,*;q=0.3',
@@ -592,7 +593,6 @@ def docoffeepage(file, url, day, hour, min, sleep=60, idid=False, php=False):
         outstat = outstat + 'Could not generate HTML code\n\n'
 
     # Write the file
-    print 'I got here!'
     try:
         # with open(url, 'w') as f:
         #           f.writelines(html)
