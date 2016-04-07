@@ -61,6 +61,7 @@ def getinfo(id, server='http://arxiv.org/abs/'):
     """
     from getadsinfo import getadsinfo
     from getarxivinfo import getarxivinfo
+    from getvixrainfo import getvixrainfo
     from getnatureinfo import getnatureinfo
     from getwebinfo import getwebinfo
     import urllib2
@@ -93,7 +94,16 @@ def getinfo(id, server='http://arxiv.org/abs/'):
             isValidArxiv = False
 
     try:
-        html = urllib2.urlopen(id).read()
+        # Add headers to HTTP request so don't get 403 error
+        hdr = {'User-Agent': 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.11 (KHTML, like Gecko) Chrome/23.0.1271.64 Safari/537.11',
+               'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
+               'Accept-Charset': 'ISO-8859-1,utf-8;q=0.7,*;q=0.3',
+               'Accept-Encoding': 'none',
+               'Accept-Language': 'en-US,en;q=0.8',
+               'Connection': 'keep-alive'}
+        request = urllib2.Request(id, headers=hdr)
+        
+        html = urllib2.urlopen(request).read()
         urlpage = id  # For compatibility down lower in the code
     except urllib2.HTTPError, e:
         print e.code
@@ -126,55 +136,63 @@ def getinfo(id, server='http://arxiv.org/abs/'):
     
     if servererr == False:
         # Nature Article
-       if urlpage.find('nature.com')>-1:
-           if urlpage.find('nature.com/news/')>-1:
-               thispaper = getwebinfo(urlpage, html)
-               if thispaper.errors == '0':
-                   thispaper.errors = 'Success reading ' + urlpage
-               else:
-                   thispaper.errors = 'Some ERRORS reading ' + urlpage
-               thispaper.id = ''
-           else:
-               thispaper = getnatureinfo(urlpage, html)
-               if thispaper.errors == '0':
-                   thispaper.errors = 'Success reading ' + urlpage
-               else:
-                   thispaper.errors = 'Some ERRORS reading ' + urlpage
-               thispaper.id = ''
-       # ADS Result
-       elif urlpage.find('adsabs.harvard.edu')>-1:
-           thispaper = getadsinfo(urlpage, html)
-           if thispaper.errors == '0':
-               thispaper.errors = 'Success reading ' + urlpage
-           else:
-               thispaper.errors = 'Some ERRORS reading ' + urlpage
-           thispaper.id = ''
-       # arXiv Article
-       elif urlpage.find('arxiv.org')>-1    or \
-            urlpage.find('xxx.lanl.gov')>-1 or \
-            (isValidArxiv): 
-           thispaper = getarxivinfo(urlpage, html)
-           if thispaper.errors == '0':
-               thispaper.errors = 'Success reading ' + urlpage
-           else:
-               thispaper.errors = 'Some ERRORS reading ' + urlpage
-           thispaper.id = ''
-       # Science Article
-       elif urlpage.find('sciencemag.org')>-1:
-           thispaper = getscienceinfo(urlpage, html)
-           if thispaper.errors == '0':
-               thispaper.errors = 'Success reading ' + urlpage
-           else:
-               thispaper.errors = 'Some ERRORS reading ' + urlpage
-           thispaper.id = ''
-       # Anything Else
-       else: 
-           thispaper = getwebinfo(urlpage, html)
-           if thispaper.errors == '0':
-               thispaper.errors = 'Success reading ' + urlpage
-           else:
-               thispaper.errors = 'Some ERRORS reading ' + urlpage
-           thispaper.id = ''
+        if urlpage.find('nature.com')>-1:
+            if urlpage.find('nature.com/news/')>-1:
+                thispaper = getwebinfo(urlpage, html)
+                if thispaper.errors == '0':
+                    thispaper.errors = 'Success reading ' + urlpage
+                else:
+                    thispaper.errors = 'Some ERRORS reading ' + urlpage
+                thispaper.id = ''
+            else:
+                thispaper = getnatureinfo(urlpage, html)
+                if thispaper.errors == '0':
+                    thispaper.errors = 'Success reading ' + urlpage
+                else:
+                    thispaper.errors = 'Some ERRORS reading ' + urlpage
+                thispaper.id = ''
+        # ADS Result
+        elif urlpage.find('adsabs.harvard.edu')>-1:
+            thispaper = getadsinfo(urlpage, html)
+            if thispaper.errors == '0':
+                thispaper.errors = 'Success reading ' + urlpage
+            else:
+                thispaper.errors = 'Some ERRORS reading ' + urlpage
+            thispaper.id = ''
+        # arXiv Article
+        elif urlpage.find('arxiv.org')>-1    or \
+             urlpage.find('xxx.lanl.gov')>-1 or \
+             (isValidArxiv): 
+            thispaper = getarxivinfo(urlpage, html)
+            if thispaper.errors == '0':
+                thispaper.errors = 'Success reading ' + urlpage
+            else:
+                thispaper.errors = 'Some ERRORS reading ' + urlpage
+            thispaper.id = ''
+        # viXra Article
+        elif urlpage.find('vixra.org')>-1: 
+            thispaper = getvixrainfo(urlpage, html)
+            if thispaper.errors == '0':
+                thispaper.errors = 'Success reading ' + urlpage
+            else:
+                thispaper.errors = 'Some ERRORS reading ' + urlpage
+            thispaper.id = ''
+        # Science Article
+        elif urlpage.find('sciencemag.org')>-1:
+            thispaper = getscienceinfo(urlpage, html)
+            if thispaper.errors == '0':
+                thispaper.errors = 'Success reading ' + urlpage
+            else:
+                thispaper.errors = 'Some ERRORS reading ' + urlpage
+            thispaper.id = ''
+        # Anything Else
+        else: 
+            thispaper = getwebinfo(urlpage, html)
+            if thispaper.errors == '0':
+                thispaper.errors = 'Success reading ' + urlpage
+            else:
+                thispaper.errors = 'Some ERRORS reading ' + urlpage
+            thispaper.id = ''
     # Error Handler
     else:
         thispaper = getwebinfo(urlpage, html)
@@ -574,10 +592,10 @@ def docoffeepage(file, url, day, hour, min, sleep=60, idid=False, php=False):
         outstat = outstat + 'Could not generate HTML code\n\n'
 
     # Write the file
-	print 'I got here!'
+    print 'I got here!'
     try:
-		# with open(url, 'w') as f:
-		# 			f.writelines(html)
+        # with open(url, 'w') as f:
+        #           f.writelines(html)
         f = open(url, 'w')
         f.writelines(html)
         f.close()
