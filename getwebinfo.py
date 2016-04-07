@@ -1,9 +1,10 @@
 #!/usr/bin/env python
-
+# -*- coding: utf-8 -*-
 
 def getwebinfo(url, html):
     """Convert HTML from a random webpage to a preprint object."""
     # 2010-04-05       RTH: Created
+    # 2015-04-06    Abhimat: Switch over to using Instaparser
 
     from bs4 import BeautifulSoup
     import re
@@ -19,14 +20,23 @@ def getwebinfo(url, html):
     
     ip_params = {'api_key': ip_api_key, 'url': url}
     
-    ip_response = requests.get('https://www.instaparser.com/api/1/article', params=payload)
+    ip_response = requests.get('https://www.instaparser.com/api/1/article', params=ip_params)
+    
     ip_data = json.loads(ip_response.text)
     
-    paper.url = ip_data['url']
-    paper.title = ip_data['title']
+    # print(ip_response.url)
+    # print(ip_response.status_code)
+    # print(ip_data)
+    # print(ip_data['title'])
+    # print(ip_data['author'])
+    # print(ip_data['description'].encode("utf-8"))
+
+    paper.url = url
+    paper.title = ip_data['title'].encode("utf-8")
+    paper.errors = "0"
     paper.numauth = 1
-    paper.author = ip_data['author']
-    paper.abstract = ip_data['description']
+    paper.author = ip_data['author'].encode("utf-8")
+    paper.abstract = ip_data['description'].encode("utf-8")
     paper.date = 'Web Article:'
     paper.sources = ''
     paper.subject = ''
@@ -65,5 +75,6 @@ def getwebinfo(url, html):
     # paper.sources = ''
     # paper.subject = ''
     # paper.comments = ''
-
+    
+    print(paper)
     return paper
