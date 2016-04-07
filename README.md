@@ -1,3 +1,7 @@
+Re-write in progress by Abhimat Gautam (UCLA) for Astro Coffee 2.0. Previous information below.
+
+---
+
 =============
 Introduction:
 =============
