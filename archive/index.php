@@ -8,7 +8,7 @@
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
-	<title>UCLA Astro Coffee</title>
+	<title>UCLA Astro Coffee: Archive</title>
 	
 	<!-- Google Web Fonts -->
 	<link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:400,600,700,900,400italic,600italic,700italic,900italic' rel='stylesheet' type='text/css'>
@@ -49,6 +49,7 @@
 		<center><ul class="pages">
 			<li><a href="../">Current Articles</a></li>
 			<li><strong>Archive</strong></li>
+			<li><a href="../usefullinks/">Useful Links</a></li>
 		</ul></center>
 		
 	</header>

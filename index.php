@@ -81,6 +81,7 @@ if ((!isset($_POST["submit"])) and (!isset($_POST["submitcheck"])))
 		<center><ul class="pages">
 			<li><strong>Current Articles</strong></li>
 			<li><a href="./archive/">Archive</a></li>
+			<li><a href="./usefullinks/">Useful Links</a></li>
 		</ul></center>
 		
 		<form method="post" class="submission" action="<?php echo $PHP_SELF;?>">
