@@ -78,24 +78,22 @@ if ((!isset($_POST["submit"])) and (!isset($_POST["submitcheck"])))
 		<!-- <h1>Astro Coffee</h1> -->
 		<img src="images/Header_2x.png" srcset="images/Header_1x.png 1x, images/Header_2x.png 2x" alt="Astro Coffee" />
 		
-		<form method="post" class="submission" action="<?php echo $PHP_SELF;?>">
-			<center><input type="text" name="article" maxlength="128" placeholder="URL or arXiv-ID" class="field"/></center>
-			<input type="submit" value="submit" name="submit" class="button"/>
-		</form>
-		<center><ul class="pages-small">
-			<li>Bokmarklet:</li>
-			<li><a href="javascript:(function(){location.href='http://coffee.astro.ucla.edu/bookmarker.php?article='+encodeURIComponent(location.href);})();">Add to Astro Coffee</a></li>
-		</ul></center>
-		
 		<center><ul class="pages">
 			<li><strong>Current Articles</strong></li>
 			<li><a href="./archive/">Archive</a></li>
 		</ul></center>
+		
+		<form method="post" class="submission" action="<?php echo $PHP_SELF;?>">
+			<center><input type="text" name="article" maxlength="128" placeholder="Submit a URL or arXiv-ID" class="field"/></center>
+			<input type="submit" value="submit" name="submit" class="button"/>
+		</form>
+		
 		<center><ul class="pages-small">
+			<li>Bookmarklet:</li>
+			<li><a href="javascript:(function(){location.href='http://coffee.astro.ucla.edu/bookmarker.php?article='+encodeURIComponent(location.href);})();">Add to Astro Coffee</a></li>
 			<li><a href="./listmanager.php">Submissions</a></li>
 			<li><a href="./status.log">Status Log</a></li>
-		</ul></center>
-		
+		</ul></center>		
 		
 		
 	</header>
