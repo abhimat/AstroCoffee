@@ -331,26 +331,26 @@ def makeheader(day, hour, min, php=False):
     datestr = nextdate.strftime('%a, %b %d, %Y at %I:%M %p')
     
     
-    ## If there are two meetings, use following
-    # ## Get previous date astro-ph coffee is held in week
-    # nextdate_early = nextdate+relativedelta(days=-2, minutes=-0)
-    # datestr_early = nextdate_early.strftime('%a, %b %d, %Y at %I:%M %p')
+    # If there are two meetings, use following
+    ## Get previous date astro-ph coffee is held in week
+    nextdate_early = nextdate+relativedelta(days=-2, minutes=+60)
+    datestr_early = nextdate_early.strftime('%a, %b %d, %Y at %I:%M %p')
 
     head = []
 
-    titleString1 = '<div class="entry">'
+    titleString1 = '<article class="block">'
     
-    titleString2 = '<p>Suggested papers for <strong>{0}</strong></p>\n'.format(datestr)
+    titleString2 = '<center><p>Suggested papers for <strong>{0}</strong></p></center>\n'.format(datestr)
     
     ## For two meetings use following instead
-    # titleString2 = '<p>Suggested papers for <strong>{0}</strong><br>and <strong>{1}</strong></p>\n'.format(datestr_early, datestr)
+    titleString2 = '<center><p>Suggested papers for <strong>{0}</strong><br>and <strong>{1}</strong></p></center>\n'.format(datestr_early, datestr)
     head.append(titleString1)
     head.append(titleString2)
 
     # head.append('<p>astro-ph coffee is held Mondays at 1:30 PM and Wednesdays at 2:00 PM.')
     # head.append('Some suggested papers of interest are listed below.')
     # head.append('</p></div>')
-    head.append('</div>')
+    head.append('</article>\n')
 
     return head
 
@@ -363,13 +363,16 @@ def makefooter(php=False):
     from time import localtime
     f = []
     yr, mo, day, hr, min, sec, wd, yd, ii = localtime()
-    f.append("<hr><p>")
-    f.append("<a href='http://astronomy.nmsu.edu/rthamilt/astrocoffee/'>")
-    f.append("astroph.py v%s</a> based on the " % __version__)
-    f.append("<a href='http://www.astro.ucla.edu/~ianc/astroph.shtml'>")
-    f.append("original astroph.py</a>.  ")
-    f.append("Updated %i/%02i/%02i %02i:%02i:%02i</p>" %
+    f.append("<article class=\"block\">")
+    f.append('<hr><center><p class="small">')
+    # f.append("<a href='http://astronomy.nmsu.edu/rthamilt/astrocoffee/'>")
+    # f.append("astroph.py v%s</a> based on the " % __version__)
+    # f.append("<a href='http://www.astro.ucla.edu/~ianc/astroph.shtml'>")
+    # f.append("original astroph.py</a>.  ")
+    f.append("Updated %i/%02i/%02i %02i:%02i:%02i</p></center>" %
             (yr, mo, day, hr, min, sec))
+    f.append("</article>")
+    
     foot = [line+'\n' for line in f]
 
     return foot
@@ -408,29 +411,27 @@ def makehtml(papers, day, hour, min, idcomments=False, php=False):
             if paper.errors.startswith("Success"):
                 if paper.sources != '':
                     if date != "":
-                        body.append('<div class="entry">')
-                        body.append('<p><div class="container">')
-                        body.append('<div class="left">%s</div>' % paper.date)
+                        body.append('<article class="block">')
+                        body.append('<div class="date small">%s</div>' % paper.date)
                     # Remove any stray/extra whitespaces
                     paper.sources = paper.sources.lstrip()
                     paper.sources = paper.sources.rstrip()
-                    body.append('<div class="right">[%s]</div>' %
+                    body.append('<div class="links small">[ %s ]</div>' %
                                 paper.sources)
-                    body.append('</div></p>')
-                    title = '<p><a href="%s">%s</a></p>' \
+                    title = '<h3><a href="%s">%s</a></h3>' \
                             % (paper.url, paper.title)
                 else:
                     if date != "":
-                        body.append('<div class="entry">')
-                        body.append('<p>%s</p>' % paper.date)
-                    title = '<a href="%s">%s</a>' % (paper.url, paper.title)
-                body.append('<div id="ptitle">%s</div>' % title)
+                        body.append('<article class="block">')
+                        body.append('<div class="date small">%s</div>' % paper.date)
+                    title = '<h3><a href="%s">%s</a></h3>' % (paper.url, paper.title)
+                body.append('%s' % title)
                 if paper.numauth > 5 and \
                    paper.author != "Error Grabbing Authors":
                     authremain = paper.numauth-5
                     aexstring = ", + " + str(authremain) + " more"
                     paper.author = paper.author + aexstring
-                body.append('<div id="pauthors">%s</div>' % paper.author)
+                body.append('<div class="authors small">%s</div>' % paper.author)
                 # Limit the length of the abstract displayed, and if its
                 #   shorter then just display the whole thing
                 abslength = 500
@@ -442,35 +443,18 @@ def makehtml(papers, day, hour, min, idcomments=False, php=False):
                     paper.shortabs = paper.abstract
                 paper.shortabs = paper.shortabs.lstrip()
                 paper.shortabs = paper.shortabs.rstrip()
-                body.append('<div id="pabstract">%s</div>' % paper.shortabs)
-                # Needed a comment ID, so use the md5 hash of the title
-                #   enough for uniqueness and repeatability
-                if idcomments and paper.title != "Error Grabbing Title":
-                    import hashlib
-                    commentscript = '<script>var idcomments_acct=' + \
-                                  idcomments + ';var idcomments_post_id=\'' + \
-                                  str(hashlib.md5(paper.title).hexdigest()) + \
-                                  '\';var idcomments_post_url=\'' + \
-                                  str(hashlib.md5(paper.title).hexdigest()) + \
-                                  '\';var idcomments_post_title = \'' + \
-                                  str(hashlib.md5(paper.title).hexdigest()) + \
-                                  '\';</script>' + \
-                                  '<script type="text/javascript" src=' + \
-         ' "http://www.intensedebate.com/js/genericLinkWrapperV2.js"></script>'
-                    body.append('%s' % commentscript)
-                    body.append('</div>')
-                else:
-                    body.append('</div>')
+                body.append('<div id="abstract"><p>%s</p></div>' % paper.shortabs)
+                body.append('</article>')
             else:
-                body.append('<div class="entry">')
+                body.append('<article class="block">')
                 if (paper.url.find('.pdf') > -1):
                     paper.date = "Please Do NOT Submit Direct PDF Links:"
                 else:
                     paper.date = "Unknown Submission/Link:"
-                body.append('<p>%s</p>' % paper.date)
-                title = '%s' % paper.url
-                body.append('<div id="ptitle">%s</div>' % title)
-                body.append('</div>')
+                body.append('<div class="date small">%s</div>' % paper.date)
+                title = '<h3><a href="%s">%s</a></h3>' % (paper.url, paper.url)
+                body.append('%s' % title)
+                body.append('</article>')
 
     body = [line+'\n' for line in body]
 
