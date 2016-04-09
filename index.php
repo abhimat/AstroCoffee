@@ -90,13 +90,10 @@ if ((!isset($_POST["submit"])) and (!isset($_POST["submitcheck"])))
 		</form>
 		
 		<center><ul class="pages-small">
-			<li>Bookmarklet:</li>
-			<li><a href="javascript:(function(){location.href='http://coffee.astro.ucla.edu/bookmarker.php?article='+encodeURIComponent(location.href);})();">Add to Astro Coffee</a></li>
+			<li><a href="./bookmarklet/">Bookmarklet</a></li>
 			<li><a href="./listmanager.php">Submissions</a></li>
 			<li><a href="./status.log">Status Log</a></li>
 		</ul></center>		
-		
-		
 	</header>
 	
 	<div class="content wrap">

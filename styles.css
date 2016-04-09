@@ -130,6 +130,20 @@ header img {
     height: auto;
 }
 
+// Styles for Firefox
+@-moz-document url-prefix() {
+    header img {
+        width: 100%;
+    }
+}
+
+// Styles for IE10
+@media screen and (-ms-high-contrast: active), (-ms-high-contrast: none) {
+    #logo img {
+        width: 100%;
+    }
+}
+
 header h1 {
     padding-bottom: 0.1em;
 }
