@@ -7,14 +7,15 @@ The main function is:
                write HTML code to specified file.
 
 There should be no need to edit this file or any of the asssociated parsing
-functions (get*.py).  There is a wrapper script, runcoffee.py, that does most
+functions (get*.py). There is a wrapper script, runcoffee.py, that does most
 of the front-end organization and contains the user changable variables.
 
-This code created 2010-02-05 at UC Los Angeles by Ian J. Crossfield and
-Nathaniel Ross.  It has been heavily modified and is under active development
-by Ryan T. Hamilton at New Mexico State University. Re-use or modification is
-allowed and encouraged, so long as proper acknowledgement is made to the
-original authors and institutions.
+Initially created on 2010-02-05 at UCLA by Ian J. Crossfield and Nathaniel
+Ross. Modified by Ryan T. Hamilton at New Mexico State University.
+
+This version under development by Abhimat K. Gautam at UCLA.
+
+Contribute or fork on GitHub at https://github.com/abhimat/AstroCoffee
 """
 # 2010-10-20       RTH: v0.98: Spun off parsers into own files.  Removed all
 #                                changes to the CHANGELOG/online repository
@@ -340,10 +341,10 @@ def makeheader(day, hour, min, php=False):
 
     titleString1 = '<article class="block">'
     
-    titleString2 = '<center><p>Suggested papers for <strong>{0}</strong></p></center>\n'.format(datestr)
+    titleString2 = '<center><p>Suggested papers for<br><strong>{0}</strong></p></center>\n'.format(datestr)
     
     ## For two meetings use following instead
-    titleString2 = '<center><p>Suggested papers for <strong>{0}</strong><br>and <strong>{1}</strong></p></center>\n'.format(datestr_early, datestr)
+    titleString2 = '<center><p>Suggested papers for<br><strong>{0}</strong> and <strong>{1}</strong></p></center>\n'.format(datestr_early, datestr)
     head.append(titleString1)
     head.append(titleString2)
 
@@ -496,12 +497,12 @@ def doarchivepage(file, outfile):
         archived = glob.glob('./archive/*papers.php')
         # Now make the index page for archive, the long way since we add html
         page = open('./archive_top.php', 'r').read()
-        page = page + '<ul>\n'
+        page = page + '                <ul style="columns: 2; list-style-type: none;">\n'
         arclinks = ''
         for files in sorted(archived):
             files = re.sub(r'\./archive\/', '', files)
             linkname = re.sub(r'[\.\-]papers\.php', '', files)
-            arclinks = arclinks + '<li><a href="' + files + '">' + \
+            arclinks = arclinks + '                    <li><a href="' + files + '">' + \
                        linkname + '</a></li>\n'
         page = page + arclinks
         page = page + '</ul>\n'

@@ -1,44 +1,58 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<!DOCTYPE html>
 <!--
-
-Design by Free CSS Templates
-http://www.freecsstemplates.org
-Released for free under a Creative Commons Attribution 2.5 License
-
-Name       : Tastelessly
-Description: A very light design suitable for community sites and blogs.
-Version    : 1.0
-Released   : 20080122
-
-Changed a lot from the original above, basically all I kept is the color
-  scheme and some of the button styles.
+ 
+    UCLA Astro Coffee Page, by Abhimat Gautam
+	based on previous versions by Ryan T. Hamilton, Ian J. Crossfield, and Nathaniel Ross
+  
 -->
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html lang="en">
 <head>
-<meta http-equiv="content-type" content="text/html; charset=utf-8" />
-<title>UCLA astro-ph Coffee</title>
-<meta name="keywords" content="" />
-<meta name="description" content="" />
-<link href="../style.css" rel="stylesheet" type="text/css" media="screen" />
+	<meta charset="UTF-8">
+	<title>UCLA Astro Coffee</title>
+	
+	<!-- Google Web Fonts -->
+	<link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:400,600,700,900,400italic,600italic,700italic,900italic' rel='stylesheet' type='text/css'>
+	<link href='http://fonts.googleapis.com/css?family=Bree+Serif' rel='stylesheet' type='text/css'>
+	<link href='http://fonts.googleapis.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css'>
+	
+	<meta name=viewport content='width=device-width, initial-scale=1'>
+	
+	<!--[if lt IE 9]>
+		<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+	<![endif]-->
+	
+	<!-- Favicon -->
+	<link rel="shortcut icon" href="../images/favicon.png">
+	<link rel="apple-touch-icon" href="../images/touch-icon.png">
+	
+	<!-- Styles -->
+	<link rel="stylesheet" href="../styles.css" type="text/css" media="screen" />
+	
+	<!-- MathJax -->
+	<script type="text/javascript"
+	  src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+	  MathJax.Hub.Config({
+	    tex2jax: {
+	      inlineMath: [['$','$'], ['\\(','\\)']],
+	      processEscapes: true
+	    }
+	  });
+	</script>
 </head>
-<body>
-<div id="logo">
-    <h1>UCLA astro-ph Coffee</h1>
-    <p></p>
-</div>
-<!-- start page -->
-<div id="page">
-    <!-- Begin common header -->
-    <div id="header">
-        <div id="menu">
-            <ul>
-                <li><a href="../">Current Discussion Articles</a></li>
-                <li class="current_page_item"><a href="./">Discussion Paper Archive</a></li>
-            </ul>
-        </div>
-	</div>
-	<!-- End common header -->
 
-	<!-- start content -->
-    <div id="content">
-        <div class="post">
+<body>
+	<header>
+		<!-- <p><a href="http://www.astro.ucla.edu"><semibold><em>UCLA</em> Astronomy and Astrophysics</semibold></a></p> -->
+		<!-- <h1>Astro Coffee</h1> -->
+		<img src="../images/Header_2x.png" srcset="../images/Header_1x.png 1x, ../images/Header_2x.png 2x" alt="Astro Coffee" />
+		
+		<center><ul class="pages">
+			<li><a href="../">Current Articles</a></li>
+			<li><strong>Archive</strong></li>
+		</ul></center>
+		
+	</header>
+	
+	<div class="content wrap">
+		<section class="blocks">
+			<article class="block">
