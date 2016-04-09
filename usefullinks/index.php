@@ -44,7 +44,7 @@
 	<header>
 		<!-- <p><a href="http://www.astro.ucla.edu"><semibold><em>UCLA</em> Astronomy and Astrophysics</semibold></a></p> -->
 		<!-- <h1>Astro Coffee</h1> -->
-		<img src="../images/Header_2x.png" srcset="../images/Header_1x.png 1x, ../images/Header_2x.png 2x" alt="Astro Coffee" />
+		<a href="../"><img src="../images/Header_2x.png" srcset="../images/Header_1x.png 1x, ../images/Header_2x.png 2x" alt="Astro Coffee" /></a>
 		
 		<center><ul class="pages">
 			<li><a href="../">Current Articles</a></li>
