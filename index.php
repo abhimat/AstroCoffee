@@ -82,6 +82,10 @@ if ((!isset($_POST["submit"])) and (!isset($_POST["submitcheck"])))
 			<center><input type="text" name="article" maxlength="128" placeholder="URL or arXiv-ID" class="field"/></center>
 			<input type="submit" value="submit" name="submit" class="button"/>
 		</form>
+		<center><ul class="pages-small">
+			<li>Bokmarklet:</li>
+			<li><a href="javascript:(function(){location.href='http://coffee.astro.ucla.edu/bookmarker.php?article='+encodeURIComponent(location.href);})();">Add to Astro Coffee</a></li>
+		</ul></center>
 		
 		<center><ul class="pages">
 			<li><strong>Current Articles</strong></li>
