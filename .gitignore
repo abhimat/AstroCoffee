@@ -1,5 +1,5 @@
 .DS_Store
-*.php
+archive/*.php
 *.pyc
 *.log
 Private/passwords.py
