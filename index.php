@@ -1,18 +1,11 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<!DOCTYPE html>
 <!--
-
-Design by Free CSS Templates
-http://www.freecsstemplates.org
-Released for free under a Creative Commons Attribution 2.5 License
-
-Name       : Tastelessly
-Description: A very light design suitable for community sites and blogs.
-Version    : 1.0
-Released   : 20080122
-
-Changed a lot from the original above, basically all I kept is the color
-  scheme and some of the button styles.
+ 
+    UCLA Astro Coffee Page, by Abhimat Gautam
+	based on previous versions by Ryan T. Hamilton, Ian J. Crossfield, and Nathaniel Ross
+  
 -->
+
 <?php
 
 //
@@ -44,105 +37,73 @@ if ((!isset($_POST["submit"])) and (!isset($_POST["submitcheck"])))
   { // if page is not submitted, show the form
   ?>
 
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html lang="en">
 <head>
-<meta http-equiv="content-type" content="text/html; charset=utf-8" />
-<title>UCLA astro-ph Coffee</title>
-<meta name="keywords" content="" />
-<meta name="description" content="" />
-<link href="style.css" rel="stylesheet" type="text/css" media="screen" />
+	<meta charset="UTF-8">
+	<title>UCLA Astro Coffee</title>
+	
+	<!-- Google Web Fonts -->
+	<link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:400,600,700,900,400italic,600italic,700italic,900italic' rel='stylesheet' type='text/css'>
+	<link href='http://fonts.googleapis.com/css?family=Bree+Serif' rel='stylesheet' type='text/css'>
+	<link href='http://fonts.googleapis.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css'>
+	
+	<meta name=viewport content='width=device-width, initial-scale=1'>
+	
+	<!--[if lt IE 9]>
+		<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+	<![endif]-->
+	
+	<!-- Favicon -->
+	<link rel="shortcut icon" href="./favicon.png">
+	<link rel="apple-touch-icon" href="./touch-icon.png">
+	
+	<!-- Styles -->
+	<link rel="stylesheet" href="./styles.css" type="text/css" media="screen" />
+	
+	<!-- MathJax -->
+	<script type="text/javascript"
+	  src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+	  MathJax.Hub.Config({
+	    tex2jax: {
+	      inlineMath: [['$','$'], ['\\(','\\)']],
+	      processEscapes: true
+	    }
+	  });
+	</script>
 </head>
+
 <body>
-<div id="logo">
-    <h1>UCLA astro-ph Coffee</h1>
-    <!-- <p>Your Tagline Can Be Here!</p> -->
-</div>
-<!-- start page -->
-<div id="page">
-    <!-- Begin common header -->
-    <div id="header">
-        <div id="menu">
-            <ul>
-                <li class="current_page_item"><a href="./">Current Discussion Articles</a></li>
-                <li><a href="./archive/">Discussion Paper Archive</a></li>
-                <li><a href="./">Refresh Page</a></li>
-            </ul>
-        </div>
-		<!-- <div id="search">
-					<form method=GET action="http://www.google.com/search">
-						<a href="http://www.google.com"><img src="http://www.google.com/logos/Logo_25wht.gif" border="0" ALT="Google" align="absmiddle"></A>
-						<input type="hidden" name="ie" value="UTF-8" />
-						<input type="text" name="q" size="20" maxlength=255 class="text" />
-						<input type="submit" name="btnG" value="Search" class="button" />
-						<input type="reset" name="btnC" value="Clear" class="button" />
-					</form>
-				</div> -->
-	</div>
-	<!-- End common header -->
-
-	<!-- start content -->
-    <div id="content">
-        <div class="post">
+	<header>
+		<p><a href="http://www.astro.ucla.edu"><semibold><em>UCLA</em> Astronomy and Astrophysics</semibold></a></p>
+		<h1>Astro Coffee</h1>
+		
+		<center><ul class="pages">
+			<li><strong>Current Articles</strong></li>
+			<li><a href="./archive/">Archive</a></li>
+		</ul></center>
+		<center><ul class="pages-small">
+			<li><a href="./listmanager.php">Submissions</a></li>
+			<li><a href="./status.log">Status Log</a></li>
+		</ul></center>
+		
+		<form method="post" class="submission" action="<?php echo $PHP_SELF;?>">
+			<input type="text" name="article" maxlength="128" placeholder="URL or arXiv-ID" class="field"/>
+			<input type="submit" value="submit" name="submit" class="button"/>
+		</form>
+		
+	</header>
+	
+	<div class="content wrap">
+		<section class="blocks">
 			<?php include("astro_coffee.php"); ?>
-        </div>
-    </div>
-	<!-- end content -->
-
-	<!-- start sidebar one -->
-	<div id="sidebar1" class="sidebar">
-		<ul>
-			<li id="recent-posts">
-				<h2>Post a Paper/Link</h2>
-				<p>
-					<?php include("coffee_submit.php"); ?>
-                    <div style="text-align: center;font-size: 0.5em;">
-                    <a href="./status.log">Check Status Log</a>
-                    </div>
-				</p>
-				<!-- <h2>Weather Checks</h2>
-								<ul>
-									<li>
-										<p>
-										<a href="http://forecast.weather.gov/MapClick.php?CityName=Las+Cruces&state=NM&site=EPZ&textField1=32.3361&textField2=-106.756">NOAA Forecast</a><br>
-										LC:&nbsp&nbsp <a href=http://cleardarksky.com/c/LCruNMkey.html><img src="http://cleardarksky.com/c/LCruNMcs0.gif?1" border=0></a><br>
-										APO: <a href=http://cleardarksky.com/c/ApachePtNMkey.html><img src="http://cleardarksky.com/c/ApachePtNMcs0.gif?1" border=0></a><br>
-										</p>
-									</li>
-								</ul> -->
-			</li>
-		</ul>
-	</div>
-	<div id="sidebar1" class="sidebar">
-			<h2>Useful Links</h2>
-				<p>
-				<?php include("useful.links"); ?>
-				<br>
-		<!-- </div>
-				<div id="subsidebar2" class="subsidebar2">
-					<h2>General Links</h2>
-						<p>
-						<?php include("general.links"); ?> -->
-	</div>
-	<!-- <div id="sidebar1" class="sidebar">
-			<ul>
-				<li>
-					<h2>Calendar</h2>
-	<!-- Insert your favorite online calendar link (Google Cals.) here -->
-
-		</div>
-	<!-- end sidebar one -->
-
-	<div style="clear: both;">&nbsp;</div>
-</div>
-<!-- end page -->
-<hr />
-<!-- start footer -->
-<div id="footer">
-	<!-- <p>&copy;<script type="text/javascript">var d = new Date();document.write(d.getFullYear());</script> All Rights Reserved. &nbsp;&bull;&nbsp; Designed by <a href="http://www.freecsstemplates.org/">Free CSS Templates</a> and tweaked like heck by Ryan T. Hamilton.</p> -->
-</div>
-<!-- end footer -->
-<!-- If you use Google Analytics, insert the tracking PHP file below... -->
-
+		</section> <!-- /blocks -->
+	</div> <!-- /content -->
+	
+	<footer class="small wrap">
+		<center><p class="small"><strong>Astro Coffee 2</strong><br>by Abhimat Gautam</p></center>
+		<center><p class="small">Based on previous versions of astroph.py by<br> by Ryan T. Hamilton, Ian J. Crossfield, and Nathaniel Ross.</p></center>
+		<center><p class="small"><a href="https://github.com/abhimat/AstroCoffee">Contribute on GitHub!</a></p></center>
+	</footer>
 </body>
 </html>
 <? // If check-form _was_ submitted, display this instead:

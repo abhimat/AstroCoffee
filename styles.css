@@ -1,0 +1,416 @@
+/*Style sheet for UCLA Astro Coffee Page*/
+/*By Abhimat Gautam*/
+
+
+/*Reset*/
+
+* {
+    margin: 0;
+    padding: 0;
+}
+
+
+/*Typography*/
+
+body {
+    color: #444444;
+    background: #ffffff;
+    font-family: 'Source Sans Pro', Verdana, Sans-Serif;
+    font-size: 100%;
+    line-height: 1.4;
+    font-weight: 400;
+    text-rendering: optimizeLegibility;
+    font-feature-settings: "kern" on;
+}
+
+h1, h2, h3, h4, .h1, .h2, .h3, .h4 {
+/*  font-family: Futura, 'Century Gothic', AppleGothic, sans-serif;*/
+    font-family: 'Source Sans Pro', Verdana, Sans-Serif;
+    text-rendering: optimizeLegibility;
+    font-feature-settings: "kern" on;
+    font-weight: 600;
+}
+
+h1, h2, .h1, .h2 {
+    line-height: 0.95;
+    margin-top: .5em;
+}
+
+h1, .h1 {
+    font-weight: 600;
+    font-size: 24px;
+}
+
+h1 em {
+    font-weight: 600;
+    font-size: 18px;
+}
+
+h2, .h2 {
+    font-weight: 600;
+    font-size: 18px;
+}
+
+h3, .h3 {
+    font-weight: 400;
+    font-size: 16px;
+}
+
+h1+h2 { margin-top: 0; }
+
+p, .p, ul, ol, table {
+    font-size: 16px;
+}
+
+small, .small {
+    font-size: 14px;
+}
+
+semibold, .semibold {
+    font-weight: 600;
+}
+
+strong, .strong {
+    font-weight: 700;
+}
+
+ultrabold, .ultrabold {
+    font-weight: 900;
+}
+
+imagecaption, .imagecaption {
+    font-size: 14px;
+}
+
+p, ul, ol, table { margin-top: 1em; }
+
+@media screen and (min-width: 480px) {
+    h1, .h1 { font-size: 48px; }
+    h2, .h2 { font-size: 22px; }
+    h3, .h3 { font-size: 18px; }
+    p, .p, ul, ol, table { font-size: 18px;}
+    small, .small { font-size: 16px;}
+    imagecaption, .imagecaption { font-size: 14px;}
+}   
+
+@media screen and (min-width: 640px) {
+    h1, .h1 { font-size: 64px; }
+    h1 em { font-size: 48px; }
+    h2, .h2 { font-size: 28px; } 
+    h3, .h3 { font-size: 20px; }
+}
+
+
+/*Header Styles*/
+
+header {
+    width: 90%;
+    padding: 2em 5% 0;
+    max-width: 40em;
+    margin: 0 auto;
+    overflow: hidden;
+    text-align: center;
+}
+
+header:after {
+    clear: both;
+    content: '.';
+    display: block;
+    height: 0;
+    visibility: hidden;
+}
+
+.logo {
+    float: left;
+    margin-right: 1em;
+}
+
+header h1 {
+    padding-bottom: 0.1em;
+}
+
+header h1, header p {
+    margin: 0;
+}
+
+header a, a.block-title {
+    color: #444444;
+}
+
+a.block-title:hover {
+    text-decoration: none;
+    color: #0d6685;
+}
+
+header a:hover {
+    /*text-decoration: none;*/
+}
+
+
+/*Navbar*/
+
+ul.pages {
+    list-style: none;
+    /*padding-bottom: 1em;*/
+}
+
+ul.pages > li {
+    display: inline-block;
+    margin-right: 0.5em;
+    margin-left: 0.5em;
+    height: 0.5em;
+    line-height: 0.5em;
+    position: relative;
+}
+
+ul.pages li a {
+    display: block;
+}
+
+ul.pages-small {
+    list-style: none;
+    padding-bottom: 1em;
+    font-size: 16px;
+}
+
+ul.pages-small > li {
+    display: inline-block;
+    margin-right: 0.5em;
+    margin-left: 0.5em;
+    height: 0.5em;
+    line-height: 0.5em;
+    position: relative;
+}
+
+ul.pages-small li a {
+    display: block;
+}
+
+/*Submission Form*/
+
+.submission {
+    width: 100%;
+    /*max-width: 400px;*/
+    margin: 0.5em auto 1em;
+    text-align: center;
+}
+
+.submission input.field {
+    width: 40%;
+    border: 1px solid #ccc;
+    line-height: 20px;
+    padding: 4px 10px;
+    border-radius: 16px 0px 0px 16px;
+}
+
+.submission input:focus {
+    outline: none;
+}
+
+.submission input.button {
+    width: 10%;
+    border: 1px solid #ccc;
+    background-color: #fff;
+    line-height: 20px;
+    padding: 4px 10px;
+    border-radius: 0px 16px 16px 0px;
+}
+
+
+/*Content Styles*/
+/**/
+.wrap {
+    width: 90%;
+    padding: 0 5%;
+    max-width: 40em;
+    margin: 0 auto;
+    overflow: hidden;
+}
+article {
+    margin-top: 2em;
+}
+
+.blocks img {
+    max-width: 90%;
+    height: auto;
+    
+    margin-top: 1em;
+    margin-bottom: 0.5em;
+        
+    /*Centering the image*/
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    
+    /*Rounding the corners*/
+    border-radius: 5px;
+}
+
+.block img {
+    max-width: 85%;
+    height: auto;
+}
+
+.blocks imagecaption {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+}
+
+a {
+    color: #0d6685;
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+.block h2 {
+    text-align: center;
+    margin-bottom: 1em;
+}
+
+.block h3 {
+    text-align: left;
+    margin-top: 0.5em;
+    margin-bottom: 0em;
+}
+
+.block .date {
+    float: left;
+    width: 50%;
+}
+
+.block .links {
+    float: right;
+    width: 50%;
+    text-align: right;
+}
+
+.block .authors {
+    
+}
+
+.block ul, .block ol {
+    margin-left: 2em;
+}
+
+.block ul.pages {
+    margin-left: 0;
+}
+
+.block ul ul, .block ul ol, .block ol ul, .block ol ol {
+    margin-top: 0;
+}
+
+.block footer ul, .block footer ol {
+    margin: 0;
+}
+
+.block table {
+    margin-left: auto;
+    margin-right: auto;
+    border-collapse: collapse
+}
+
+.block table td {
+    padding: 0.5em;
+}
+
+.block table td, th {
+    border: 1px solid #ccc;
+}
+
+.block table td strong {
+    font-weight: 600;
+}
+
+.block hr {
+    width: 10%;
+    margin: 1em auto;
+    height: 2px;
+    border: 0 none;
+    background-color: #DDD;
+}
+
+.quote blockquote {
+    padding: 0;
+    border: none;
+}
+
+.quote .source {
+    text-align: right;
+    font-style: normal;
+}
+
+.block footer {
+    padding: 0;
+    margin-top: 1em;
+    color: #aaa;
+    font-style: italic;
+    float: right;
+}
+
+.block footer a {
+    color: #aaa;
+}
+
+.block footer a:hover {
+    color: #999;
+}
+
+.block footer .source {
+    float: right;
+    margin-right: 0;
+    font-style: italic;
+}
+
+.block footer ul li {
+    display: inline-block;
+    margin-left: 1em;
+}
+
+.tags {
+    margin-top: 1em;
+}
+
+.pagination {
+    margin-top: 4em;
+    text-align: center;
+    line-height: 3em;
+}
+
+.pagination:after {
+    clear: both;
+    content: '.';
+    display: block;
+    height: 0;
+    visibility: hidden;
+}
+
+.pagination a {
+    display: block;
+    height: 3em;
+    padding: 0 1em;
+    border-radius: 0.25em;
+}
+
+.pagination a:hover {
+    background: #eee;
+    text-decoration: none;
+}
+
+.pagination .previous {
+    float: left;
+}
+
+.pagination .next {
+    float: right;
+}
+
+footer.wrap {
+    padding-top: 2em;
+    padding-bottom: 2em;
+}
