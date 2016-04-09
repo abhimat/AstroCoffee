@@ -125,6 +125,11 @@ header:after {
     margin-right: 1em;
 }
 
+header img {
+    max-width: 100%;
+    height: auto;
+}
+
 header h1 {
     padding-bottom: 0.1em;
 }
@@ -196,11 +201,11 @@ ul.pages-small li a {
 }
 
 .submission input.field {
-    width: 40%;
+    width: 60%;
     border: 1px solid #ccc;
     line-height: 20px;
     padding: 4px 10px;
-    border-radius: 16px 0px 0px 16px;
+    border-radius: 16px;
 }
 
 .submission input:focus {
@@ -208,12 +213,13 @@ ul.pages-small li a {
 }
 
 .submission input.button {
-    width: 10%;
-    border: 1px solid #ccc;
+    width: 0px;
+    visibility: hidden;
+    /*border: 1px solid #ccc;
     background-color: #fff;
     line-height: 20px;
     padding: 4px 10px;
-    border-radius: 0px 16px 16px 0px;
+    border-radius: 0px 16px 16px 0px;*/
 }
 
 

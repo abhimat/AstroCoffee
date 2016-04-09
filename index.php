@@ -74,8 +74,14 @@ if ((!isset($_POST["submit"])) and (!isset($_POST["submitcheck"])))
 
 <body>
 	<header>
-		<p><a href="http://www.astro.ucla.edu"><semibold><em>UCLA</em> Astronomy and Astrophysics</semibold></a></p>
-		<h1>Astro Coffee</h1>
+		<!-- <p><a href="http://www.astro.ucla.edu"><semibold><em>UCLA</em> Astronomy and Astrophysics</semibold></a></p> -->
+		<!-- <h1>Astro Coffee</h1> -->
+		<img src="images/Header_2x.png" srcset="images/Header_1x.png 1x, images/Header_2x.png 2x" alt="Astro Coffee" />
+		
+		<form method="post" class="submission" action="<?php echo $PHP_SELF;?>">
+			<center><input type="text" name="article" maxlength="128" placeholder="URL or arXiv-ID" class="field"/></center>
+			<input type="submit" value="submit" name="submit" class="button"/>
+		</form>
 		
 		<center><ul class="pages">
 			<li><strong>Current Articles</strong></li>
@@ -86,10 +92,7 @@ if ((!isset($_POST["submit"])) and (!isset($_POST["submitcheck"])))
 			<li><a href="./status.log">Status Log</a></li>
 		</ul></center>
 		
-		<form method="post" class="submission" action="<?php echo $PHP_SELF;?>">
-			<input type="text" name="article" maxlength="128" placeholder="URL or arXiv-ID" class="field"/>
-			<input type="submit" value="submit" name="submit" class="button"/>
-		</form>
+		
 		
 	</header>
 	
@@ -101,7 +104,7 @@ if ((!isset($_POST["submit"])) and (!isset($_POST["submitcheck"])))
 	
 	<footer class="small wrap">
 		<center><p class="small"><strong>Astro Coffee 2</strong><br>by Abhimat Gautam</p></center>
-		<center><p class="small">Based on previous versions of astroph.py by<br> by Ryan T. Hamilton, Ian J. Crossfield, and Nathaniel Ross.</p></center>
+		<center><p class="small">Based on previous versions of astroph.py by<br>Ryan T. Hamilton, Ian J. Crossfield, and Nathaniel Ross.</p></center>
 		<center><p class="small"><a href="https://github.com/abhimat/AstroCoffee">Contribute on GitHub!</a></p></center>
 	</footer>
 </body>
