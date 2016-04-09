@@ -5,8 +5,8 @@ import astroph, shutil, time, datetime, os, re, send_error_mail
 from dateutil.relativedelta import relativedelta, MO, TU, WE, TH, FR, SA, SU
 
 # Change this to control the next meeting date & time
-day=TU
-hour=15
+day=TH
+hour=14
 min=00
 
 # Change this to send the error emails to the appropriate people
