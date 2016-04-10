@@ -62,6 +62,16 @@ foreach ($papers as $pap){
 	}
 }
 
+# Testing for usage on an Astro Coffee page >:(
+if (strpos(trim($article), 'coffee.astro.ucla.edu') !== false) {
+	echo '<p>Please do not use bookmarklet on the Astro Coffee page >:(</p>';
+	echo '<p>If you think this is an error, tell the coffee czar.</p>';
+	echo "<p>You will be returned to your original page in 10 seconds.</p>";
+	echo "<p>If not, click <a href='".$article."'>here</a></p>";
+	die;
+}
+
+# Valid submission
 if (strlen($article)>$minlength) {
 	$f = fopen($paperFile,"a") or die("can't open file: ".$paperFile);
 	fwrite($f, "\n".trim($article));
