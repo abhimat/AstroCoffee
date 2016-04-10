@@ -50,7 +50,7 @@ def getarxivinfo(url, html):
         # Convert the authors to strings only and replace the relative links
         alist=[]
         for i in authors:
-            alist.append(str(i).replace('/find/','http://lanl.arxiv.org/find/'))
+            alist.append(str(i).replace('/find/','http://arxiv.org/find/'))
         paper.author = ', '.join(alist[0:4])
         # Kill all affiliation marks since some have them and some don't;
         #   done in two steps to take care of nested parens
@@ -90,9 +90,9 @@ def getarxivinfo(url, html):
         slist=[]
         for i in sources:
             curstring = str(i)
-            curstring = curstring.replace('/ps','http://lanl.arxiv.org/ps')
-            curstring = curstring.replace('/pdf','http://lanl.arxiv.org/pdf')
-            curstring = curstring.replace('/format','http://lanl.arxiv.org/format')
+            curstring = curstring.replace('/ps','http://arxiv.org/ps')
+            curstring = curstring.replace('/pdf','http://arxiv.org/pdf')
+            curstring = curstring.replace('/format','http://arxiv.org/format')
             curstring = curstring.replace('PostScript','PS')
             curstring = curstring.replace('Other formats','Other')
             slist.append(curstring)
@@ -119,6 +119,6 @@ def getarxivinfo(url, html):
 
     #print paper.errors + paper.comments + "\n"
     paperid = soup.find(attrs={"name":re.compile("citation_arxiv_id",re.I)})['content']
-    paper.url = 'http://lanl.arxiv.org/abs/' + paperid
+    paper.url = 'http://arxiv.org/abs/' + paperid
 
     return paper
