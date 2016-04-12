@@ -85,7 +85,7 @@ if ((!isset($_POST["submit"])) and (!isset($_POST["submitcheck"])))
 		</ul></center>
 		
 		<form method="post" class="submission" action="<?php echo $PHP_SELF;?>">
-			<center><input type="text" name="article" maxlength="128" placeholder="Submit a URL or arXiv-ID" class="field"/></center>
+			<center><input type="text" name="article" maxlength="128" placeholder="Submit a URL (no PDF links) or arXiv-ID" class="field"/></center>
 			<input type="submit" value="submit" name="submit" class="button"/>
 		</form>
 		
