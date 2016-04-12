@@ -89,7 +89,7 @@ if ((!isset($_POST["submit"])) and (!isset($_POST["submitcheck"])))
 			<input type="submit" value="submit" name="submit" class="button"/>
 		</form>
 		
-		<center><ul class="pages-small">
+		<center><ul class="pages-small small">
 			<li><a href="./bookmarklet/">Bookmarklet</a></li>
 			<li><a href="./listmanager.php">Submissions</a></li>
 			<li><a href="./status.log">Status Log</a></li>

@@ -59,11 +59,11 @@ h3, .h3 {
 h1+h2 { margin-top: 0; }
 
 p, .p, ul, ol, table {
-    font-size: 16px;
+    font-size: 14px;
 }
 
 small, .small {
-    font-size: 14px;
+    font-size: 12px;
 }
 
 semibold, .semibold {
@@ -88,16 +88,19 @@ p, ul, ol, table { margin-top: 1em; }
     h1, .h1 { font-size: 48px; }
     h2, .h2 { font-size: 22px; }
     h3, .h3 { font-size: 18px; }
-    p, .p, ul, ol, table { font-size: 18px;}
-    small, .small { font-size: 16px;}
+    p, .p, ul, ol, table { font-size: 16px;}
+    small, .small { font-size: 14px;}
     imagecaption, .imagecaption { font-size: 14px;}
 }   
 
-@media screen and (min-width: 640px) {
+@media screen and (min-width: 820px) {
     h1, .h1 { font-size: 64px; }
     h1 em { font-size: 48px; }
     h2, .h2 { font-size: 28px; } 
     h3, .h3 { font-size: 20px; }
+    p, .p, ul, ol, table { font-size: 18px;}
+    small, .small { font-size: 16px;}
+    imagecaption, .imagecaption { font-size: 14px;}
 }
 
 
@@ -196,7 +199,6 @@ ul.pages li a {
 ul.pages-small {
     list-style: none;
     padding-bottom: 0em;
-    font-size: 16px;
 }
 
 ul.pages-small > li {
