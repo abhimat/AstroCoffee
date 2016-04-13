@@ -65,6 +65,7 @@ def getinfo(id, server='http://arxiv.org/abs/'):
     from getvixrainfo import getvixrainfo
     from getnatureinfo import getnatureinfo
     from getscienceinfo import getscienceinfo
+    from getvoxchartainfo import getvoxchartainfo
     from getwebinfo import getwebinfo
     import urllib2
 
@@ -172,17 +173,25 @@ def getinfo(id, server='http://arxiv.org/abs/'):
             else:
                 thispaper.errors = 'Some ERRORS reading ' + urlpage
             thispaper.id = ''
-        # viXra Article
-        elif urlpage.find('vixra.org')>-1: 
-            thispaper = getvixrainfo(urlpage, html)
+        # Science Article
+        elif urlpage.find('sciencemag.org')>-1:
+            thispaper = getscienceinfo(urlpage, html)
             if thispaper.errors == '0':
                 thispaper.errors = 'Success reading ' + urlpage
             else:
                 thispaper.errors = 'Some ERRORS reading ' + urlpage
             thispaper.id = ''
-        # Science Article
-        elif urlpage.find('sciencemag.org')>-1:
-            thispaper = getscienceinfo(urlpage, html)
+        # Vox Charta Article
+        elif urlpage.find('voxcharta.org')>-1: 
+            thispaper = getvoxchartainfo(urlpage, html)
+            if thispaper.errors == '0':
+                thispaper.errors = 'Success reading ' + urlpage
+            else:
+                thispaper.errors = 'Some ERRORS reading ' + urlpage
+            thispaper.id = ''
+        # viXra Article
+        elif urlpage.find('vixra.org')>-1: 
+            thispaper = getvixrainfo(urlpage, html)
             if thispaper.errors == '0':
                 thispaper.errors = 'Success reading ' + urlpage
             else:
