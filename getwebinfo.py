@@ -46,8 +46,8 @@ def getwebinfo(url, html):
     try:
         paper.title = ip_data['title'].encode("utf-8")
     except:
-        paper.errors = "0"
-        paper.title = "Error Grabbing Title"
+        paper.errors = "1"
+        paper.title = " "
         # print("Error grabbing title")
     
     try:
@@ -64,14 +64,14 @@ def getwebinfo(url, html):
         paper.author = ip_data['author'].encode("utf-8")
     except:
         paper.errors = "0"
-        paper.author = "Error Grabbing Authors"
+        paper.author = " "
         # print("Error grabbing authors")
     
     try:
         paper.abstract = ip_data['description'].encode("utf-8")
     except:
         paper.errors = "0"
-        paper.abstract = "Error Grabbing Description"
+        paper.abstract = " "
         # print("Error grabbing description")
     
     # paper.url = url
