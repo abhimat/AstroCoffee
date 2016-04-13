@@ -64,6 +64,7 @@ def getinfo(id, server='http://arxiv.org/abs/'):
     from getarxivinfo import getarxivinfo
     from getvixrainfo import getvixrainfo
     from getnatureinfo import getnatureinfo
+    from getscienceinfo import getscienceinfo
     from getwebinfo import getwebinfo
     import urllib2
 
