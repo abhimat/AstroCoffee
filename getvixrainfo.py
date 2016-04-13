@@ -66,7 +66,7 @@ def getvixrainfo(url, html):
         date = soup.find('div', {'id':'flow'})
         date = date.findAll('p')
         
-        ## Look through p tags until we get to the data text
+        ## Look through p tags until we get to the date text
         date_index = 0
         while not((date[date_index].text).startswith('[v1]')):
             date_index += 1
