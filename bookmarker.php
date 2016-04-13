@@ -71,6 +71,15 @@ if (strpos(trim($article), 'coffee.astro.ucla.edu') !== false) {
 	die;
 }
 
+# Testing for PDF >:(
+if (strpos(trim($article), '.pdf') !== false) {
+	echo '<p>It appears that you have submitted a PDF link.<br><strong>Please submit a link to the webpage of the paper instead.</strong></p>';
+	echo '<p>If you think this is an error, tell the coffee czar.</p>';
+	echo "<p>You will be returned to your original page in 10 seconds.</p>";
+	echo "<p>If not, click <a href='".$article."'>here</a></p>";
+	die;
+}
+
 # Valid submission
 if (strlen($article)>$minlength) {
 	$f = fopen($paperFile,"a") or die("can't open file: ".$paperFile);
