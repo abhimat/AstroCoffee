@@ -74,7 +74,7 @@ if (strpos(trim($article), 'coffee.astro.ucla.edu') !== false) {
 # Testing for PDF >:(
 if (strpos(trim($article), '.pdf') !== false) {
 	echo '<p>It appears that you have submitted a PDF link.<br><strong>Please submit a link to the webpage of the paper instead.</strong></p>';
-	echo '<p>(Come on Devin…)</p>';
+	echo '<p>(Come on Devin&hellip;)</p>';
 	echo '<p>If you think this is an error, tell the coffee czar.</p>';
 	echo "<p>You will be returned to your original page in 10 seconds.</p>";
 	echo "<p>If not, click <a href='".$article."'>here</a></p>";
