@@ -63,7 +63,7 @@ foreach ($papers as $pap){
 }
 
 # Testing for usage on an Astro Coffee page >:(
-if (strpos(trim($article), 'coffee.astro.ucla.edu') !== false) {
+if ((strpos(trim($article), 'coffee.astro.ucla.edu') !== false) or (strpos(trim($article), 'europa.astro.ucla.edu') !== false)) {
 	echo '<p>Please do not use bookmarklet on the Astro Coffee page >:(</p>';
 	echo '<p>If you think this is an error, tell the coffee czar.</p>';
 	echo "<p>You will be returned to your original page in 10 seconds.</p>";
