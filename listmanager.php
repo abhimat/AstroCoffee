@@ -32,12 +32,23 @@ $salt     = "!@#$%^&";
 
 <?php
 $paperFile = 'papers';
-$fp = @fopen($paperFile, "r"); 
+$paperFile_discussed = 'papers_discussed';
+
+$fp = @fopen($paperFile, "r");
+$fp_discussed = @fopen($paperFile_discussed, "r");
+
 $loadcontent = fread($fp, filesize($paperFile)); 
+$loadcontent_discussed = fread($fp_discussed, filesize($paperFile_discussed)); 
+
 $lines = file($paperFile) or die("can`t open file: ".$paperFile." for reading");
 $count = count($lines);
-$loadcontent = htmlspecialchars($loadcontent); 
-fclose($fp); 
+$loadcontent = htmlspecialchars($loadcontent);
+fclose($fp);
+
+$lines_discussed = file($paperFile_discussed) or die("can`t open file: ".$paperFile_discussed." for reading");
+$count_discussed = count($lines_discussed);
+$loadcontent_discussed = htmlspecialchars($loadcontent_discussed);
+fclose($fp_discussed);
 ?>
 
 
@@ -47,6 +58,7 @@ Current contents of the article list file:
 
   <form name="form" method="post" action="<?php echo $_SERVER['php_SELF'];?>">
     <textarea style="text-align: left; padding: 0px; overflow: auto; border: 3px groove; font-size: 12px" name="savecontent" cols="80" rows="<?=($count+3);?>" wrap="OFF"><?=$loadcontent?></textarea>
+	<textarea style="text-align: left; padding: 0px; overflow: auto; border: 3px groove; font-size: 12px" name="savecontent" cols="80" rows="<?=($count_discussed+3);?>" wrap="OFF"><?=$loadcontent_discussed?></textarea>
     <br>
     Username: <input type="text" name="txtUsername" />
     Password: <input type="password" name="txtPassword" />
