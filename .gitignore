@@ -4,3 +4,4 @@ archive/*.php
 *.log
 Private/passwords.py
 papers
+papers_discussed

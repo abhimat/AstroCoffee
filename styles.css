@@ -275,6 +275,14 @@ article {
     border-radius: 5px;
 }
 
+.blocks hr {
+    width: 20%;
+    margin: 1em auto;
+    height: 2px;
+    border: 0 none;
+    background-color: #DDD;
+}
+
 .block img {
     max-width: 85%;
     height: auto;
@@ -354,14 +362,6 @@ a:hover {
 
 .block table td strong {
     font-weight: 600;
-}
-
-.block hr {
-    width: 10%;
-    margin: 1em auto;
-    height: 2px;
-    border: 0 none;
-    background-color: #DDD;
 }
 
 .quote blockquote {

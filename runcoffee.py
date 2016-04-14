@@ -17,10 +17,11 @@ responsibles = ["abhimat@astro.ucla.edu"]
 idcomments = False
 
 # Initialize variables
-paperfile = 'papers'
-mainfile = 'astro_coffee.php'
-tempfile = 'astro_coffee_temp.php'
-statlog = 'status.log'
+paper_file = 'papers'
+paper_discussed_file = 'papers_discussed'
+main_file = 'astro_coffee.php'
+temp_file = 'astro_coffee_temp.php'
+stat_log = 'status.log'
 # For emergency email reporting; Doesn't need to be changed
 whosend = 'Automated_Astro_Coffee_Coding_Monkey@InsideTheServer.org' 
 
@@ -29,7 +30,7 @@ whosend = 'Automated_Astro_Coffee_Coding_Monkey@InsideTheServer.org'
 server = 'localhost'
 
 # Count the number of lines for the time to completion estimate
-f=open(paperfile,'r')
+f=open(paper_file,'r')
 for i, l in enumerate(f):
     pass
 f.close()
@@ -40,16 +41,16 @@ timecomp = napTime * nlines
 testimate = datetime.timedelta(seconds=timecomp)
 
 # Check last-modified times:
-paperTime = shutil.os.path.getmtime(paperfile)
-webTime = shutil.os.path.getmtime(mainfile)
+paper_time = shutil.os.path.getmtime(paper_file)
+paper_discussed_time = shutil.os.path.getmtime(paper_discussed_file)
+web_time = shutil.os.path.getmtime(main_file)
 
 # If list was updated, run the script!
-if paperTime>webTime:  
+if paper_time > web_time or paper_discussed_time > web_time:  
     before = datetime.datetime.now()
-    (html, output) = astroph.docoffeepage(paperfile,tempfile, day, hour, \
-                                  min, sleep=napTime, idid=idcomments, php=True)
+    (html, output) = astroph.docoffeepage(paper_file, paper_discussed_file, temp_file, day, hour, min, sleep=napTime, idid=idcomments, php=True)
     # print html
-    #     f = open(tempfile, 'w')
+    #     f = open(temp_file, 'w')
     #     for line in html:
     #         print line
     #         f.write(line)
@@ -59,14 +60,14 @@ if paperTime>webTime:
     tdiff = after-before
 
     try:
-        os.remove(statlog)
+        os.remove(stat_log)
     except:
         # Previous status log didn't exist for some reason
         #   so just keep on truckin'
         pass
 
     try:
-        f=open(statlog,'w')
+        f=open(stat_log,'w')
         f.write(output)
         f.write("\nRequest estimated at " + str(testimate) + "\n")
         f.write("Request completed in " + str(tdiff) + "\n\n")
@@ -74,10 +75,10 @@ if paperTime>webTime:
     except: 
         pass
 
-    f=open(statlog,'a')
+    f=open(stat_log,'a')
     f.write("Attempting to move temp. PHP to main PHP...")
     try:
-        shutil.move(tempfile, mainfile)
+        shutil.move(temp_file, main_file)
         f.write("Success!\n")
     except Exception, why:
         f.write("Error encountered during the move process: \n")
@@ -88,14 +89,14 @@ if paperTime>webTime:
 que = ''
 matches = []
 errflag=False
-f = open(statlog,'r')
+f = open(stat_log,'r')
 for line in f.readlines():
     if line.startswith("ERRORS "):
         matches.append(line)
         errflag=True
 f.close()
 
-f=open(statlog,'a')
+f=open(stat_log,'a')
 f.write("\n")
 f.write("Error Encountered During Reading of Sources: " + str(errflag) + "\n")
 

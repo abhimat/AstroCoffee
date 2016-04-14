@@ -238,15 +238,8 @@ def readlist(filelist, sleep=60):
     if isinstance(filelist, list):
         ids = filelist
     else:  # Must be the name of a file to read:
-        try:
-            f = open(filelist, 'r')
-            ids = f.readlines()
-            f.close()
-        except:
-            errors = "Could not open file: %s" % filelist
-#            print "Could not open file: %s" % filelist
-            ids = ['']
-
+        ids, errors = read_file(filelist)
+    
     for id in ids:
         if len(id) > 5:
             thispaper = getinfo(id)
@@ -257,6 +250,36 @@ def readlist(filelist, sleep=60):
 
     return errors, papers
 
+def read_file(file):
+    """Get data for all papers with IDs or URLs specified.
+
+    INPUT:
+        filelist:   (str) filename of an ascii file containing IDs
+    
+    OUTPUT:
+        a python list of individual paper IDs
+    """
+    ids = []
+    errors = ''
+    
+    try:
+        f = open(file, 'r')
+        ids = f.readlines()
+        f.close()
+        
+        new_ids = []
+        for cur_id in ids:
+            cur_id = cur_id.rstrip('\n')
+            cur_id = cur_id.rstrip('\r')
+            new_ids.append(cur_id)
+        ids = new_ids
+        
+    except:
+        errors = "Could not open file: %s" % filelist
+        # print "Could not open file: %s" % filelist
+        ids = ['']
+    
+    return ids, errors
 
 def getnextduedate(d, h, m):
     """Get the next due date for meeting.
@@ -389,7 +412,7 @@ def makefooter(php=False):
     return foot
 
 
-def makehtml(papers, day, hour, min, idcomments=False, php=False):
+def makehtml(papers, papers_ids, papers_discussed, papers_discussed_ids, day, hour, min, idcomments=False, php=False):
     """Return HTML code for a public ArXiV web page from paper list.
 
     INPUT:
@@ -416,7 +439,17 @@ def makehtml(papers, day, hour, min, idcomments=False, php=False):
     # Generate text from preprints
     body = []
     date = ''
-    for paper in papers[::-1]:
+    
+    paper_indices = range(len(papers))
+    
+    for paper_index in reversed(paper_indices):
+        paper = papers[paper_index]
+        
+        ## Constructing discussed link
+        paper_id = papers_ids[paper_index]
+        discussed_link = ' | <a href="http://coffee.astro.ucla.edu/discussed.php?ID={0}">Discussed</a>'.format(paper_id)
+        paper.sources += discussed_link
+        
         date = paper.date
         if isinstance(paper, preprint):
             if paper.errors.startswith("Success"):
@@ -466,7 +499,80 @@ def makehtml(papers, day, hour, min, idcomments=False, php=False):
                 title = '<h3><a href="%s">%s</a></h3>' % (paper.url, paper.url)
                 body.append('%s' % title)
                 body.append('</article>')
+    
+    # Finish up and return if no papers in discussed list
+    if len(papers_discussed) == 0:
+        body = [line+'\n' for line in body]
 
+        # Concatenate everything together
+        html = h + body + f
+
+        return html
+    
+    body.append('<hr>')
+    body.append('<center><p>Papers already discussed</p></center>')
+    
+    paper_indices = range(len(papers_discussed))
+    
+    for paper_index in reversed(paper_indices):
+        paper = papers_discussed[paper_index]
+        
+        # ## Constructing discussed link
+        # paper_id = papers_discussed[paper_index]
+        # discussed_link = ' <a href="http://coffee.astro.ucla.edu/discussed.php?ID={0}">Discussed?</a>'.format(paper_id)
+        # paper.sources.append(discussed_link)
+        
+        date = paper.date
+        if isinstance(paper, preprint):
+            if paper.errors.startswith("Success"):
+                if paper.sources != '':
+                    if date != "":
+                        body.append('<article class="block">')
+                        body.append('<div class="date small">%s</div>' % paper.date)
+                    # Remove any stray/extra whitespaces
+                    paper.sources = paper.sources.lstrip()
+                    paper.sources = paper.sources.rstrip()
+                    body.append('<div class="links small">[ %s ]</div>' %
+                                paper.sources)
+                    title = '<h3><a href="%s">%s</a></h3>' \
+                            % (paper.url, paper.title)
+                else:
+                    if date != "":
+                        body.append('<article class="block">')
+                        body.append('<div class="date small">%s</div>' % paper.date)
+                    title = '<h3><a href="%s">%s</a></h3>' % (paper.url, paper.title)
+                body.append('%s' % title)
+                if paper.numauth > 5 and \
+                   paper.author != "Error Grabbing Authors":
+                    authremain = paper.numauth-5
+                    aexstring = ", + " + str(authremain) + " more"
+                    paper.author = paper.author + aexstring
+                body.append('<div class="authors small">%s</div>' % paper.author)
+                # Limit the length of the abstract displayed, and if its
+                #   shorter then just display the whole thing
+                abslength = 500
+                # Hopefully remove links and other HTML things in there
+                if len(paper.abstract) > abslength:
+                    paper.shortabs = paper.abstract[0:abslength] + '...'
+                    paper.shortabs = paper.shortabs.rstrip()
+                else:
+                    paper.shortabs = paper.abstract
+                paper.shortabs = paper.shortabs.lstrip()
+                paper.shortabs = paper.shortabs.rstrip()
+                body.append('<div id="abstract"><p>%s</p></div>' % paper.shortabs)
+                body.append('</article>')
+            else:
+                body.append('<article class="block">')
+                if (paper.url.find('.pdf') > -1):
+                    paper.date = "Please Do NOT Submit Direct PDF Links:"
+                else:
+                    paper.date = "Unknown Submission/Link:"
+                body.append('<div class="date small">%s</div>' % paper.date)
+                title = '<h3><a href="%s">%s</a></h3>' % (paper.url, paper.url)
+                body.append('%s' % title)
+                body.append('</article>')
+    
+    
     body = [line+'\n' for line in body]
 
     # Concatenate everything together
@@ -475,7 +581,7 @@ def makehtml(papers, day, hour, min, idcomments=False, php=False):
     return html
 
 
-def doarchivepage(file, outfile):
+def doarchivepage(file, discussed_file, outfile):
     """Create the archive file, clear the papers file
 
     INPUTS:
@@ -533,6 +639,10 @@ def doarchivepage(file, outfile):
             f = open(file, 'w')
             f.write(ids[len(ids)-1])
             f.close()
+            
+            f = open(discussed_file, 'w')
+            f.write('')
+            f.close()
         except:
             html = ['Could not get the papers info in the archive loop']
             papers = []
@@ -540,11 +650,12 @@ def doarchivepage(file, outfile):
     return arcstat
 
 
-def docoffeepage(file, url, day, hour, min, sleep=60, idid=False, php=False):
+def docoffeepage(file, discussed_file, url, day, hour, min, sleep=60, idid=False, php=False):
     """Read in arxiv IDs from a specified ASCII file, and write HTML.
 
     INPUTS:
        file: (str) path of ASCII file with arxiv IDs
+       discussed_file:  (str) path of ASCII file with IDs of discussed papers
        url:  (str) path of HTML file to write
        day:  (dateutil) day of meeting time
        hour: (flt) hour of meeting time
@@ -568,24 +679,42 @@ def docoffeepage(file, url, day, hour, min, sleep=60, idid=False, php=False):
     outstat = outstat + "\nNext:     " + nextdate.strftime('%Y-%m-%d') + "\n\n"
 
     outfile='./archive/' + prevdate.strftime('%Y-%m-%d') + '-papers.php'
-    arcstat = doarchivepage(file, outfile)
+    arcstat = doarchivepage(file, discussed_file, outfile)
     paperrs = ''
-
-    # Ok, now read the papers for real
-    try:  # Read in the papers
-        paperrs, papers = readlist(file, sleep=sleep)
+    
+    
+    # Read in paper IDs and discussed paper IDs as lists
+    papers_ids, paper_id_errors = read_file(file)
+    papers_discussed_ids, paper_discussed_id_errors = read_file(discussed_file)
+    
+    # Edit list of paper IDs, removing those already discussed
+    new_papers_ids = []
+    
+    for paper_id in papers_ids:
+        if not(paper_id in papers_discussed_ids):
+            new_papers_ids.append(paper_id)
+    
+    papers_ids = new_papers_ids
+    
+    # Read in the papers
+    try:
+        paperrs, papers = readlist(papers_ids, sleep=sleep)
+        paperrs_discussed, papers_discussed = readlist(papers_discussed_ids, sleep=sleep)
         html = []
     except Exception, why:
         html = ['Could not get the papers info']
         papers = []
+        discussed_papers = []
         outstat = outstat + 'Could not get the paper info\n\n'
         outstat += str(why) + "\n\n"
     
-    try:
-        html = makehtml(papers, day, hour, min, idcomments=idid, php=php)
-    except:
-        html.append('Could not generate HTML')
-        outstat = outstat + 'Could not generate HTML code\n\n'
+    # Make html for the page
+    html = makehtml(papers, papers_ids, papers_discussed, papers_discussed_ids, day, hour, min, idcomments=idid, php=php)
+    # try:
+    #     html = makehtml(papers, papers_ids, papers_discussed, papers_discussed_ids, day, hour, min, idcomments=idid, php=php)
+    # except:
+    #     html.append('Could not generate HTML')
+    #     outstat = outstat + 'Could not generate HTML code\n\n'
 
     # Write the file
     try:
