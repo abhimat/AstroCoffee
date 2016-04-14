@@ -68,6 +68,7 @@
 					<li><a href="http://adsabs.harvard.edu/abstract_service.html">Astronomy ADS</a></li>
 				</ul>
 			</article>
+			<img src="../images/HappyPaper_2x.png" srcset="../images/HappyPaper_1x.png 1x, ../images/HappyPaper_2x.png 2x" alt="Happy Paper!"/>
 		</section> <!-- /blocks -->
 	</div> <!-- /content -->
 

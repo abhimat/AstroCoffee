@@ -88,6 +88,7 @@
 					<li><a href="2016-04-07-papers.php">2016-04-07</a></li>
 				</ul>
 			</article>
+			<img src="../images/HappyPaper_2x.png" srcset="../images/HappyPaper_1x.png 1x, ../images/HappyPaper_2x.png 2x" alt="Happy Paper!"/>
 		</section> <!-- /blocks -->
 	</div> <!-- /content -->
 
