@@ -62,6 +62,7 @@
 				<p>Drag the above “Add to Astro Coffee” link to your browser’s bookmarks bar to set up the bookmarklet. Clicking the bookmarklet on a paper’s page will add the paper to the Astro Coffee page.</p>
 				<p>(Remember: Astro Coffee really <em>hates</em> PDF links, so use the bookmarklet on a paper’s web page and not the PDF page!)</p>
 			</article>
+			<img src="../images/HappyPaper_2x.png" srcset="../images/HappyPaper_1x.png 1x, ../images/HHappyPaper_2x.png 2x" alt="Happy Paper!"/>
 		</section> <!-- /blocks -->
 	</div> <!-- /content -->
 
