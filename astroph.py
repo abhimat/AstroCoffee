@@ -514,7 +514,7 @@ def makehtml(papers, papers_ids, papers_discussed, papers_discussed_ids, day, ho
         return html
     
     body.append('<hr>')
-    body.append('<center><p>Papers already discussed</p></center>')
+    body.append('<center><p><strong>Papers already discussed</strong></p></center>')
     
     paper_indices = range(len(papers_discussed))
     
