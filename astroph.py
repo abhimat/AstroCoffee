@@ -502,6 +502,10 @@ def makehtml(papers, papers_ids, papers_discussed, papers_discussed_ids, day, ho
     
     # Finish up and return if no papers in discussed list
     if len(papers_discussed) == 0:
+        body.append('<hr>')
+        body.append('<center><p>No papers discussed yet</p></center>')
+        body.append('<img src="./images/SadPaper_2x.png" srcset="./images/SadPaper_1x.png 1x, ../images/SadPaper_2x.png 2x" alt="Sad Paper :("/>')
+        
         body = [line+'\n' for line in body]
 
         # Concatenate everything together
