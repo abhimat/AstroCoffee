@@ -22,10 +22,15 @@ $salt     = "!@#$%^&";
 ?>
 
 <html>
-<head><title>Astro-coffee article list handler</title>
-<meta name="keywords" content="astro-ph, arxiv, astronomy, nmsu, coffee" />
-<meta name="author" content="NMSU Astronomy" />
-<link rel="stylesheet" type="text/css" href="style.css" />
+<head>
+	<title>Astro Coffee Papers List Handler</title>
+	<!-- Google Web Fonts -->
+	<link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:400,600,700,900,400italic,600italic,700italic,900italic' rel='stylesheet' type='text/css'>
+	<link href='http://fonts.googleapis.com/css?family=Bree+Serif' rel='stylesheet' type='text/css'>
+	<link href='http://fonts.googleapis.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css'>
+	
+	<!-- Styles -->
+	<link rel="stylesheet" href="./styles.css" type="text/css" media="screen" />
 </head>
 
 <body>
@@ -52,12 +57,10 @@ fclose($fp_discussed);
 ?>
 
 
-<h2>Astro-coffee article list handler  </h2>
-
-Current contents of the article list file:
-
+<h2>Astro-coffee article list handler</h2>
+Current contents of the papers and discussed papers lists:
   <form name="form" method="post" action="<?php echo $_SERVER['php_SELF'];?>">
-    <textarea style="text-align: left; padding: 0px; overflow: auto; border: 3px groove; font-size: 12px" name="savecontent" cols="80" rows="<?=($count+3);?>" wrap="OFF"><?=$loadcontent?></textarea>
+	<textarea style="text-align: left; padding: 0px; overflow: auto; border: 3px groove; font-size: 12px" name="savecontent" cols="80" rows="<?=($count+3);?>" wrap="OFF"><?=$loadcontent?></textarea>
 	<textarea style="text-align: left; padding: 0px; overflow: auto; border: 3px groove; font-size: 12px" name="savecontent" cols="80" rows="<?=($count_discussed+3);?>" wrap="OFF"><?=$loadcontent_discussed?></textarea>
     <br>
     Username: <input type="text" name="txtUsername" />
