@@ -47,16 +47,16 @@ $ipOfSubmitter=$_SERVER["REMOTE_ADDR"];
 
 $minlength = 5;
 // echo '<META HTTP-EQUIV=Refresh CONTENT="10">';
-echo '<META HTTP-EQUIV=Refresh CONTENT="10;'.$article.'">';
+echo '<META HTTP-EQUIV=Refresh CONTENT="5;'.$article.'">';
 echo "<p>You submitted ".$article.".</p>";
 
 # Testing for duplicates
 $papers = file($paperFile) or die("can't open file: ".$paperFile);
 foreach ($papers as $pap){
 	if (trim($article) == trim($pap)) {
-		echo '<p>But it is a duplicate of a paper already submitted!</p>';
+		echo '<p><strong>But it is a duplicate of a paper already submitted!</strong></p>';
 		echo '<p>If you think this is an error, tell the coffee czar.</p>';
-		echo "<p>You will be returned to your original page in 10 seconds.</p>";
+		echo "<p>You will be returned to your original page in 5 seconds.</p>";
 		echo "<p>If not, click <a href='".$article."'>here</a></p>";
 		die;
 	}
@@ -64,9 +64,9 @@ foreach ($papers as $pap){
 
 # Testing for usage on an Astro Coffee page >:(
 if ((strpos(trim($article), 'coffee.astro.ucla.edu') !== false) or (strpos(trim($article), 'europa.astro.ucla.edu') !== false)) {
-	echo '<p>Please do not use bookmarklet on the Astro Coffee page >:(</p>';
+	echo '<p><strong>Please do not use bookmarklet on the Astro Coffee page >:(</strong></p>';
 	echo '<p>If you think this is an error, tell the coffee czar.</p>';
-	echo "<p>You will be returned to your original page in 10 seconds.</p>";
+	echo "<p>You will be returned to your original page in 5 seconds.</p>";
 	echo "<p>If not, click <a href='".$article."'>here</a></p>";
 	die;
 }
@@ -76,7 +76,7 @@ if (strpos(trim($article), '.pdf') !== false) {
 	echo '<p>It appears that you have submitted a PDF link.<br><strong>Please submit a link to the webpage of the paper instead.</strong></p>';
 	echo '<p>(Come on Devin&hellip;)</p>';
 	echo '<p>If you think this is an error, tell the coffee czar.</p>';
-	echo "<p>You will be returned to your original page in 10 seconds.</p>";
+	echo "<p>You will be returned to your original page in 5 seconds.</p>";
 	echo "<p>If not, click <a href='".$article."'>here</a></p>";
 	die;
 }
@@ -87,13 +87,13 @@ if (strlen($article)>$minlength) {
 	fwrite($f, "\n".trim($article));
 	fclose($f);
 	# Get estimate of run time for the user
-	$lines = count(file($paperFile)); 
-	$time  = $lines * 10;
-	echo "<p>Your sumission was successfully added to the list. </p>";
-	echo "<p>Thanks for advancing knowledge!</p>";
+	// $lines = count(file($paperFile));
+	// $time  = $lines * 10;
+	echo "<p><strong>Your sumission was successfully added to the list.</strong></p>";
+	// echo "<p>Thanks for advancing knowledge!</p>";
 	echo "<p>It may be several minutes before the main page is updated.</p>";
-	echo "<p>I see $lines items to update, so it will take >$time seconds.</p>";
-	echo "<p>You will be returned to your original page in 10 seconds.</p>";
+	// echo "<p>I see $lines items to update, so it will take >$time seconds.</p>";
+	echo "<p>You will be returned to your original page in 5 seconds.</p>";
 	echo "<p>If not, click <a href='".$article."'>here</a></p>";
 	$str4log = date('D, d M Y H:i:s')."    ".$article."    ".$ipOfSubmitter;
 	$f2 = fopen($logFile,"a") or die("can`t open file: ".$logFile);
@@ -103,8 +103,10 @@ if (strlen($article)>$minlength) {
 	$nullRet = `$python runcoffee.py > /dev/null &`;
 	
 } else {
-	echo "This is shorter than the minimum valid string length (".$minlength.").";
-	echo "Thus your submission was not added to the papers list.";
+	echo "<p><strong>This is shorter than the minimum valid string length (".$minlength.").</strong></p>";
+	echo "<p>Thus your submission was not added to the papers list.</p>";
+	echo "<p>You will be returned to your original page in 5 seconds.</p>";
+	echo "<p>If not, click <a href='".$article."'>here</a></p>";
 }
 //
 // } else {
