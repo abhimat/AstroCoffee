@@ -65,7 +65,7 @@ if ((!isset($_POST["submit"])) and (!isset($_POST["submitcheck"])))
 	  src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
 	  MathJax.Hub.Config({
 	    tex2jax: {
-	      inlineMath: [['$','$'], ['\\(','\\)']],
+	      inlineMath: [['$','$'], ['\\(','\\)'], ['{','}']],
 	      processEscapes: true
 	    }
 	  });
