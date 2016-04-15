@@ -645,7 +645,7 @@ def doarchivepage(file, discussed_file, outfile):
             f.close()
             
             f = open(discussed_file, 'w')
-            f.write('')
+            f.write('\n')
             f.close()
         except:
             html = ['Could not get the papers info in the archive loop']
