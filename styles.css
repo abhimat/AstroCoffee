@@ -245,6 +245,21 @@ ul.pages-small li a {
     border-radius: 0px 16px 16px 0px;*/
 }
 
+.submission ::-webkit-input-placeholder {
+   text-align: center;
+}
+
+.submission :-moz-placeholder { /* Firefox 18- */
+   text-align: center;  
+}
+
+.submission ::-moz-placeholder {  /* Firefox 19+ */
+   text-align: center;  
+}
+
+.submission :-ms-input-placeholder {  
+   text-align: center; 
+}
 
 /*Content Styles*/
 /**/
