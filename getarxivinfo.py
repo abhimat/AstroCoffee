@@ -95,6 +95,8 @@ def getarxivinfo(url, html):
             curstring = curstring.replace('/format','http://arxiv.org/format')
             curstring = curstring.replace('PostScript','PS')
             curstring = curstring.replace('Other formats','Other')
+            if 'license' in curstring:
+                continue
             slist.append(curstring)
         paper.sources = ' '.join(slist)
     except:
