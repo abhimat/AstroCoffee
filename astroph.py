@@ -62,6 +62,7 @@ def getinfo(id, server='http://arxiv.org/abs/'):
     """
     from getadsinfo import getadsinfo
     from getarxivinfo import getarxivinfo
+    from getmnrasinfo import getmnrasinfo
     from getvixrainfo import getvixrainfo
     from getnatureinfo import getnatureinfo
     from getscienceinfo import getscienceinfo
@@ -168,6 +169,14 @@ def getinfo(id, server='http://arxiv.org/abs/'):
              urlpage.find('xxx.lanl.gov')>-1 or \
              (isValidArxiv): 
             thispaper = getarxivinfo(urlpage, html)
+            if thispaper.errors == '0':
+                thispaper.errors = 'Success reading ' + urlpage
+            else:
+                thispaper.errors = 'Some ERRORS reading ' + urlpage
+            thispaper.id = ''
+        # MNRAS Article
+        elif urlpage.find('mnras.oxfordjournals.org')>-1:
+            thispaper = getmnrasinfo(urlpage, html)
             if thispaper.errors == '0':
                 thispaper.errors = 'Success reading ' + urlpage
             else:
