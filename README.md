@@ -1,4 +1,15 @@
-Re-write in progress by Abhimat Gautam (UCLA) for Astro Coffee 2.0. Previous information below.
+# Astro Coffee 2
+
+Tools for generating and running a website for paper discussions.
+
+Astro Coffee 2 is written by Abhimat Gautam (UCLA). It is based on the original version by Ian J. Crossfield and Nathaniel Ross, and subsequent updates by Ryan T. Hamilton and Fred Davies.
+
+Current To-Dos:
+* Caching information pulled in for papers, so don't have to re-parse every paper every time page is updated.
+* Allowing PDF links for sites that offer easy to deal with links (e.g. arXiv, MNRAS).
+* Documentation and tools to allow setting up on independent servers.
+
+Documentation from previous versions below:
 
 ---
 
