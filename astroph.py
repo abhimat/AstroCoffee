@@ -710,6 +710,15 @@ def docoffeepage(file, discussed_file, url, day, hour, min, sleep=60, idid=False
     
     papers_ids = new_papers_ids
     
+    ## Make sure papers on discussed list are in the original paper list (i.e. not from previous weeks)
+    new_papers_discussed_ids = []
+    
+    for paper_id in papers_discussed_ids:
+        if (paper_id in papers_ids):
+            new_papers_discussed_ids.append(paper_id)
+    
+    papers_discussed_ids = new_papers_discussed_ids
+    
     # Read in the papers
     try:
         paperrs, papers = readlist(papers_ids, sleep=sleep)

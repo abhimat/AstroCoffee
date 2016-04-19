@@ -72,7 +72,7 @@ if (strlen($ID)>$minlength) {
 	echo "<p>It may be several minutes before the main page is updated.</p>";
 	echo "<p>You will be returned to the main page in 1 second.</p>";
 	echo "<p>If not, click <a href='./'>here</a></p>";
-	$str4log = date('D, d M Y H:i:s')."    ".$ID."    ".$ipOfSubmitter;
+	$str4log = date('D, d M Y H:i:s')."    ".$ID."    ".$ipOfSubmitter."    Paper added to discussed papers list.";
 	$f2 = fopen($logFile,"a") or die("can`t open file: ".$logFile);
 	fwrite($f2, $str4log."\n");
 	fclose($f2);
