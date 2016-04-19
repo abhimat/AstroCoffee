@@ -447,8 +447,7 @@ def makehtml(papers, papers_ids, papers_discussed, papers_discussed_ids, day, ho
         
         ## Constructing discussed link
         paper_id = papers_ids[paper_index]
-        discussed_link = ' | <a href="http://coffee.astro.ucla.edu/discussed.php?ID={0}">Discussed</a>'.format(paper_id)
-        paper.sources += discussed_link
+        discussed_link = '<p class="small"><a href="http://coffee.astro.ucla.edu/discussed.php?ID={0}">Mark paper as discussed</a></p>'.format(paper_id)
         
         date = paper.date
         if isinstance(paper, preprint):
@@ -488,6 +487,7 @@ def makehtml(papers, papers_ids, papers_discussed, papers_discussed_ids, day, ho
                 paper.shortabs = paper.shortabs.lstrip()
                 paper.shortabs = paper.shortabs.rstrip()
                 body.append('<div id="abstract"><p>%s</p></div>' % paper.shortabs)
+                body.append(discussed_link)
                 body.append('</article>')
             else:
                 body.append('<article class="block">')
@@ -498,6 +498,7 @@ def makehtml(papers, papers_ids, papers_discussed, papers_discussed_ids, day, ho
                 body.append('<div class="date small">%s</div>' % paper.date)
                 title = '<h3><a href="%s">%s</a></h3>' % (paper.url, paper.url)
                 body.append('%s' % title)
+                body.append(discussed_link)
                 body.append('</article>')
     
     # Finish up and return if no papers in discussed list
