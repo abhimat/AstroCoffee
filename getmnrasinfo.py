@@ -58,7 +58,6 @@ def getmnrasinfo(url, html):
     try:
         authors = soup.findAll('a', {'class':'name-search'})
         paper.numauth = len(authors)
-        print(authors)
     
         ### Convert authors to strings and replace relative links
         author_list = []
