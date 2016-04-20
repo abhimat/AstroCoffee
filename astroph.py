@@ -308,8 +308,8 @@ def getnextduedate(d, h, m):
 
     today = datetime.datetime.now()
     nextmeet1 = today+relativedelta(weeks=+1, weekday=d, hour=h,
-                                    minute=m+35, second=0, microsecond=0)
-    nextmeet2 = today+relativedelta(weekday=d, hour=h, minute=m+35, second=0,
+                                    minute=m+60, second=0, microsecond=0)
+    nextmeet2 = today+relativedelta(weekday=d, hour=h, minute=m+60, second=0,
                                     microsecond=0)
     msg = ''
 
@@ -342,9 +342,9 @@ def getprevduedate(d, h, m):
 
     # Get current date
     today = datetime.datetime.now()
-    prevmeet1 = today+relativedelta(weeks=-1, weekday=d, hour=h, minute=m+35,
+    prevmeet1 = today+relativedelta(weeks=-1, weekday=d, hour=h, minute=m+60,
                                     second=0, microsecond=0)
-    prevmeet2 = today+relativedelta(weekday=d, hour=h, minute=m+35, second=0,
+    prevmeet2 = today+relativedelta(weekday=d, hour=h, minute=m+60, second=0,
                                     microsecond=0)
     msg = ''
 
@@ -369,8 +369,8 @@ def makeheader(day, hour, min, php=False):
 
     # Need this dummy return value because of the way I write the status file
     mgs = ''
-    msg, nextdate = getnextduedate(day, hour, min)#+relativedelta(minutes=-35)
-    nextdate = nextdate+relativedelta(minutes=-35)
+    msg, nextdate = getnextduedate(day, hour, min)#+relativedelta(minutes=-60)
+    nextdate = nextdate+relativedelta(minutes=-60)
     datestr = nextdate.strftime('%a, %b %d, %Y at %I:%M %p')
     
     
@@ -701,6 +701,15 @@ def docoffeepage(file, discussed_file, url, day, hour, min, sleep=60, idid=False
     papers_ids, paper_id_errors = read_file(file)
     papers_discussed_ids, paper_discussed_id_errors = read_file(discussed_file)
     
+    ## Make sure papers on discussed list are in the original paper list (i.e. not from previous weeks)
+    new_papers_discussed_ids = []
+    
+    for paper_id in papers_discussed_ids:
+        if (paper_id in papers_ids):
+            new_papers_discussed_ids.append(paper_id)
+    
+    papers_discussed_ids = new_papers_discussed_ids
+    
     # Edit list of paper IDs, removing those already discussed
     new_papers_ids = []
     
@@ -710,14 +719,6 @@ def docoffeepage(file, discussed_file, url, day, hour, min, sleep=60, idid=False
     
     papers_ids = new_papers_ids
     
-    ## Make sure papers on discussed list are in the original paper list (i.e. not from previous weeks)
-    new_papers_discussed_ids = []
-    
-    for paper_id in papers_discussed_ids:
-        if (paper_id in papers_ids):
-            new_papers_discussed_ids.append(paper_id)
-    
-    papers_discussed_ids = new_papers_discussed_ids
     
     # Read in the papers
     try:
