@@ -307,9 +307,9 @@ def getnextduedate(d, h, m):
         MO, TU, WE, TH, FR, SA, SU
 
     today = datetime.datetime.now()
-    nextmeet1 = today+relativedelta(weeks=+1, weekday=d, hour=h,
-                                    minute=m+60, second=0, microsecond=0)
-    nextmeet2 = today+relativedelta(weekday=d, hour=h, minute=m+60, second=0,
+    nextmeet1 = today+relativedelta(weeks=+1, weekday=d, hour=h+1,
+                                    minute=m, second=0, microsecond=0)
+    nextmeet2 = today+relativedelta(weekday=d, hour=h+1, minute=m, second=0,
                                     microsecond=0)
     msg = ''
 
@@ -342,9 +342,9 @@ def getprevduedate(d, h, m):
 
     # Get current date
     today = datetime.datetime.now()
-    prevmeet1 = today+relativedelta(weeks=-1, weekday=d, hour=h, minute=m+60,
+    prevmeet1 = today+relativedelta(weeks=-1, weekday=d, hour=h+1, minute=m,
                                     second=0, microsecond=0)
-    prevmeet2 = today+relativedelta(weekday=d, hour=h, minute=m+60, second=0,
+    prevmeet2 = today+relativedelta(weekday=d, hour=h+1, minute=m, second=0,
                                     microsecond=0)
     msg = ''
 
@@ -370,13 +370,13 @@ def makeheader(day, hour, min, php=False):
     # Need this dummy return value because of the way I write the status file
     mgs = ''
     msg, nextdate = getnextduedate(day, hour, min)#+relativedelta(minutes=-60)
-    nextdate = nextdate+relativedelta(minutes=-60)
+    nextdate = nextdate+relativedelta(hours=-1)
     datestr = nextdate.strftime('%a, %b %d, %Y at %I:%M %p')
     
     
     # If there are two meetings, use following
     ## Get previous date astro-ph coffee is held in week
-    nextdate_early = nextdate+relativedelta(days=-2, minutes=+60)
+    nextdate_early = nextdate+relativedelta(days=-2, hours=+1)
     datestr_early = nextdate_early.strftime('%a, %b %d, %Y at %I:%M %p')
 
     head = []
