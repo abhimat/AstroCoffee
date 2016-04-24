@@ -629,7 +629,7 @@ def doarchivepage(file, discussed_file, outfile):
         page = open('./archive_top.php', 'r').read()
         page = page + '                <ul style="columns: 2; list-style-type: none;">\n'
         arclinks = ''
-        for files in sorted(archived):
+        for files in reversed(sorted(archived)):
             files = re.sub(r'\./archive\/', '', files)
             linkname = re.sub(r'[\.\-]papers\.php', '', files)
             arclinks = arclinks + '                    <li><a href="' + files + '">' + \
