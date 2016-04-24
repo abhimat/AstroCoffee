@@ -10,6 +10,9 @@
 	<meta charset="UTF-8">
 	<title>UCLA Astro Coffee: Archive</title>
 	
+	<!-- Preparing for the robot revolution -->
+	<meta name="ROBOTS" content="INDEX, NOFOLLOW">
+	
 	<!-- Google Web Fonts -->
 	<link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:400,600,700,900,400italic,600italic,700italic,900italic' rel='stylesheet' type='text/css'>
 	<link href='http://fonts.googleapis.com/css?family=Bree+Serif' rel='stylesheet' type='text/css'>
