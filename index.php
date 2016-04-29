@@ -27,7 +27,7 @@ if(version_compare($CurrentVer, '5.1.0')>=0) {
     #http://www.php.net/manual/en/timezones.others.php
 }
 
-$paperFile = "papers";
+$paperFile = "papers_next";
 $logFile = "dregs.log";
 $listManager = "listmanager.php";
 $article = $_POST["article"];
