@@ -36,15 +36,15 @@ if(version_compare($CurrentVer, '5.1.0')>=0) {
     #http://www.php.net/manual/en/timezones.others.php
 }
 
-$paperFile = "papers_discussed";
-$logFile = "dregs.log";
-$listManager = "listmanager.php";
+$paperFile = "../papers_discussed";
+$logFile = "../dregs.log";
+$listManager = "../listmanager.php";
 // $ID = $_POST["article"];
 $ipOfSubmitter=$_SERVER["REMOTE_ADDR"];
 
 $minlength = 5;
 // echo '<META HTTP-EQUIV=Refresh CONTENT="10">';
-echo '<META HTTP-EQUIV=Refresh CONTENT="1;url=./">';
+echo '<META HTTP-EQUIV=Refresh CONTENT="1;url=../">';
 echo "<p>You submitted ".$ID.".</p>";
 
 # Testing for duplicates
@@ -54,7 +54,7 @@ foreach ($papers as $pap){
 		echo '<p>But it is a duplicate of a paper already submitted for the discussed list!</p>';
 		echo '<p>If you think this is an error, tell the coffee czar.</p>';
         echo "<p>Returning to the main page automatically in 1 second</p>";
-        echo "<p>If not, click <a href='./'>here</a></p>";
+        echo "<p>If not, click <a href='../'>here</a></p>";
 		die;
 	}
 }
@@ -71,7 +71,7 @@ if (strlen($ID)>$minlength) {
 	echo "<p>The paper was successfully added to the discussed papers list.</p>";
 	echo "<p>It may be several minutes before the main page is updated.</p>";
 	echo "<p>You will be returned to the main page in 1 second.</p>";
-	echo "<p>If not, click <a href='./'>here</a></p>";
+	echo "<p>If not, click <a href='../'>here</a></p>";
 	$str4log = date('D, d M Y H:i:s')."    ".$ID."    ".$ipOfSubmitter."    Paper added to discussed papers list.";
 	$f2 = fopen($logFile,"a") or die("can`t open file: ".$logFile);
 	fwrite($f2, $str4log."\n");
