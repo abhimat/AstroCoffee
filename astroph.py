@@ -290,6 +290,31 @@ def read_file(file):
     
     return ids, errors
 
+def paper_lists_checker(papers_ids, papers_discussed_ids, papers_next_ids):
+    # Make sure papers on discussed list are in the original paper lists (i.e. not from previous weeks)
+    new_papers_discussed_ids = []
+    
+    for paper_id in papers_discussed_ids:
+        if (paper_id in papers_ids) or (paper_id in papers_next_ids):
+            new_papers_discussed_ids.append(paper_id)
+    
+    # Edit list of paper IDs, removing those already discussed
+    new_papers_ids = []
+
+    for paper_id in papers_ids:
+        if not(paper_id in new_papers_discussed_ids):
+            new_papers_ids.append(paper_id)
+    
+    # Edit list of next week's paper IDs, removing those already discussed
+    new_papers_next_ids = []
+    
+    for paper_id in papers_next_ids:
+        if not(paper_id in new_papers_discussed_ids):
+            new_papers_next_ids.append(paper_id)
+    
+    # Return the new lists
+    return new_papers_ids, new_papers_discussed_ids, new_papers_next_ids
+
 def getnextduedate(d, h, m):
     """Get the next due date for meeting.
 
@@ -372,30 +397,36 @@ def makeheader(day, hour, min, php=False):
     msg, nextdate = getnextduedate(day, hour, min)#+relativedelta(minutes=-60)
     nextdate = nextdate+relativedelta(hours=-1)
     datestr = nextdate.strftime('%a, %b %d, %Y at %I:%M %p')
-    
+    datestr_next = (nextdate+relativedelta(days=+7)).strftime('%a, %b %d, %Y at %I:%M %p')
     
     # If there are two meetings, use following
     ## Get previous date astro-ph coffee is held in week
     nextdate_early = nextdate+relativedelta(days=-2, hours=+1)
     datestr_early = nextdate_early.strftime('%a, %b %d, %Y at %I:%M %p')
+    datestr_next_early = (nextdate_early+relativedelta(days=+7)).strftime('%a, %b %d, %Y at %I:%M %p')
 
     head = []
+    head_next = []
 
     titleString1 = '<article class="block">'
     
     titleString2 = '<center><p>Suggested papers for<br><strong>{0}</strong></p></center>\n'.format(datestr)
+    titeString2_next = '<hr><center><p>Suggested papers for<br><strong>{0}</strong></p></center>\n'.format(datestr_next)
     
     ## For two meetings use following instead
     titleString2 = '<center><p>Suggested papers for<br><strong>{0}</strong> and <strong>{1}</strong></p></center>\n'.format(datestr_early, datestr)
+    titleString2_next = '<hr><center><p>Suggested papers for<br><strong>{0}</strong> and <strong>{1}</strong></p></center>\n'.format(datestr_next_early, datestr_next)
+    
     head.append(titleString1)
     head.append(titleString2)
-
-    # head.append('<p>astro-ph coffee is held Mondays at 1:30 PM and Wednesdays at 2:00 PM.')
-    # head.append('Some suggested papers of interest are listed below.')
-    # head.append('</p></div>')
+    
+    head_next.append(titleString1)
+    head_next.append(titleString2_next)
+    
     head.append('</article>\n')
+    head_next.append('</article>\n')
 
-    return head
+    return head, head_next
 
 
 def makefooter(php=False):
@@ -421,7 +452,7 @@ def makefooter(php=False):
     return foot
 
 
-def makehtml(papers, papers_ids, papers_discussed, papers_discussed_ids, day, hour, min, idcomments=False, php=False):
+def makehtml(papers, papers_ids, papers_discussed, papers_discussed_ids, papers_next, papers_next_ids, day, hour, min, idcomments=False, php=False):
     """Return HTML code for a public ArXiV web page from paper list.
 
     INPUT:
@@ -439,10 +470,9 @@ def makehtml(papers, papers_ids, papers_discussed, papers_discussed_ids, day, ho
     import re
 
     # Generate header
-    h = makeheader(day, hour, min, php=php)
-    # h = ['<p>Test!</p>\n']
+    h, h_next = makeheader(day, hour, min, php=php)
 
-    # generate footer
+    # Generate footer
     f = makefooter(php=php)
 
     # Generate text from preprints
@@ -510,11 +540,75 @@ def makehtml(papers, papers_ids, papers_discussed, papers_discussed_ids, day, ho
                 body.append(discussed_link)
                 body.append('</article>')
     
+    if len(papers_next) > 0:
+        paper_indices = range(len(papers_next))
+        
+        body = body + h_next
+        
+        for paper_index in reversed(paper_indices):
+            paper = papers_next[paper_index]
+            
+            ## Constructing discussed link
+            paper_id = papers_next_ids[paper_index]
+            discussed_link = '<p class="small"><a href="http://coffee.astro.ucla.edu/discussed/discussed.php?ID={0}">Mark paper as discussed</a></p>'.format(paper_id)
+        
+            date = paper.date
+            if isinstance(paper, preprint):
+                if paper.errors.startswith("Success"):
+                    if paper.sources != '':
+                        if date != "":
+                            body.append('<article class="block">')
+                            body.append('<div class="date small">%s</div>' % paper.date)
+                        # Remove any stray/extra whitespaces
+                        paper.sources = paper.sources.lstrip()
+                        paper.sources = paper.sources.rstrip()
+                        body.append('<div class="links small">[ %s ]</div>' %
+                                    paper.sources)
+                        title = '<h3><a href="%s">%s</a></h3>' \
+                                % (paper.url, paper.title)
+                    else:
+                        if date != "":
+                            body.append('<article class="block">')
+                            body.append('<div class="date small">%s</div>' % paper.date)
+                        title = '<h3><a href="%s">%s</a></h3>' % (paper.url, paper.title)
+                    body.append('%s' % title)
+                    if paper.numauth > 5 and \
+                       paper.author != "Error Grabbing Authors":
+                        authremain = paper.numauth-5
+                        aexstring = ", + " + str(authremain) + " more"
+                        paper.author = paper.author + aexstring
+                    body.append('<div class="authors small">%s</div>' % paper.author)
+                    # Limit the length of the abstract displayed, and if its
+                    #   shorter then just display the whole thing
+                    abslength = 500
+                    # Hopefully remove links and other HTML things in there
+                    if len(paper.abstract) > abslength:
+                        paper.shortabs = paper.abstract[0:abslength] + '...'
+                        paper.shortabs = paper.shortabs.rstrip()
+                    else:
+                        paper.shortabs = paper.abstract
+                    paper.shortabs = paper.shortabs.lstrip()
+                    paper.shortabs = paper.shortabs.rstrip()
+                    body.append('<div id="abstract"><p>%s</p></div>' % paper.shortabs)
+                    body.append(discussed_link)
+                    body.append('</article>')
+                else:
+                    body.append('<article class="block">')
+                    if (paper.url.find('.pdf') > -1):
+                        paper.date = "Please Do NOT Submit Direct PDF Links:"
+                    else:
+                        paper.date = "Unknown Submission/Link:"
+                    body.append('<div class="date small">%s</div>' % paper.date)
+                    title = '<h3><a href="%s">%s</a></h3>' % (paper.url, paper.url)
+                    body.append('%s' % title)
+                    body.append(discussed_link)
+                    body.append('</article>')
+    
     # Finish up and return if no papers in discussed list
     if len(papers_discussed) == 0:
-        body.append('<hr>')
+        body.append('<article class="block"><hr>')
         body.append('<center><p>No papers discussed yet</p></center>')
-        body.append('<img src="./images/SadPaper_2x.png" srcset="./images/SadPaper_1x.png 1x, ../images/SadPaper_2x.png 2x" alt="Sad Paper :("/>')
+        body.append('<img src="./images/SadPaper_2x.png" srcset="./images/SadPaper_1x.png 1x, ../images/SadPaper_2x.png 2x" alt="Sad Paper :("/></article>')
         
         body = [line+'\n' for line in body]
 
@@ -664,7 +758,7 @@ def doarchivepage(file, discussed_file, outfile):
     return arcstat
 
 
-def docoffeepage(file, discussed_file, url, day, hour, min, sleep=60, idid=False, php=False):
+def docoffeepage(file, discussed_file, next_file, url, day, hour, min, sleep=60, idid=False, php=False):
     """Read in arxiv IDs from a specified ASCII file, and write HTML.
 
     INPUTS:
@@ -700,40 +794,27 @@ def docoffeepage(file, discussed_file, url, day, hour, min, sleep=60, idid=False
     # Read in paper IDs and discussed paper IDs as lists
     papers_ids, paper_id_errors = read_file(file)
     papers_discussed_ids, paper_discussed_id_errors = read_file(discussed_file)
+    papers_next_ids, paper_next_id_errors = read_file(next_file)
     
-    ## Make sure papers on discussed list are in the original paper list (i.e. not from previous weeks)
-    new_papers_discussed_ids = []
-    
-    for paper_id in papers_discussed_ids:
-        if (paper_id in papers_ids):
-            new_papers_discussed_ids.append(paper_id)
-    
-    papers_discussed_ids = new_papers_discussed_ids
-    
-    # Edit list of paper IDs, removing those already discussed
-    new_papers_ids = []
-    
-    for paper_id in papers_ids:
-        if not(paper_id in papers_discussed_ids):
-            new_papers_ids.append(paper_id)
-    
-    papers_ids = new_papers_ids
-    
+    # Check papers against discussed papers list
+    papers_ids, papers_discussed_ids, papers_next_ids = paper_lists_checker(papers_ids, papers_discussed_ids, papers_next_ids)
     
     # Read in the papers
     try:
         paperrs, papers = readlist(papers_ids, sleep=sleep)
         paperrs_discussed, papers_discussed = readlist(papers_discussed_ids, sleep=sleep)
+        paperrs_next, papers_next = readlist(papers_next_ids, sleep=sleep)
         html = []
     except Exception, why:
         html = ['Could not get the papers info']
         papers = []
         discussed_papers = []
+        papers_next = []
         outstat = outstat + 'Could not get the paper info\n\n'
         outstat += str(why) + "\n\n"
     
     # Make html for the page
-    html = makehtml(papers, papers_ids, papers_discussed, papers_discussed_ids, day, hour, min, idcomments=idid, php=php)
+    html = makehtml(papers, papers_ids, papers_discussed, papers_discussed_ids, papers_next, papers_next_ids, day, hour, min, idcomments=idid, php=php)
     # try:
     #     html = makehtml(papers, papers_ids, papers_discussed, papers_discussed_ids, day, hour, min, idcomments=idid, php=php)
     # except:
