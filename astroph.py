@@ -689,7 +689,7 @@ def makehtml(papers, papers_ids, papers_discussed, papers_discussed_ids, papers_
     return html
 
 
-def doarchivepage(file, discussed_file, outfile):
+def doarchivepage(papers_ids, papers_discussed_ids, papers_next_ids, file, discussed_file, next_file, outfile):
     """Create the archive file, clear the papers file
 
     INPUTS:
@@ -738,24 +738,34 @@ def doarchivepage(file, discussed_file, outfile):
         f.close()
 
         try:
-            # Clear the papers file for the new week, but save the last
-            # entry because it was what triggered the update/archive
-            f = open(file, 'r')
-            ids = f.readlines()
-            f.close()
-
+            # Move next week's papers to current week
+            new_papers_ids = []
+            
             f = open(file, 'w')
-            f.write(ids[len(ids)-1])
+            for cur_id in papers_next_ids:
+                if cur_id not in papers_discussed_ids:
+                    f.write(cur_id + '\n')
+                    new_papers_ids.append(cur_id)
             f.close()
             
-            f = open(discussed_file, 'w')
-            f.write('\n')
-            f.close()
+            # Clear next week's papers list
+            next_f = open(next_file, 'w')
+            next_f.write('\n')
+            next_f.close()
+            
+            # Clear discussed papers list
+            disc_f = open(discussed_file, 'w')
+            disc_f.write('\n')
+            disc_f.close()
+            
+            papers_ids = new_papers_ids
+            papers_discussed_ids = []
+            papers_next_ids = []
         except:
             html = ['Could not get the papers info in the archive loop']
             papers = []
             arcstat = arcstat + "Could not get paper info in archive loop\n\n"
-    return arcstat
+    return arcstat, papers_ids, papers_discussed_ids, papers_next_ids
 
 
 def docoffeepage(file, discussed_file, next_file, url, day, hour, min, sleep=60, idid=False, php=False):
@@ -774,22 +784,17 @@ def docoffeepage(file, discussed_file, next_file, url, day, hour, min, sleep=60,
                  requests, so aRxIv doesn't think you're a robot and
                  ban your connection.
     """
-
+    
     import datetime
-
+    
     today = datetime.datetime.now()
     msg1, prevdate = getprevduedate(day, hour, min)
     msg2, nextdate = getnextduedate(day, hour, min)
-
+    
     outstat = msg1 + "\n" + msg2
     outstat = outstat + "\nPrevious: " + prevdate.strftime('%Y-%m-%d')
     outstat = outstat + "\nNow:      " + today.strftime('%Y-%m-%d %H:%M:%S')
     outstat = outstat + "\nNext:     " + nextdate.strftime('%Y-%m-%d') + "\n\n"
-
-    outfile='./archive/' + prevdate.strftime('%Y-%m-%d') + '-papers.php'
-    arcstat = doarchivepage(file, discussed_file, outfile)
-    paperrs = ''
-    
     
     # Read in paper IDs and discussed paper IDs as lists
     papers_ids, paper_id_errors = read_file(file)
@@ -798,6 +803,11 @@ def docoffeepage(file, discussed_file, next_file, url, day, hour, min, sleep=60,
     
     # Check papers against discussed papers list
     papers_ids, papers_discussed_ids, papers_next_ids = paper_lists_checker(papers_ids, papers_discussed_ids, papers_next_ids)
+    
+    # Make archive page if necessary
+    outfile='./archive/' + prevdate.strftime('%Y-%m-%d') + '-papers.php'
+    arcstat, papers_ids, papers_discussed_ids, papers_next_ids = doarchivepage(papers_ids, papers_discussed_ids, papers_next_ids, file, discussed_file, next_file, outfile)
+    paperrs = ''
     
     # Read in the papers
     try:
