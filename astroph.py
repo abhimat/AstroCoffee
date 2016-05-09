@@ -543,7 +543,7 @@ def makehtml(papers, papers_ids, papers_discussed, papers_discussed_ids, papers_
     if len(papers_next) > 0:
         paper_indices = range(len(papers_next))
         
-        body = body + h_next
+        # body = body + h_next
         
         for paper_index in reversed(paper_indices):
             paper = papers_next[paper_index]
