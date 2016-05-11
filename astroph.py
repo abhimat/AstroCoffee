@@ -479,67 +479,7 @@ def makehtml(papers, papers_ids, papers_discussed, papers_discussed_ids, papers_
     body = []
     date = ''
     
-    paper_indices = range(len(papers))
-    
-    for paper_index in reversed(paper_indices):
-        paper = papers[paper_index]
-        
-        ## Constructing discussed link
-        paper_id = papers_ids[paper_index]
-        discussed_link = '<p class="small"><a href="http://coffee.astro.ucla.edu/discussed/discussed.php?ID={0}">Mark paper as discussed</a></p>'.format(paper_id)
-        
-        date = paper.date
-        if isinstance(paper, preprint):
-            if paper.errors.startswith("Success"):
-                if paper.sources != '':
-                    if date != "":
-                        body.append('<article class="block">')
-                        body.append('<div class="date small">%s</div>' % paper.date)
-                    # Remove any stray/extra whitespaces
-                    paper.sources = paper.sources.lstrip()
-                    paper.sources = paper.sources.rstrip()
-                    body.append('<div class="links small">[ %s ]</div>' %
-                                paper.sources)
-                    title = '<h3><a href="%s">%s</a></h3>' \
-                            % (paper.url, paper.title)
-                else:
-                    if date != "":
-                        body.append('<article class="block">')
-                        body.append('<div class="date small">%s</div>' % paper.date)
-                    title = '<h3><a href="%s">%s</a></h3>' % (paper.url, paper.title)
-                body.append('%s' % title)
-                if paper.numauth > 5 and \
-                   paper.author != "Error Grabbing Authors":
-                    authremain = paper.numauth-5
-                    aexstring = ", + " + str(authremain) + " more"
-                    paper.author = paper.author + aexstring
-                body.append('<div class="authors small">%s</div>' % paper.author)
-                # Limit the length of the abstract displayed, and if its
-                #   shorter then just display the whole thing
-                abslength = 500
-                # Hopefully remove links and other HTML things in there
-                if len(paper.abstract) > abslength:
-                    paper.shortabs = paper.abstract[0:abslength] + '...'
-                    paper.shortabs = paper.shortabs.rstrip()
-                else:
-                    paper.shortabs = paper.abstract
-                paper.shortabs = paper.shortabs.lstrip()
-                paper.shortabs = paper.shortabs.rstrip()
-                body.append('<div id="abstract"><p>%s</p></div>' % paper.shortabs)
-                body.append(discussed_link)
-                body.append('</article>')
-            else:
-                body.append('<article class="block">')
-                if (paper.url.find('.pdf') > -1):
-                    paper.date = "Please Do NOT Submit Direct PDF Links:"
-                else:
-                    paper.date = "Unknown Submission/Link:"
-                body.append('<div class="date small">%s</div>' % paper.date)
-                title = '<h3><a href="%s">%s</a></h3>' % (paper.url, paper.url)
-                body.append('%s' % title)
-                body.append(discussed_link)
-                body.append('</article>')
-    
+    ## Write out the newest papers (papers_next) first
     if len(papers_next) > 0:
         paper_indices = range(len(papers_next))
         
@@ -603,6 +543,68 @@ def makehtml(papers, papers_ids, papers_discussed, papers_discussed_ids, papers_
                     body.append('%s' % title)
                     body.append(discussed_link)
                     body.append('</article>')
+    
+    ## Write out current papers (papers)
+    paper_indices = range(len(papers))
+    
+    for paper_index in reversed(paper_indices):
+        paper = papers[paper_index]
+        
+        ## Constructing discussed link
+        paper_id = papers_ids[paper_index]
+        discussed_link = '<p class="small"><a href="http://coffee.astro.ucla.edu/discussed/discussed.php?ID={0}">Mark paper as discussed</a></p>'.format(paper_id)
+        
+        date = paper.date
+        if isinstance(paper, preprint):
+            if paper.errors.startswith("Success"):
+                if paper.sources != '':
+                    if date != "":
+                        body.append('<article class="block">')
+                        body.append('<div class="date small">%s</div>' % paper.date)
+                    # Remove any stray/extra whitespaces
+                    paper.sources = paper.sources.lstrip()
+                    paper.sources = paper.sources.rstrip()
+                    body.append('<div class="links small">[ %s ]</div>' %
+                                paper.sources)
+                    title = '<h3><a href="%s">%s</a></h3>' \
+                            % (paper.url, paper.title)
+                else:
+                    if date != "":
+                        body.append('<article class="block">')
+                        body.append('<div class="date small">%s</div>' % paper.date)
+                    title = '<h3><a href="%s">%s</a></h3>' % (paper.url, paper.title)
+                body.append('%s' % title)
+                if paper.numauth > 5 and \
+                   paper.author != "Error Grabbing Authors":
+                    authremain = paper.numauth-5
+                    aexstring = ", + " + str(authremain) + " more"
+                    paper.author = paper.author + aexstring
+                body.append('<div class="authors small">%s</div>' % paper.author)
+                # Limit the length of the abstract displayed, and if its
+                #   shorter then just display the whole thing
+                abslength = 500
+                # Hopefully remove links and other HTML things in there
+                if len(paper.abstract) > abslength:
+                    paper.shortabs = paper.abstract[0:abslength] + '...'
+                    paper.shortabs = paper.shortabs.rstrip()
+                else:
+                    paper.shortabs = paper.abstract
+                paper.shortabs = paper.shortabs.lstrip()
+                paper.shortabs = paper.shortabs.rstrip()
+                body.append('<div id="abstract"><p>%s</p></div>' % paper.shortabs)
+                body.append(discussed_link)
+                body.append('</article>')
+            else:
+                body.append('<article class="block">')
+                if (paper.url.find('.pdf') > -1):
+                    paper.date = "Please Do NOT Submit Direct PDF Links:"
+                else:
+                    paper.date = "Unknown Submission/Link:"
+                body.append('<div class="date small">%s</div>' % paper.date)
+                title = '<h3><a href="%s">%s</a></h3>' % (paper.url, paper.url)
+                body.append('%s' % title)
+                body.append(discussed_link)
+                body.append('</article>')
     
     # Finish up and return if no papers in discussed list
     if len(papers_discussed) == 0:
