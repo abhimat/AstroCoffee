@@ -4,6 +4,8 @@ from getwebinfo import getwebinfo
 import urllib2
 
 url = 'https://astrobites.org/2016/04/12/pursuing-eternal-youth-stellar-cannibalism-in-the-wilds-of-our-galaxy/'
+url = 'http://www.sciencemag.org/news/2016/04/no-pressure-nsf-test-finds-eliminating-deadlines-halves-number-grant-proposals'
+
 id = url
 html = ''
 # HTTP request for a webpage URL
@@ -56,3 +58,4 @@ print(paper.abstract + '\n')
 print(paper.sources + '\n')
 print(paper.subject + '\n')
 print(paper.url + '\n')
+print(paper.errors + '\n')

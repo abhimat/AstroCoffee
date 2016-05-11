@@ -45,10 +45,11 @@ def getwebinfo(url, html):
     
     try:
         paper.title = ip_data['title'].encode("utf-8")
+        print(paper.title)
     except:
-        paper.errors = "1"
-        paper.title = " "
-        # print("Error grabbing title")
+        paper.errors = "0"
+        paper.title = "[Error grabbing title]"
+        print("Error grabbing title")
     
     try:
         date = ip_data['date']
@@ -73,6 +74,8 @@ def getwebinfo(url, html):
         paper.errors = "0"
         paper.abstract = " "
         # print("Error grabbing description")
+    
+    print(paper.errors)
     
     # paper.url = url
     # # Remove all the muck that screws up the BeautifulSoup parser
