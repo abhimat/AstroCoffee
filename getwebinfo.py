@@ -75,8 +75,6 @@ def getwebinfo(url, html):
         paper.abstract = " "
         # print("Error grabbing description")
     
-    print(paper.errors)
-    
     # paper.url = url
     # # Remove all the muck that screws up the BeautifulSoup parser
     # # Will fail on PDF submission, so take care of that exception first
