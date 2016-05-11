@@ -183,7 +183,7 @@ def getinfo(id, server='http://arxiv.org/abs/'):
                 thispaper.errors = 'Some ERRORS reading ' + urlpage
             thispaper.id = ''
         # Science Article
-        elif urlpage.find('sciencemag.org')>-1:
+        elif urlpage.find('science.sciencemag.org')>-1:
             thispaper = getscienceinfo(urlpage, html)
             if thispaper.errors == '0':
                 thispaper.errors = 'Success reading ' + urlpage
