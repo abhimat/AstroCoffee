@@ -1,7 +1,12 @@
 .DS_Store
 archive/*.php
+archive/index.php
 *.pyc
 *.log
 Private/passwords.py
 papers
 papers_discussed
+papers_next
+astro_coffee.php
+astro_coffee*.php
+index_v1.php
