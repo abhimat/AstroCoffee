@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <!--
  
-    UCLA Astro Coffee Bookmarker Page
+    UCLA Astro Coffee Discussed List Adder
 	by Abhimat Gautam
 	based on previous work by Ryan T. Hamilton,
 	Ian J. Crossfield, and Nathaniel Ross
@@ -46,6 +46,15 @@ $minlength = 5;
 // echo '<META HTTP-EQUIV=Refresh CONTENT="10">';
 echo '<META HTTP-EQUIV=Refresh CONTENT="1;url=../">';
 echo "<p>You submitted ".$ID.".</p>";
+
+# Testing for coffee time (can't submit otherwise (silly robots :( ))
+if (!((date('H') >= 15 and date('H') < 16 and date('w') == 2) or ((date('H') >= 14 and date('H') < 15 and date('w') == 4)))) {
+	echo '<p><strong>Not coffee time!</strong></p>';
+	echo '<p>Paper not added to discussed list. Please wait until coffee time to add.</p>';
+    echo "<p>Returning to the main page automatically in 1 second</p>";
+    echo "<p>If not, click <a href='../'>here</a></p>";
+	die;
+}
 
 # Testing for duplicates
 $papers = file($paperFile) or die("can't open file: ".$paperFile);
