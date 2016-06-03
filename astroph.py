@@ -80,7 +80,7 @@ def getinfo(id, server='http://arxiv.org/abs/'):
     id = str(id).strip().lower()
 
     # Check if ID is a pdf
-    if id.find(".pdf") >= -1 and id.find("arxiv.org") >= -1:
+    if id.find(".pdf") > -1 and id.find("arxiv.org") > -1:
         id = extract_arxiv_id(id)
 
     # Check for the various types of arXiv identifiers

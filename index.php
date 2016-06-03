@@ -89,7 +89,7 @@ if ((!isset($_POST["submit"])) and (!isset($_POST["submitcheck"])))
 		</ul></center>
 		
 		<form method="post" class="submission" action="<?php echo $PHP_SELF;?>">
-			<center><input type="text" name="article" maxlength="128" placeholder="Submit a URL (no PDF links) or arXiv-ID" class="field"/></center>
+			<center><input type="text" name="article" maxlength="128" placeholder="Submit a URL or arXiv-ID" class="field"/></center>
 			<input type="submit" value="submit" name="submit" class="button"/>
 		</form>
 		
@@ -125,7 +125,7 @@ if ((!isset($_POST["submit"])) and (!isset($_POST["submitcheck"])))
   echo "<p>You submitted ".$article.".</p>";
   
   # Testing for PDF >:(
-  if (strpos(trim($article), '.pdf') !== false) {
+  if (strpos(trim($article), '.pdf') !== false and strpos(trim($article), 'arxiv.org') == false) {
   	echo '<p>It appears that you have submitted a PDF link.<br><strong>Please submit a link to the webpage of the paper instead.</strong></p>';
 	echo '<p>(Come on Devin&hellip;)</p>';
   	echo '<p>If you think this is an error, tell the coffee czar.</p>';

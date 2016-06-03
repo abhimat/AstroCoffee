@@ -72,7 +72,7 @@ if ((strpos(trim($article), 'coffee.astro.ucla.edu') !== false) or (strpos(trim(
 }
 
 # Testing for PDF >:(
-if (strpos(trim($article), '.pdf') !== false) {
+if (strpos(trim($article), '.pdf') !== false and strpos(trim($article), 'arxiv.org') == false) {
 	echo '<p>It appears that you have submitted a PDF link.<br><strong>Please submit a link to the webpage of the paper instead.</strong></p>';
 	echo '<p>(Come on Devin&hellip;)</p>';
 	echo '<p>If you think this is an error, tell the coffee czar.</p>';
