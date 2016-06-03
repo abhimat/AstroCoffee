@@ -48,6 +48,11 @@ def getunique(seq):
             checked.append(e)
     return checked
 
+# Takes an arxiv pdf link and extracts the id
+# assumes all arxiv links of the form "asdfasdfadsf/pdf/idnumber.pdf"
+def extract_arxiv_id(id):
+    pdf_ind = id.find("pdf/")
+    return id[pdf_ind + 4:len(id) - 4]
 
 def getinfo(id, server='http://arxiv.org/abs/'):
     """Take an ArXiV ID and return the title, authors, abstract, sub. date
@@ -73,6 +78,10 @@ def getinfo(id, server='http://arxiv.org/abs/'):
     servererr = False
     # Set up the ID
     id = str(id).strip().lower()
+
+    # Check if ID is a pdf
+    if id.find(".pdf") >= -1 and id.find("arxiv.org") >= -1:
+        id = extract_arxiv_id(id)
 
     # Check for the various types of arXiv identifiers
     try:
