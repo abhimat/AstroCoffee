@@ -74,15 +74,15 @@ def getinfo(id, server='http://arxiv.org/abs/'):
     from getvoxchartainfo import getvoxchartainfo
     from getwebinfo import getwebinfo
     import urllib2
-
+    
     servererr = False
     # Set up the ID
-    id = str(id).strip().lower()
-
+    id = str(id).strip()
+    
     # Check if ID is a pdf
     if id.find(".pdf") > -1 and id.find("arxiv.org") > -1:
         id = extract_arxiv_id(id)
-
+    
     # Check for the various types of arXiv identifiers
     try:
         # Check for plain numbers with no lead/trail and a period in it
