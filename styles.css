@@ -225,7 +225,7 @@ ul.pages-small li a {
 
 .submission input.field {
     width: 60%;
-    border: 1px solid #ccc;
+    border: 1px solid #999;
     line-height: 20px;
     padding: 4px 10px;
     border-radius: 16px;
@@ -247,18 +247,22 @@ ul.pages-small li a {
 
 .submission ::-webkit-input-placeholder {
    text-align: center;
+   color: #111;
 }
 
 .submission :-moz-placeholder { /* Firefox 18- */
-   text-align: center;  
+   text-align: center;
+   color: #111;
 }
 
 .submission ::-moz-placeholder {  /* Firefox 19+ */
-   text-align: center;  
+   text-align: center;
+   color: #111;
 }
 
 .submission :-ms-input-placeholder {  
-   text-align: center; 
+   text-align: center;
+   color: #111;
 }
 
 /*Content Styles*/
