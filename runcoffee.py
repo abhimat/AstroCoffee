@@ -5,8 +5,8 @@ import astroph, shutil, time, datetime, os, re, send_error_mail
 from dateutil.relativedelta import relativedelta, MO, TU, WE, TH, FR, SA, SU
 
 # Change this to control the next meeting date & time
-day=TH
-hour=14
+day=FR
+hour=11
 min=00
 
 # Change this to send the error emails to the appropriate people
@@ -38,8 +38,8 @@ f.close()
 nlines = i + 1
 
 napTime = 10  # time, in seconds, to wait between web queries
-timecomp = napTime * nlines
-testimate = datetime.timedelta(seconds=timecomp)
+# timecomp = napTime * nlines
+# testimate = datetime.timedelta(seconds=timecomp)
 
 # Check last-modified times:
 paper_time = shutil.os.path.getmtime(paper_file)
@@ -71,8 +71,8 @@ if paper_time > web_time or paper_discussed_time > web_time or paper_next_time >
     try:
         f=open(stat_log,'w')
         f.write(output)
-        f.write("\nRequest estimated at " + str(testimate) + "\n")
-        f.write("Request completed in " + str(tdiff) + "\n\n")
+        # f.write("\nRequest estimated at " + str(testimate) + "\n")
+        # f.write("Request completed in " + str(tdiff) + "\n\n")
         f.close()
     except: 
         pass

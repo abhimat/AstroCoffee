@@ -410,7 +410,7 @@ def makeheader(day, hour, min, php=False):
     
     # If there are two meetings, use following
     ## Get previous date astro-ph coffee is held in week
-    nextdate_early = nextdate+relativedelta(days=-2, hours=+1)
+    nextdate_early = nextdate+relativedelta(days=-3)
     datestr_early = nextdate_early.strftime('%a, %b %d, %Y at %I:%M %p')
     datestr_next_early = (nextdate_early+relativedelta(days=+7)).strftime('%a, %b %d, %Y at %I:%M %p')
 
