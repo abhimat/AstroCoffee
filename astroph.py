@@ -50,7 +50,7 @@ def getunique(seq):
 
 # Takes an arxiv pdf link and extracts the id
 # assumes all arxiv links of the form "asdfasdfadsf/pdf/idnumber.pdf"
-def extract_arxiv_id(id):
+def clean_arxiv_id(id):
     pdf_ind = id.find("pdf/")
     return id[pdf_ind + 4:len(id) - 4]
 
@@ -80,9 +80,14 @@ def getinfo(id, server='http://arxiv.org/abs/'):
     # Set up the ID
     id = str(id).strip()
     
-    # Check if ID is a pdf
+    
+    # Clean up various paper IDs before continuing
+    ## Check if arXiv ID is a pdf
     if id.find(".pdf") > -1 and id.find("arxiv.org") > -1:
-        id = extract_arxiv_id(id)
+        id = clean_arxiv_id(id)
+    ## Check if Science ID is not link to full article
+    if id.find('science.sciencemag.org') > -1 and id.find('.full') == -1:
+        id = id + '.full'
     
     # Check for the various types of arXiv identifiers
     try:
