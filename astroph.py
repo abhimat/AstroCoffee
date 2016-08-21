@@ -313,6 +313,28 @@ def read_file(file):
     
     return ids, errors
 
+def read_volunteers_file(file):
+    try:
+        f = open(file, 'r')
+        lines = f.readlines()
+        f.close()
+    
+        papers_volunteers = {}
+    
+        for line_index in range(len(lines) / 2):
+            cur_id = lines[line_index * 2].rstrip('\n').rstrip('\r')
+            cur_vol = lines[line_index * 2 + 1].rstrip('\n').rstrip('\r')
+        
+            if cur_id in papers_volunteers:
+                papers_volunteers[cur_id].append(cur_vol)
+            else:
+                papers_volunteers[cur_id] = [cur_vol]
+    except:
+        papers_volunteers = {}
+    
+    return papers_volunteers
+    
+
 def paper_lists_checker(papers_ids, papers_discussed_ids, papers_next_ids):
     # Make sure papers on discussed list are in the original paper lists (i.e. not from previous weeks)
     new_papers_discussed_ids = []
@@ -475,7 +497,7 @@ def makefooter(php=False):
     return foot
 
 
-def makehtml(papers, papers_ids, papers_discussed, papers_discussed_ids, papers_next, papers_next_ids, day, hour, min, idcomments=False, php=False):
+def makehtml(papers, papers_ids, papers_discussed, papers_discussed_ids, papers_next, papers_next_ids, papers_volunteers, day, hour, min, idcomments=False, php=False):
     """Return HTML code for a public ArXiV web page from paper list.
 
     INPUT:
@@ -511,9 +533,23 @@ def makehtml(papers, papers_ids, papers_discussed, papers_discussed_ids, papers_
         for paper_index in reversed(paper_indices):
             paper = papers_next[paper_index]
             
-            ## Constructing discussed link
+            ## Constructing action text
             paper_id = papers_next_ids[paper_index]
-            discussed_link = '<p class="small"><a href="http://coffee.astro.ucla.edu/discussed/discussed.php?ID={0}">Mark paper as discussed</a></p>'.format(paper_id)
+            
+            volunteer_text = ''
+            if paper_id in papers_volunteers:
+                cur_vols = papers_volunteers[paper_id]
+                vols_names = cur_vols[0]
+                if len(cur_vols) > 1:
+                    for vol in cur_vols[1:]:
+                        vols_names.append(', {0}'.format(vol))
+                
+                volunteer_text = 'Volunteers: {0}<br>'.format(vols_names)
+            
+            discussed_link = '<a href="http://coffee.astro.ucla.edu/discussed/discussed.php?ID={0}">Mark paper as discussed</a>'.format(paper_id)
+            
+            action_text = '<p class="small">' + volunteer_text + discussed_link + '</p>'
+                
         
             date = paper.date
             if isinstance(paper, preprint):
@@ -553,7 +589,7 @@ def makehtml(papers, papers_ids, papers_discussed, papers_discussed_ids, papers_
                     paper.shortabs = paper.shortabs.lstrip()
                     paper.shortabs = paper.shortabs.rstrip()
                     body.append('<div id="abstract"><p>%s</p></div>' % paper.shortabs)
-                    body.append(discussed_link)
+                    body.append(action_text)
                     body.append('</article>')
                 else:
                     body.append('<article class="block">')
@@ -573,9 +609,22 @@ def makehtml(papers, papers_ids, papers_discussed, papers_discussed_ids, papers_
     for paper_index in reversed(paper_indices):
         paper = papers[paper_index]
         
-        ## Constructing discussed link
+        ## Constructing action text
         paper_id = papers_ids[paper_index]
-        discussed_link = '<p class="small"><a href="http://coffee.astro.ucla.edu/discussed/discussed.php?ID={0}">Mark paper as discussed</a></p>'.format(paper_id)
+        
+        volunteer_text = ''
+        if paper_id in papers_volunteers:
+            cur_vols = papers_volunteers[paper_id]
+            vols_names = cur_vols[0]
+            if len(cur_vols) > 1:
+                for vol in cur_vols[1:]:
+                    vols_names.append(', {0}'.format(vol))
+            
+            volunteer_text = 'Volunteers: {0}<br>'.format(vols_names)
+        
+        discussed_link = '<a href="http://coffee.astro.ucla.edu/discussed/discussed.php?ID={0}">Mark paper as discussed</a>'.format(paper_id)
+        
+        action_text = '<p class="small">' + volunteer_text + discussed_link + '</p>'
         
         date = paper.date
         if isinstance(paper, preprint):
@@ -615,7 +664,7 @@ def makehtml(papers, papers_ids, papers_discussed, papers_discussed_ids, papers_
                 paper.shortabs = paper.shortabs.lstrip()
                 paper.shortabs = paper.shortabs.rstrip()
                 body.append('<div id="abstract"><p>%s</p></div>' % paper.shortabs)
-                body.append(discussed_link)
+                body.append(action_text)
                 body.append('</article>')
             else:
                 body.append('<article class="block">')
@@ -793,7 +842,7 @@ def doarchivepage(papers_ids, papers_discussed_ids, papers_next_ids, file, discu
     return arcstat, papers_ids, papers_discussed_ids, papers_next_ids
 
 
-def docoffeepage(file, discussed_file, next_file, url, day, hour, min, sleep=60, idid=False, php=False):
+def docoffeepage(file, discussed_file, next_file, volunteers_file, url, day, hour, min, sleep=60, idid=False, php=False):
     """Read in arxiv IDs from a specified ASCII file, and write HTML.
 
     INPUTS:
@@ -825,6 +874,7 @@ def docoffeepage(file, discussed_file, next_file, url, day, hour, min, sleep=60,
     papers_ids, paper_id_errors = read_file(file)
     papers_discussed_ids, paper_discussed_id_errors = read_file(discussed_file)
     papers_next_ids, paper_next_id_errors = read_file(next_file)
+    papers_volunteers = read_volunteers_file(volunteers_file)
     
     # Check papers against discussed papers list
     papers_ids, papers_discussed_ids, papers_next_ids = paper_lists_checker(papers_ids, papers_discussed_ids, papers_next_ids)
@@ -849,7 +899,7 @@ def docoffeepage(file, discussed_file, next_file, url, day, hour, min, sleep=60,
         outstat += str(why) + "\n\n"
     
     # Make html for the page
-    html = makehtml(papers, papers_ids, papers_discussed, papers_discussed_ids, papers_next, papers_next_ids, day, hour, min, idcomments=idid, php=php)
+    html = makehtml(papers, papers_ids, papers_discussed, papers_discussed_ids, papers_next, papers_next_ids, papers_volunteers, day, hour, min, idcomments=idid, php=php)
     # try:
     #     html = makehtml(papers, papers_ids, papers_discussed, papers_discussed_ids, day, hour, min, idcomments=idid, php=php)
     # except:

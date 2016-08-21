@@ -20,6 +20,7 @@ idcomments = False
 paper_file = 'papers'
 paper_discussed_file = 'papers_discussed'
 paper_next_file = 'papers_next'
+paper_volunteers_file = 'papers_volunteers'
 main_file = 'astro_coffee.php'
 temp_file = 'astro_coffee_temp.php'
 stat_log = 'status.log'
@@ -37,7 +38,7 @@ for i, l in enumerate(f):
 f.close()
 nlines = i + 1
 
-napTime = 10  # time, in seconds, to wait between web queries
+napTime = 4  # time, in seconds, to wait between web queries
 # timecomp = napTime * nlines
 # testimate = datetime.timedelta(seconds=timecomp)
 
@@ -50,7 +51,7 @@ web_time = shutil.os.path.getmtime(main_file)
 # If list was updated, run the script!
 if paper_time > web_time or paper_discussed_time > web_time or paper_next_time > web_time:
     before = datetime.datetime.now()
-    (html, output) = astroph.docoffeepage(paper_file, paper_discussed_file, paper_next_file, temp_file, day, hour, min, sleep=napTime, idid=idcomments, php=True)
+    (html, output) = astroph.docoffeepage(paper_file, paper_discussed_file, paper_next_file, paper_volunteers_file, temp_file, day, hour, min, sleep=napTime, idid=idcomments, php=True)
     # print html
     #     f = open(temp_file, 'w')
     #     for line in html:
