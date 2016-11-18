@@ -52,7 +52,7 @@ h2, .h2 {
 }
 
 h3, .h3 {
-    font-weight: 400;
+    font-weight: 600;
     font-size: 16px;
 }
 
@@ -60,6 +60,10 @@ h1+h2 { margin-top: 0; }
 
 p, .p, ul, ol, table {
     font-size: 14px;
+}
+
+large, .large {
+    font-size: 18px;
 }
 
 small, .small {
