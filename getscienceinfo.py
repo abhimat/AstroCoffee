@@ -79,15 +79,16 @@ def getscienceinfo(url, html):
     #   this does keep the footnote numbers unfortunately, but big whoop
     paper.abstract = ''
     try:
-        paper.abstract = ''.join(soup.find(\
-                                 "p",attrs={"id":"p-4"}).findAll(text=True))
+        abstract_div = soup.find("div", attrs={"class":"section abstract"})
+        paper.abstract = ''.join(abstract_div.find("p").findAll(text=True))
     except:
         try:
-            paper.abstract = ''.join(soup.find(\
-                                "p",attrs={"class":"intro"}).findAll(text=True))
+            paper.abstract = ''.join(soup.find("p", attrs={"id":"p-4"}).findAll(text=True))
         except:
-            paper.abstract = ''.join(soup.find(\
-                                "meta",attrs={"name":"description"})['content'])
+            try:
+                paper.abstract = ''.join(soup.find("p", attrs={"class":"intro"}).findAll(text=True))
+            except:
+                paper.abstract = ''.join(soup.find("meta", attrs={"name":"description"})['content'])
 
     if paper.abstract == 'None' or paper.abstract == '':
         paper.abstract = "Error Grabbing Abstract"
