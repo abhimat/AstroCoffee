@@ -446,7 +446,7 @@ def makeheader(day, hour, min, php=False):
     
     # If there are two meetings, use following
     ## Get previous date astro-ph coffee is held in week
-    nextdate_early = nextdate+relativedelta(days=-3)
+    nextdate_early = nextdate+relativedelta(days=-2)
     datestr_early = nextdate_early.strftime('%a, %b %d, %Y at %I:%M %p')
     datestr_next_early = (nextdate_early+relativedelta(days=+7)).strftime('%a, %b %d, %Y at %I:%M %p')
 
@@ -544,7 +544,7 @@ def makehtml(papers, papers_ids, papers_discussed, papers_discussed_ids, papers_
                     for vol in cur_vols[1:]:
                         vols_names.append(', {0}'.format(vol))
                 
-                volunteer_text = 'Volunteers: {0}<br>'.format(vols_names)
+                volunteer_text = 'Volunteers: {0} | {1}<br>'.format(vols_names, '<a href="#">Volunteer to Discuss</a>')
             
             discussed_link = '<a href="http://coffee.astro.ucla.edu/discussed/discussed.php?ID={0}">Mark paper as discussed</a>'.format(paper_id)
             
@@ -620,7 +620,7 @@ def makehtml(papers, papers_ids, papers_discussed, papers_discussed_ids, papers_
                 for vol in cur_vols[1:]:
                     vols_names.append(', {0}'.format(vol))
             
-            volunteer_text = 'Volunteers: {0}<br>'.format(vols_names)
+            volunteer_text = 'Volunteers: {0} | {1}<br>'.format(vols_names, '<a href="#">Volunteer to Discuss</a>')
         
         discussed_link = '<a href="http://coffee.astro.ucla.edu/discussed/discussed.php?ID={0}">Mark paper as discussed</a>'.format(paper_id)
         

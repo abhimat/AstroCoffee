@@ -5,7 +5,7 @@ import astroph, shutil, time, datetime, os, re, send_error_mail
 from dateutil.relativedelta import relativedelta, MO, TU, WE, TH, FR, SA, SU
 
 # Change this to control the next meeting date & time
-day=FR
+day=TH
 hour=11
 min=00
 
