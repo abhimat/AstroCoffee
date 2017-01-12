@@ -436,31 +436,45 @@ def makeheader(day, hour, min, php=False):
     import datetime
     from dateutil.relativedelta import relativedelta, \
         MO, TU, WE, TH, FR, SA, SU
-
+    
+    head = []
+    head_next = []
+    
+    titleString1 = '<article class="block">'
+    
+    # If there is only one meeting
     # Need this dummy return value because of the way I write the status file
     mgs = ''
     msg, nextdate = getnextduedate(day, hour, min)#+relativedelta(minutes=-60)
-    nextdate = nextdate+relativedelta(hours=-1)
-    datestr = nextdate.strftime('%a, %b %d, %Y at %I:%M %p')
-    datestr_next = (nextdate+relativedelta(days=+7)).strftime('%a, %b %d, %Y at %I:%M %p')
+    nextdate = nextdate + relativedelta(hours=-1)
+    datestr = nextdate.strftime('%a, %b %d, %Y')
+    datestr_next = (nextdate + relativedelta(days=+7)).strftime('%a, %b %d, %Y')
+    
+    timestr = nextdate.strftime('%I:%M %p')
+    
+    titleString2 = '<center><p>Suggested papers for<br><strong>{0}</strong> at <strong>{1}</strong></p></center>\n'.format(datestr, timestr)
+    titeString2_next = '<hr><center><p>Suggested papers for<br><strong>{0}</strong> at <strong>{1}</strong></p></center>\n'.format(datestr_next, timestr)
     
     # If there are two meetings, use following
     ## Get previous date astro-ph coffee is held in week
-    nextdate_early = nextdate+relativedelta(days=-2)
-    datestr_early = nextdate_early.strftime('%a, %b %d, %Y at %I:%M %p')
-    datestr_next_early = (nextdate_early+relativedelta(days=+7)).strftime('%a, %b %d, %Y at %I:%M %p')
-
-    head = []
-    head_next = []
-
-    titleString1 = '<article class="block">'
+    nextdate_early_0 = nextdate+relativedelta(days=-1)
+    datestr_early_0 = nextdate_early_0.strftime('%a, %b %d, %Y')
+    datestr_next_early_0 = (nextdate_early_0 + relativedelta(days=+7)).strftime('%a, %b %d, %Y')
     
-    titleString2 = '<center><p>Suggested papers for<br><strong>{0}</strong></p></center>\n'.format(datestr)
-    titeString2_next = '<hr><center><p>Suggested papers for<br><strong>{0}</strong></p></center>\n'.format(datestr_next)
+    titleString2 = '<center><p>Suggested papers for<br><strong>{0}</strong> and <strong>{1}</strong> at <strong>{2}</strong></p></center>\n'.format(datestr_early_0, datestr, timestr)
+    titleString2_next = '<hr><center><p>Suggested papers for<br><strong>{0}</strong> and <strong>{1}</strong> at <strong>{2}</strong></p></center>\n'.format(datestr_next_early_0, datestr_next, timestr)
     
-    ## For two meetings use following instead
-    titleString2 = '<center><p>Suggested papers for<br><strong>{0}</strong> and <strong>{1}</strong></p></center>\n'.format(datestr_early, datestr)
-    titleString2_next = '<hr><center><p>Suggested papers for<br><strong>{0}</strong> and <strong>{1}</strong></p></center>\n'.format(datestr_next_early, datestr_next)
+    # If there are three meetings, use following
+    ## Get previous date astro-ph coffee is held in week
+    nextdate_early_1 = nextdate+relativedelta(days=-3)
+    datestr_early_1 = nextdate_early_1.strftime('%a, %b %d, %Y')
+    datestr_next_early_1 = (nextdate_early_1 + relativedelta(days=+7)).strftime('%a, %b %d, %Y')
+    
+    titleString2 = '<center><p>Suggested papers for<br><strong>{0}</strong>,  <strong>{1}</strong>, and <strong>{2}</strong> at <strong>{3}</strong></p></center>\n'.format(datestr_early_1, datestr_early_0, datestr, timestr)
+    titleString2_next = '<hr><center><p>Suggested papers for<br><strong>{0}</strong>,  <strong>{1}</strong>, and <strong>{2}</strong> at <strong>{3}</strong></p></center>\n'.format(datestr_next_early_1, datestr_next_early_0, datestr_next, timestr)
+    
+    
+    # Construct header from title strings
     
     head.append(titleString1)
     head.append(titleString2)
