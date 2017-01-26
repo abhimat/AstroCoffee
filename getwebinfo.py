@@ -81,7 +81,7 @@ def getwebinfo(url, html):
     # Will fail on PDF submission, so take care of that exception first
     try:
         fhtml =re.sub(re.compile("<!--.*?-->", re.DOTALL), "", html)
-        soup = BeautifulSoup(fhtml)
+        soup = BeautifulSoup(fhtml, from_encoding='utf-8')
         paper.errors = "0"
     except:
         paper.errors = "1"
@@ -101,12 +101,17 @@ def getwebinfo(url, html):
     except:
         paper.errors = 1
         paper.title = 'Error Grabbing Title'
-
+    
+    print('')
+    print(url)
+    print(paper.title)
+    print('')
+    
     paper.numauth = 1
-    paper.date = 'Web Article:'
+    paper.date = '[ Date ]'
     paper.author = ''
     paper.abstract = ''
-    paper.sources = ''
+    paper.sources = 'Web Article'
     paper.subject = ''
     paper.comments = ''
     
