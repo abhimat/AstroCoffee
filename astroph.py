@@ -65,6 +65,7 @@ def getinfo(id, server='http://arxiv.org/abs/'):
     OUTPUT:
        a preprint-class object.
     """
+    from getaandainfo import getaandainfo
     from getadsinfo import getadsinfo
     from getarxivinfo import getarxivinfo
     from getmnrasinfo import getmnrasinfo
@@ -184,6 +185,14 @@ def getinfo(id, server='http://arxiv.org/abs/'):
              urlpage.find('xxx.lanl.gov')>-1 or \
              (isValidArxiv): 
             thispaper = getarxivinfo(urlpage, html)
+            if thispaper.errors == '0':
+                thispaper.errors = 'Success reading ' + urlpage
+            else:
+                thispaper.errors = 'Some ERRORS reading ' + urlpage
+            thispaper.id = ''
+        # A&A Article
+        elif urlpage.find('aanda.org')>-1:
+            thispaper = getaandainfo(urlpage, html)
             if thispaper.errors == '0':
                 thispaper.errors = 'Success reading ' + urlpage
             else:
@@ -769,7 +778,7 @@ def makehtml(papers, papers_ids, papers_discussed, papers_discussed_ids, papers_
                 body.append('</article>')
     
     
-    body = [line+'\n' for line in body]
+    body = [line.encode('utf-8')+'\n' for line in body]
 
     # Concatenate everything together
     html = h + body + f
