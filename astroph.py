@@ -559,16 +559,16 @@ def makehtml(papers, papers_ids, papers_discussed, papers_discussed_ids, papers_
             ## Constructing action text
             paper_id = papers_next_ids[paper_index]
             
-            volunteer_text = ''
+            volunteer_text = '<a href="http://coffee.astro.ucla.edu/volunteer/volunteer.php?ID={0}">Volunteer to discuss</a><br>'.format(paper_id)
             if paper_id in papers_volunteers:
                 cur_vols = papers_volunteers[paper_id]
                 vols_names = cur_vols[0]
                 if len(cur_vols) > 1:
                     for vol in cur_vols[1:]:
                         vols_names.append(', {0}'.format(vol))
-                
-                volunteer_text = 'Volunteers: {0} | {1}<br>'.format(vols_names, '<a href="#">Volunteer to Discuss</a>')
             
+                volunteer_text = 'Volunteers: {0} | <a href="http://coffee.astro.ucla.edu/volunteer/volunteer.php?ID={1}">Volunteer to discuss</a><br>'.format(vols_names, paper_id)
+        
             discussed_link = '<a href="http://coffee.astro.ucla.edu/discussed/discussed.php?ID={0}">Mark paper as discussed</a>'.format(paper_id)
             
             action_text = '<p class="small">' + volunteer_text + discussed_link + '</p>'
@@ -635,7 +635,7 @@ def makehtml(papers, papers_ids, papers_discussed, papers_discussed_ids, papers_
         ## Constructing action text
         paper_id = papers_ids[paper_index]
         
-        volunteer_text = ''
+        volunteer_text = '<a href="http://coffee.astro.ucla.edu/volunteer/volunteer.php?ID={0}">Volunteer to discuss</a><br>'.format(paper_id)
         if paper_id in papers_volunteers:
             cur_vols = papers_volunteers[paper_id]
             vols_names = cur_vols[0]
@@ -643,7 +643,7 @@ def makehtml(papers, papers_ids, papers_discussed, papers_discussed_ids, papers_
                 for vol in cur_vols[1:]:
                     vols_names.append(', {0}'.format(vol))
             
-            volunteer_text = 'Volunteers: {0} | {1}<br>'.format(vols_names, '<a href="#">Volunteer to Discuss</a>')
+            volunteer_text = 'Volunteers: {0} | <a href="http://coffee.astro.ucla.edu/volunteer/volunteer.php?ID={1}">Volunteer to discuss</a><br>'.format(vols_names, paper_id)
         
         discussed_link = '<a href="http://coffee.astro.ucla.edu/discussed/discussed.php?ID={0}">Mark paper as discussed</a>'.format(paper_id)
         

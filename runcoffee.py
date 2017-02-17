@@ -46,10 +46,11 @@ napTime = 4  # time, in seconds, to wait between web queries
 paper_time = shutil.os.path.getmtime(paper_file)
 paper_discussed_time = shutil.os.path.getmtime(paper_discussed_file)
 paper_next_time = shutil.os.path.getmtime(paper_next_file)
+paper_volunteers_time = shutil.os.path.getmtime(paper_volunteers_file)
 web_time = shutil.os.path.getmtime(main_file)
 
 # If list was updated, run the script!
-if paper_time > web_time or paper_discussed_time > web_time or paper_next_time > web_time:
+if paper_time > web_time or paper_discussed_time > web_time or paper_next_time > web_time or paper_volunteers_time > web_time:
     before = datetime.datetime.now()
     (html, output) = astroph.docoffeepage(paper_file, paper_discussed_file, paper_next_file, paper_volunteers_file, temp_file, day, hour, min, sleep=napTime, idid=idcomments, php=True)
     # print html
