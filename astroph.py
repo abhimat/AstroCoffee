@@ -786,7 +786,7 @@ def makehtml(papers, papers_ids, papers_discussed, papers_discussed_ids, papers_
     return html
 
 
-def doarchivepage(papers_ids, papers_discussed_ids, papers_next_ids, file, discussed_file, next_file, outfile):
+def doarchivepage(papers_ids, papers_discussed_ids, papers_next_ids, papers_volunteers, file, discussed_file, next_file, volunteers_file, outfile):
     """Create the archive file, clear the papers file
 
     INPUTS:
@@ -855,14 +855,20 @@ def doarchivepage(papers_ids, papers_discussed_ids, papers_next_ids, file, discu
             disc_f.write('\n')
             disc_f.close()
             
+            # Clear volunteers list
+            volun_f = open(volunteers_file, 'w')
+            volun_f.write('\n')
+            volun_f.close()
+            
             papers_ids = new_papers_ids
             papers_discussed_ids = []
             papers_next_ids = []
+            papers_volunteers = {}
         except:
             html = ['Could not get the papers info in the archive loop']
             papers = []
             arcstat = arcstat + "Could not get paper info in archive loop\n\n"
-    return arcstat, papers_ids, papers_discussed_ids, papers_next_ids
+    return arcstat, papers_ids, papers_discussed_ids, papers_next_ids, papers_volunteers
 
 
 def docoffeepage(file, discussed_file, next_file, volunteers_file, url, day, hour, min, sleep=60, idid=False, php=False):
@@ -904,7 +910,7 @@ def docoffeepage(file, discussed_file, next_file, volunteers_file, url, day, hou
     
     # Make archive page if necessary
     outfile='./archive/' + prevdate.strftime('%Y-%m-%d') + '-papers.php'
-    arcstat, papers_ids, papers_discussed_ids, papers_next_ids = doarchivepage(papers_ids, papers_discussed_ids, papers_next_ids, file, discussed_file, next_file, outfile)
+    arcstat, papers_ids, papers_discussed_ids, papers_next_ids, papers_volunteers = doarchivepage(papers_ids, papers_discussed_ids, papers_next_ids, papers_volunteers, file, discussed_file, next_file, volunteers_file, outfile)
     paperrs = ''
     
     # Read in the papers
