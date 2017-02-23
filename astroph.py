@@ -565,7 +565,7 @@ def makehtml(papers, papers_ids, papers_discussed, papers_discussed_ids, papers_
                 vols_names = cur_vols[0]
                 if len(cur_vols) > 1:
                     for vol in cur_vols[1:]:
-                        vols_names.append(', {0}'.format(vol))
+                        vols_names += ', {0}'.format(vol)
             
                 volunteer_text = 'Volunteers: {0} | <a href="http://coffee.astro.ucla.edu/volunteer/volunteer.php?ID={1}">Volunteer to discuss</a><br>'.format(vols_names, paper_id)
         
