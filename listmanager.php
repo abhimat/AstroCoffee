@@ -84,7 +84,7 @@ Current contents of the papers and discussed papers lists:
 	<p>Papers already discussed (papers_discussed)</p>
 	<textarea style="text-align: left; padding: 0px; overflow: auto; border: 3px groove; font-size: 12px" name="savecontent_discussed" cols="80" rows="<?=($count_discussed+3);?>" wrap="OFF"><?=$loadcontent_discussed?></textarea>
 	<p>Volunteers for papers</p>
-	<textarea style="text-align: left; padding: 0px; overflow: auto; border: 3px groove; font-size: 12px" name="savecontent_discussed" cols="80" rows="<?=($count_volunteers+3);?>" wrap="OFF"><?=$loadcontent_volunteers?></textarea>
+	<textarea style="text-align: left; padding: 0px; overflow: auto; border: 3px groove; font-size: 12px" name="savecontent_volunteers" cols="80" rows="<?=($count_volunteers+3);?>" wrap="OFF"><?=$loadcontent_volunteers?></textarea>
     <hr><br>
     Username: <input type="text" name="txtUsername" />
     Password: <input type="password" name="txtPassword" />
