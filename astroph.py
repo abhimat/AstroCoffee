@@ -861,7 +861,7 @@ def doarchivepage(papers_ids, papers_discussed_ids, papers_next_ids, papers_volu
             
             # Clear volunteers list
             volun_f = open(volunteers_file, 'w')
-            volun_f.write('')
+            volun_f.write('--')
             volun_f.close()
             
             papers_ids = new_papers_ids

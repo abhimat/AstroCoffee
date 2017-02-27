@@ -39,14 +39,17 @@ $salt     = "!@#$%^&";
 $paperFile_next = 'papers_next';
 $paperFile = 'papers';
 $paperFile_discussed = 'papers_discussed';
+$paperFile_volunteers = 'papers_volunteers';
 
 $fp_next = @fopen($paperFile_next, "r");
 $fp = @fopen($paperFile, "r");
 $fp_discussed = @fopen($paperFile_discussed, "r");
+$fp_volunteers = @fopen($paperFile_volunteers, "r");
 
-$loadcontent_next = fread($fp_next, filesize($paperFile_next)); 
-$loadcontent = fread($fp, filesize($paperFile)); 
-$loadcontent_discussed = fread($fp_discussed, filesize($paperFile_discussed)); 
+$loadcontent_next = fread($fp_next, filesize($paperFile_next));
+$loadcontent = fread($fp, filesize($paperFile));
+$loadcontent_discussed = fread($fp_discussed, filesize($paperFile_discussed));
+$loadcontent_volunteers = fread($fp_volunteers, filesize($paperFile_volunteers));
 
 
 $lines_next = file($paperFile_next) or die("can`t open file: ".$paperFile_next." for reading");
@@ -63,6 +66,11 @@ $lines_discussed = file($paperFile_discussed) or die("can`t open file: ".$paperF
 $count_discussed = count($lines_discussed);
 $loadcontent_discussed = htmlspecialchars($loadcontent_discussed);
 fclose($fp_discussed);
+
+$lines_volunteers = file($paperFile_volunteers) or die("can`t open file: ".$paperFile_volunteers." for reading");
+$count_volunteers = count($lines_volunteers);
+$loadcontent_volunteers = htmlspecialchars($loadcontent_volunteers);
+fclose($fp_volunteers);
 ?>
 
 
@@ -75,6 +83,8 @@ Current contents of the papers and discussed papers lists:
 	<textarea style="text-align: left; padding: 0px; overflow: auto; border: 3px groove; font-size: 12px" name="savecontent" cols="80" rows="<?=($count+3);?>" wrap="OFF"><?=$loadcontent?></textarea>
 	<p>Papers already discussed (papers_discussed)</p>
 	<textarea style="text-align: left; padding: 0px; overflow: auto; border: 3px groove; font-size: 12px" name="savecontent_discussed" cols="80" rows="<?=($count_discussed+3);?>" wrap="OFF"><?=$loadcontent_discussed?></textarea>
+	<p>Volunteers for papers</p>
+	<textarea style="text-align: left; padding: 0px; overflow: auto; border: 3px groove; font-size: 12px" name="savecontent_discussed" cols="80" rows="<?=($count_volunteers+3);?>" wrap="OFF"><?=$loadcontent_volunteers?></textarea>
     <hr><br>
     Username: <input type="text" name="txtUsername" />
     Password: <input type="password" name="txtPassword" />
@@ -104,6 +114,7 @@ elseif (((md5($_POST['txtUsername'].$salt)==$username and md5($_POST['txtPasswor
 		$contents_next = explode("\n",$_POST["savecontent_next"]);
         $contents = explode("\n",$_POST["savecontent"]);
 		$contents_discussed = explode("\n",$_POST["savecontent_discussed"]);
+        $contents_volunteers = explode("\n",$_POST["savecontent_volunteers"]);
         
 		# papers_next file
 		echo "<p>Papers added this week (papers_next)</p>";
@@ -173,9 +184,32 @@ elseif (((md5($_POST['txtUsername'].$salt)==$username and md5($_POST['txtPasswor
         $nullRet = `$python runcoffee.py > /dev/null &`;
         fclose($fp2);
         $loadcontent_discussed = $_POST["savecontent_discussed"];
+        
+		# papers_volunteers file
+		echo "<p>Volunteers for papers (papers_volunteers)</p>";
+		array_walk($contents_volunteers, 'trim_value');
+        $i=0;
+        foreach ($contents_volunteers as $con){
+            echo $con."<br>";
+            $contents_volunteers["$i"] = trim($con);
+            $i=$i+1;
+        }
+        if (count(array_unique($contents_volunteers)) < count($contents_volunteers)){
+            echo "<p>WARNING: Duplicate entries exist!<br></p>";
+        }
+        $fp2 = @fopen($paperFile_volunteers, "w") or die("can`t open file: ".$paperFile_volunteers); 
+        if (count($contents_volunteers) == 1 and trim($contents_volunteers[0]=="")){
+            fwrite($fp2, "\n");
+        }
+        else{
+            fwrite($fp2, $_POST["savecontent_volunteers"]);
+        }
+        $nullRet = `$python runcoffee.py > /dev/null &`;
+        fclose($fp2);
+        $loadcontent_volunteers = $_POST["savecontent_volunteers"];
 		
         # Get estimate of run time for the user
-        $numlines = count(file($paperFile_next)) + count(file($paperFile)) + count(file($paperFile_discussed));
+        $numlines = count(file($paperFile_next)) + count(file($paperFile));
         $time  = $numlines * 10;
         echo "<p>It may be several minutes before the main page updates.</p>";
         echo "<p>$numlines items to update, so >$time seconds to finish.</p>";
