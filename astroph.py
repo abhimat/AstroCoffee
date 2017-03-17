@@ -52,7 +52,9 @@ def getunique(seq):
 # assumes all arxiv links of the form "asdfasdfadsf/pdf/idnumber.pdf"
 def clean_arxiv_id(id):
     pdf_ind = id.find("pdf/")
-    return id[pdf_ind + 4:len(id) - 4]
+    id = id.rstrip('.pdf')  # Remove .pdf at end, if there
+    id = id[pdf_ind + 4:]   # Extract arXiv id from remaining text
+    return id
 
 def getinfo(id, server='http://arxiv.org/abs/'):
     """Take an ArXiV ID and return the title, authors, abstract, sub. date
@@ -84,7 +86,7 @@ def getinfo(id, server='http://arxiv.org/abs/'):
     
     # Clean up various paper IDs before continuing
     ## Check if arXiv ID is a pdf
-    if id.find(".pdf") > -1 and id.find("arxiv.org") > -1:
+    if id.find("pdf") > -1 and id.find("arxiv.org") > -1:
         id = clean_arxiv_id(id)
     ## Check if Science ID is not link to full article
     if id.find('science.sciencemag.org') > -1 and id.find('.full') == -1:
