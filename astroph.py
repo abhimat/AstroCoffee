@@ -74,6 +74,7 @@ def getinfo(id, server='http://arxiv.org/abs/'):
     from getvixrainfo import getvixrainfo
     from getnatureinfo import getnatureinfo
     from getscienceinfo import getscienceinfo
+    from getphysicstodayinfo import getphysicstodayinfo
     from get_prl_info import get_prl_info
     from getvoxchartainfo import getvoxchartainfo
     from getwebinfo import getwebinfo
@@ -222,6 +223,14 @@ def getinfo(id, server='http://arxiv.org/abs/'):
         # Science Article
         elif urlpage.find('science.sciencemag.org')>-1:
             thispaper = getscienceinfo(urlpage, html)
+            if thispaper.errors == '0':
+                thispaper.errors = 'Success reading ' + urlpage
+            else:
+                thispaper.errors = 'Some ERRORS reading ' + urlpage
+            thispaper.id = ''
+        # Physics Today Article
+        elif urlpage.find('physicstoday.scitation.org')>-1:
+            thispaper = getphysicstodayinfo(urlpage, html)
             if thispaper.errors == '0':
                 thispaper.errors = 'Success reading ' + urlpage
             else:
