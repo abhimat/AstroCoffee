@@ -77,7 +77,7 @@ def getinfo(id, server='http://arxiv.org/abs/'):
     from get_prl_info import get_prl_info
     from getvoxchartainfo import getvoxchartainfo
     from getwebinfo import getwebinfo
-    import urllib2
+    import urllib2, cookielib
     
     servererr = False
     # Set up the ID
@@ -117,6 +117,15 @@ def getinfo(id, server='http://arxiv.org/abs/'):
     
     # HTTP request for a webpage URL
     try:
+        ## Cookies Support
+        cookies = cookielib.LWPCookieJar()
+        handlers = [
+            urllib2.HTTPHandler(),
+            urllib2.HTTPSHandler(),
+            urllib2.HTTPCookieProcessor(cookies)
+            ]
+        opener = urllib2.build_opener(*handlers)
+    
         ## Add headers to HTTP request so don't get 403 error
         hdr = {'User-Agent': 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.11 (KHTML, like Gecko) Chrome/23.0.1271.64 Safari/537.11',
                'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
@@ -124,9 +133,11 @@ def getinfo(id, server='http://arxiv.org/abs/'):
                'Accept-Encoding': 'none',
                'Accept-Language': 'en-US,en;q=0.8',
                'Connection': 'keep-alive'}
+    
+    
         request = urllib2.Request(id, headers=hdr)
-        
-        html = urllib2.urlopen(request).read()
+    
+        html = opener.open(request).read()
         urlpage = id  # For compatibility down lower in the code
     except urllib2.HTTPError, e:
         print e.code

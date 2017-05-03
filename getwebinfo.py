@@ -94,7 +94,9 @@ def getwebinfo(url, html):
         paper.subject = "Error Grabbing Subject"
         paper.comments = "Error Grabbing Comments"
         return paper
-
+    
+    # print(soup.head.title)
+    
     # Grab the Title from the title tag
     try:
         paper.title = soup.head.title.string
