@@ -4,6 +4,7 @@ from get_prl_info import get_prl_info
 import urllib2
 
 url = 'http://journals.aps.org/prl/abstract/10.1103/PhysRevLett.116.241103'
+url = 'https://journals.aps.org/prl/abstract/10.1103/PhysRevLett.118.221101'
 id = url
 html = ''
 # HTTP request for a webpage URL

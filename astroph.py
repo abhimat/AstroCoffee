@@ -93,6 +93,9 @@ def getinfo(id, server='http://arxiv.org/abs/'):
     ## Check if Science ID is not link to full article
     if id.find('science.sciencemag.org') > -1 and id.find('.full') == -1:
         id = id + '.full'
+    ## Check if PRL submission is a pdf
+    if id.find("/pdf/") > -1 and id.find("journals.aps.org/prl") > -1:
+        id = id.replace('/pdf/', '/abstract/')
     
     # Check for the various types of arXiv identifiers
     try:

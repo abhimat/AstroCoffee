@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
+# encoding: utf-8
 
 def get_prl_info(url, html):
     """Convert HTML from a MNRAS journal page to a preprint object."""
@@ -8,9 +9,10 @@ def get_prl_info(url, html):
     import re
     import datetime
     from astroph import preprint
-
+    
     paper = preprint()
     paper.url = url
+    
     # Remove all the muck that screws up the BeautifulSoup parser
     # Will fail on PDF submission, so take care of that exception first
     try:
@@ -62,10 +64,10 @@ def get_prl_info(url, html):
     ## Grab authors
     try:
         authors_str = str(soup.find('h5', {'class':'authors'}).text.encode("utf-8"))
-        
+    
         ### Find authors in the authors_str
         author_list = []
-        
+    
         etAl_index = authors_str.find('et al.')
         if etAl_index > -1:
             author_list.append(authors_str[0:etAl_index])
@@ -79,7 +81,7 @@ def get_prl_info(url, html):
                 author = author.replace('and ', '')
                 author = author.strip()
                 author_list.append(author)
-        
+    
         paper.numauth = len(author_list)
         paper.author = ', '.join(author_list[0:4])
     except:
@@ -133,5 +135,9 @@ def get_prl_info(url, html):
     # except:
     #     paper.errors = "1"
     #     paper.subject   = "Error Grabbing Subject"
+    
+    print('')
+    print(paper.title)
+    print('')
     
     return paper
