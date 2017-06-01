@@ -815,9 +815,6 @@ def makehtml(papers, papers_ids, papers_discussed, papers_discussed_ids, papers_
 
     body = new_body
     
-    # body = [line.encode('utf-8')+'\n' for line in body]
-    # body = [line + '\n' for line in body]
-
     # Concatenate everything together
     html = h + body + f
 
