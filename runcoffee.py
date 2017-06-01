@@ -38,7 +38,7 @@ for i, l in enumerate(f):
 f.close()
 nlines = i + 1
 
-napTime = 4  # time, in seconds, to wait between web queries
+napTime = 3  # time, in seconds, to wait between web queries
 # timecomp = napTime * nlines
 # testimate = datetime.timedelta(seconds=timecomp)
 

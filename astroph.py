@@ -1,4 +1,5 @@
 #!/usr/bin/env python
+# encoding: utf-8
 """
 A module to generate HTML code using specified ArXiV file IDs.
 
@@ -804,7 +805,18 @@ def makehtml(papers, papers_ids, papers_discussed, papers_discussed_ids, papers_
                 body.append('</article>')
     
     
-    body = [line.encode('utf-8')+'\n' for line in body]
+    new_body = []
+
+    for line in body:
+        try:
+            new_body.append(line + '\n')
+        except:
+            new_body.append(line.encode('utf-8') + '\n')
+
+    body = new_body
+    
+    # body = [line.encode('utf-8')+'\n' for line in body]
+    # body = [line + '\n' for line in body]
 
     # Concatenate everything together
     html = h + body + f
@@ -948,7 +960,7 @@ def docoffeepage(file, discussed_file, next_file, volunteers_file, url, day, hou
     except Exception, why:
         html = ['Could not get the papers info']
         papers = []
-        discussed_papers = []
+        papers_discussed = []
         papers_next = []
         outstat = outstat + 'Could not get the paper info\n\n'
         outstat += str(why) + "\n\n"
