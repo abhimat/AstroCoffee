@@ -85,8 +85,8 @@ def getnatureinfo(url, html):
     paper.abstract = ''
     try:
         paper.abstract = ''.join(soup.find(
-                                 "p",
-                                 attrs={"class": "lead"}).findAll(text=True))
+                                 "div",
+                                 attrs={"id": "abstract-content"}).findAll(text=True))
     except:
         try:
             paper.abstract = ''.join(soup.find(
@@ -140,7 +140,7 @@ def getnatureinfo(url, html):
                                           'http://www.nature.com/news/')
                 pdflink = pdflink.replace('PDF Format', 'PDF')
             except:
-                pdflink = ''
+                pdflink = '<a href=\"' + paper.url + '.pdf' + '\">PDF</a>'
 #    print pdflink
 
     if pdflink == 'None':
