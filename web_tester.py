@@ -6,6 +6,8 @@ import cookielib, urllib2
 url = 'https://astrobites.org/2016/04/12/pursuing-eternal-youth-stellar-cannibalism-in-the-wilds-of-our-galaxy/'
 url = 'http://www.sciencemag.org/news/2016/04/no-pressure-nsf-test-finds-eliminating-deadlines-halves-number-grant-proposals'
 url = 'http://physicstoday.scitation.org/doi/full/10.1063/PT.3.3536'
+url = 'http://www.preposterousuniverse.com/blog/2017/06/18/a-response-to-on-the-time-lags-of-the-ligo-signals-guest-post/'
+url = 'http://iopscience.iop.org/article/10.3847/1538-4357/aa74e3/'
 
 id = url
 html = ''

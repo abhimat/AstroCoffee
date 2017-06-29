@@ -99,9 +99,9 @@ def getwebinfo(url, html):
     
     # Grab the Title from the title tag
     try:
-        paper.title = soup.head.title.string
+        paper.title = soup.head.title.text.encode("utf-8")
     except:
-        paper.errors = 1
+        paper.errors = "1"
         paper.title = 'Error Grabbing Title'
     
     print('')
