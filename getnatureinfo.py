@@ -86,7 +86,7 @@ def getnatureinfo(url, html):
     try:
         paper.abstract = ''.join(soup.find(
                                  "div",
-                                 attrs={"id": "abstract-content"}).findAll(text=True))
+                                 attrs={"id": "Abs1-content"}).findAll(text=True))
     except:
         try:
             paper.abstract = ''.join(soup.find(

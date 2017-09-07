@@ -4,6 +4,7 @@ from getnatureinfo import getnatureinfo
 import urllib2
 
 url = 'http://www.nature.com/articles/s41550-017-0166'
+url = 'https://www.nature.com/articles/s41550-017-0224-z'
 id = url
 html = ''
 # HTTP request for a webpage URL
