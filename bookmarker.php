@@ -45,17 +45,29 @@ $listManager = "listmanager.php";
 // $article = $_POST["article"];
 $ipOfSubmitter=$_SERVER["REMOTE_ADDR"];
 
+
 $minlength = 5;
 // echo '<META HTTP-EQUIV=Refresh CONTENT="10">';
 echo '<META HTTP-EQUIV=Refresh CONTENT="3;'.$article.'">';
 echo "<p>You submitted ".$article.".</p>";
+
+# Check for invalid characters
+if (preg_match("/[^A-Za-z0-9\:\.\/]/", $paperFile))
+{
+	echo '<p><strong>But your submission contains invalid characters!</strong></p>';
+	echo '<p>If you think this is an error, tell the coffee website manager.</p>';
+	echo "<p>You will be returned to your original page in 3 seconds.</p>";
+	echo "<p>If not, click <a href='".$article."'>here</a></p>";
+	die;
+}
+
 
 # Testing for duplicates
 $papers = file($paperFile) or die("can't open file: ".$paperFile);
 foreach ($papers as $pap){
 	if (trim($article) == trim($pap)) {
 		echo '<p><strong>But it is a duplicate of a paper already submitted!</strong></p>';
-		echo '<p>If you think this is an error, tell the coffee czar.</p>';
+		echo '<p>If you think this is an error, tell the coffee website manager.</p>';
 		echo "<p>You will be returned to your original page in 3 seconds.</p>";
 		echo "<p>If not, click <a href='".$article."'>here</a></p>";
 		die;

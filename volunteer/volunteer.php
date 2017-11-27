@@ -67,10 +67,22 @@
     
     <?php
         if (isset($_POST["save_volunteer"])){
-            if (strlen($ID)>$minlength and strlen($ID)>$minlength) {
+            $volunteer_name = $_POST['volunteer_name'];
+            
+            // Check for invalid characters
+            if (preg_match("/[^A-Za-z0-9]/", $volunteer_name) or preg_match("/[^A-Za-z0-9\:\.\/]/", $ID)) {
+                echo '<META HTTP-EQUIV=Refresh CONTENT="10;url=../">';
+
+                echo '<p><strong>But the paper ID or your name contains invalid characters!</strong></p>';
+                echo '<p>If you think this is an error, tell the coffee website manager.</p>';
+                echo "<p>You will be returned to the main page in 10 seconds.</p>";
+                die;
+            }
+            
+            if (strlen($ID)>$minlength and strlen($volunteer_name)>$minlength) {
             	$f = fopen($paperFile_volunteer,"a") or die("can't open file: ".$paperFile_volunteer);
             	fwrite($f, "\n".trim($ID));
-                fwrite($f, "\n".trim($_POST['volunteer_name']));
+                fwrite($f, "\n".trim($volunteer_name));
             	fclose($f);
             	
                 echo '<META HTTP-EQUIV=Refresh CONTENT="10;url=../">';
@@ -78,7 +90,7 @@
             	echo "<p>You were successfully added as a volunteer.</p>";
             	echo "<p>It may be several minutes before the main page is updated.</p>";
             	echo "<p>You will be returned to the main page in 10 seconds.</p>";
-            	$str4log = date('D, d M Y H:i:s')."    ".$ID."    ".$_POST['volunteer_name']." (".$ipOfSubmitter.") added as volunteer.";
+            	$str4log = date('D, d M Y H:i:s')."    ".$ID."    ".$volunteer_name." (".$ipOfSubmitter.") added as volunteer.";
             	$f2 = fopen($logFile,"a") or die("can`t open file: ".$logFile);
             	fwrite($f2, $str4log."\n");
             	fclose($f2);
