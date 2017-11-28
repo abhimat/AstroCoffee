@@ -122,15 +122,15 @@ if ((!isset($_POST["submit"])) and (!isset($_POST["submitcheck"])))
 } elseif (isset($_POST["submit"])) {
   $minlength = 5;
   echo '<META HTTP-EQUIV=Refresh CONTENT="10">';
-  echo "<p>You submitted ".$article.".</p>";
+  echo "<p>You submitted ".$article."</p>";
   
   # Check for invalid characters
-  if (preg_match("/[^A-Za-z0-9\:\.\/]/", $paperFile))
+  if (preg_match("/[^A-Za-z0-9\:\.\/]/", $article))
   {
   	echo '<p><strong>But your submission contains invalid characters!</strong></p>';
   	echo '<p>If you think this is an error, tell the coffee website manager.</p>';
-  	echo "<p>You will be returned to your original page in 3 seconds.</p>";
-  	echo "<p>If not, click <a href='".$article."'>here</a></p>";
+  	echo "<p>You will be returned to your original page in 10 seconds.</p>";
+  	echo "<p>If not, click <a href='./'>here</a></p>";
   	die;
   }
   

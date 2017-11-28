@@ -55,7 +55,7 @@
         $ipOfSubmitter=$_SERVER["REMOTE_ADDR"];
 
         $minlength = 2;
-        echo "<p>Paper to volunteer for: ".$ID.".</p>";
+        echo "<p>Paper to volunteer for: ".$ID."</p>";
     ?>
 
     <form name="form" method="post" action="<?php echo $_SERVER['php_SELF'];?>">
