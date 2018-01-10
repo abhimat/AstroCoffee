@@ -1,10 +1,12 @@
 #!/usr/bin/env python
 
 from getnatureinfo import getnatureinfo
+from get_nature_info import get_nature_info
 import urllib2
 
 url = 'http://www.nature.com/articles/s41550-017-0166'
 url = 'https://www.nature.com/articles/s41550-017-0224-z'
+url = 'https://www.nature.com/articles/nature25149'
 id = url
 html = ''
 # HTTP request for a webpage URL
@@ -49,7 +51,7 @@ except:
                '</title>' + \
                '</head><body></body></html>'
 
-paper = getnatureinfo(url, html)
+paper = get_nature_info(url, html)
 print(paper.title + '\n')
 print(paper.author + '\n')
 print(paper.date + '\n')

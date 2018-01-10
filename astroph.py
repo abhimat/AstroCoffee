@@ -73,7 +73,7 @@ def getinfo(id, server='http://arxiv.org/abs/'):
     from getarxivinfo import getarxivinfo
     from getmnrasinfo import getmnrasinfo
     from getvixrainfo import getvixrainfo
-    from getnatureinfo import getnatureinfo
+    from get_nature_info import get_nature_info
     from getscienceinfo import getscienceinfo
     from getphysicstodayinfo import getphysicstodayinfo
     from get_prl_info import get_prl_info
@@ -186,7 +186,7 @@ def getinfo(id, server='http://arxiv.org/abs/'):
                     thispaper.errors = 'Some ERRORS reading ' + urlpage
                 thispaper.id = ''
             else:
-                thispaper = getnatureinfo(urlpage, html)
+                thispaper = get_nature_info(urlpage, html)
                 if thispaper.errors == '0':
                     thispaper.errors = 'Success reading ' + urlpage
                 else:
