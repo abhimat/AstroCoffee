@@ -101,11 +101,11 @@ def get_nature_info(url, html):
     
     ## Grab abstract
     try:
-        abstract_str = str(soup.find('div',{'id':'abstract-content'}).find('p'))
+        abstract_str = str(soup.find('div',{'id':'abstract-content'}).find('p').text.encode("utf-8"))
         
         paper.abstract = abstract_str
-        paper.abstract = paper.abstract.replace('<p>', '')
-        paper.abstract = paper.abstract.replace('</p>', '')
+        # paper.abstract = paper.abstract.replace('<p>', '')
+        # paper.abstract = paper.abstract.replace('</p>', '')
     except:
         paper.errors = "1"
         paper.abstract = "Error Grabbing Abstract"
