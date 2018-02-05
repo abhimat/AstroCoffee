@@ -511,7 +511,7 @@ def makeheader(day, hour, min, php=False):
     datestr_early_1 = nextdate_early_1.strftime('%a, %b %d, %Y')
     datestr_next_early_1 = (nextdate_early_1 + relativedelta(days=+7)).strftime('%a, %b %d, %Y')
     
-    titleString2 = '<center><p>Suggested papers for<br><strong>{0}</strong> at <strong>11 am</strong><br><strong>{1}</strong> at <strong>1 pm</strong><br><strong>{2}</strong> at <strong>11 am</strong></p></center>\n'.format(datestr_early_1, datestr_early_0, datestr, timestr)
+    titleString2 = '<center><p>Suggested papers for<br><strong>{0}</strong>, <strong>{1}</strong>, and <strong>{2}</strong> at <strong>11 am</strong></p></center>\n'.format(datestr_early_1, datestr_early_0, datestr, timestr)
     titleString2_next = '<hr><center><p>Suggested papers for<br><strong>{0}</strong>,  <strong>{1}</strong>, and <strong>{2}</strong></p></center>\n'.format(datestr_next_early_1, datestr_next_early_0, datestr_next, timestr)
     
     
