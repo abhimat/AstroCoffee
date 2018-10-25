@@ -60,7 +60,7 @@ def getarxivinfo(url, html):
         paper.errors = "1"
         paper.author = "Error Grabbing Authors"
 
-    #   print paper.errors + paper.author + "\n"
+    # print paper.errors + paper.author + "\n"
 
 
     try:
@@ -73,16 +73,16 @@ def getarxivinfo(url, html):
         paper.errors = "1"
         paper.date = "Error Grabbing Date"
 
-    #   print paper.errors + paper.date + "\n"
+    # print paper.errors + paper.date + "\n"
 
 
     try:
-        paper.abstract = soup.find('blockquote',{'class':'abstract mathjax'}).contents[2]
+        paper.abstract = soup.find('blockquote',{'class':'abstract mathjax'}).contents[1]
     except:
         paper.errors = "1"
         paper.abstract = "Error Grabbing Abstract"
 
-    #   print paper.errors + paper.abstract + "\n"
+    # print paper.errors + paper.abstract + "\n"
 
     try:
         sources = soup.find('div', {'class':'full-text'})
@@ -103,7 +103,7 @@ def getarxivinfo(url, html):
         paper.errors = "1"
         paper.sources = ''
 
-    #   print paper.errors + paper.sources + "\n"
+    # print paper.errors + paper.sources + "\n"
 
     try:
         paper.subject = soup.find('span', {'class':'primary-subject'}).string
@@ -111,7 +111,7 @@ def getarxivinfo(url, html):
         paper.errors = "1"
         paper.subject = "Error Grabbing Subject"
 
-    #   print paper.errors + paper.subject + "\n"
+    # print paper.errors + paper.subject + "\n"
 
     #try:
     #paper.comments = soup.find('td', {'class':'tablecell comments'}).string
@@ -119,7 +119,7 @@ def getarxivinfo(url, html):
         #paper.errors = "1"
         #paper.comments = "Error Grabbing Comments"
 
-    #print paper.errors + paper.comments + "\n"
+    # print paper.errors + paper.comments + "\n"
     paperid = soup.find(attrs={"name":re.compile("citation_arxiv_id",re.I)})['content']
     paper.url = 'http://arxiv.org/abs/' + paperid
 

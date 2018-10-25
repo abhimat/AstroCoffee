@@ -18,10 +18,6 @@ This version under development by Abhimat K. Gautam at UCLA.
 
 Contribute or fork on GitHub at https://github.com/abhimat/AstroCoffee
 """
-# 2010-10-20       RTH: v0.98: Spun off parsers into own files.  Removed all
-#                                changes to the CHANGELOG/online repository
-
-__version__ = '0.98.9'
 
 
 class preprint(object):
@@ -118,7 +114,7 @@ def getinfo(id, server='http://arxiv.org/abs/'):
            (id.find('.org') == -1) and \
            (id.find('.gov') == -1):
             isValidArxiv = True
-            id = 'http://arxiv.org/abs/' + id
+            id = 'https://arxiv.org/abs/' + id
         else:
             isValidArxiv = False
     
@@ -201,9 +197,7 @@ def getinfo(id, server='http://arxiv.org/abs/'):
                 thispaper.errors = 'Some ERRORS reading ' + urlpage
             thispaper.id = ''
         # arXiv Article
-        elif urlpage.find('arxiv.org')>-1    or \
-             urlpage.find('xxx.lanl.gov')>-1 or \
-             (isValidArxiv): 
+        elif urlpage.find('arxiv.org')>-1 or urlpage.find('xxx.lanl.gov')>-1 or (isValidArxiv): 
             thispaper = getarxivinfo(urlpage, html)
             if thispaper.errors == '0':
                 thispaper.errors = 'Success reading ' + urlpage
@@ -608,6 +602,7 @@ def makehtml(papers, papers_ids, papers_discussed, papers_discussed_ids, papers_
         
             date = paper.date
             if isinstance(paper, preprint):
+                print(paper.errors)
                 if paper.errors.startswith("Success"):
                     if paper.sources != '':
                         if date != "":
@@ -737,7 +732,7 @@ def makehtml(papers, papers_ids, papers_discussed, papers_discussed_ids, papers_
     if len(papers_discussed) == 0:
         body.append('<article class="block"><hr>')
         body.append('<center><p>No papers discussed yet</p></center>')
-        body.append('<img src="./images/SadPaper_2x.png" srcset="./images/SadPaper_1x.png 1x, ../images/SadPaper_2x.png 2x" alt="Sad Paper :("/></article>')
+        body.append('<img src="./images/SadPaper_2x.png" srcset="./images/SadPaper_1x.png 1x, ./images/SadPaper_2x.png 2x" alt="Sad Paper :("/></article>')
         
         body = [line+'\n' for line in body]
 
