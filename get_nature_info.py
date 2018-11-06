@@ -101,14 +101,13 @@ def get_nature_info(url, html):
     
     ## Grab abstract
     try:
-        abstract_str = str(soup.find('div',{'id':'abstract-content'}).find('p').text.encode("utf-8"))
-        
-        paper.abstract = abstract_str
-        # paper.abstract = paper.abstract.replace('<p>', '')
-        # paper.abstract = paper.abstract.replace('</p>', '')
+        paper.abstract = ''.join(soup.find("div", attrs={"id": "Abs1-content"}).find('p').text.encode("utf-8"))
     except:
-        paper.errors = "1"
-        paper.abstract = "Error Grabbing Abstract"
+        try:
+            paper.abstract = ''.join(soup.find("p", attrs={"class": "intro"}).find('p').text.encode("utf-8"))
+        except:
+            paper.errors = "1"
+            paper.abstract = "Error Grabbing Abstract"
         
     ## Paper and abstract cleanup
     paper.title = paper.title.replace('|[thinsp]|', ' ')

@@ -7,6 +7,7 @@ import urllib2
 url = 'http://www.nature.com/articles/s41550-017-0166'
 url = 'https://www.nature.com/articles/s41550-017-0224-z'
 url = 'https://www.nature.com/articles/nature25149'
+url = 'https://www.nature.com/articles/s41550-018-0603-0'
 id = url
 html = ''
 # HTTP request for a webpage URL
