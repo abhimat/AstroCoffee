@@ -1,4 +1,5 @@
 #!/usr/bin/env python
+# encoding: utf-8
 
 def getarxivinfo(url, html):
     """Convert HTML from a arXiv page to a preprint object."""
@@ -77,7 +78,7 @@ def getarxivinfo(url, html):
 
 
     try:
-        paper.abstract = soup.find('blockquote',{'class':'abstract mathjax'}).contents[1]
+        paper.abstract = soup.find('blockquote',{'class':'abstract mathjax'}).contents[1].encode('utf-8')
     except:
         paper.errors = "1"
         paper.abstract = "Error Grabbing Abstract"
