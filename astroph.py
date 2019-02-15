@@ -585,7 +585,7 @@ def makehtml(papers, papers_ids, papers_discussed, papers_discussed_ids, papers_
             ## Constructing action text
             paper_id = papers_next_ids[paper_index]
             
-            volunteer_text = '<a href="http://coffee.astro.ucla.edu/volunteer/volunteer.php?ID={0}">Volunteer to discuss</a><br>'.format(paper_id)
+            volunteer_text = '<a href="http://pritha.astro.ucla.edu/~abhimat/astrocoffee/volunteer/volunteer.php?ID={0}">Volunteer to discuss</a><br>'.format(paper_id)
             if paper_id in papers_volunteers:
                 cur_vols = papers_volunteers[paper_id]
                 vols_names = cur_vols[0]
@@ -593,9 +593,9 @@ def makehtml(papers, papers_ids, papers_discussed, papers_discussed_ids, papers_
                     for vol in cur_vols[1:]:
                         vols_names += ', {0}'.format(vol)
             
-                volunteer_text = 'Volunteers: {0} | <a href="http://coffee.astro.ucla.edu/volunteer/volunteer.php?ID={1}">Volunteer to discuss</a><br>'.format(vols_names, paper_id)
+                volunteer_text = 'Volunteers: {0} | <a href="http://pritha.astro.ucla.edu/~abhimat/astrocoffee/volunteer/volunteer.php?ID={1}">Volunteer to discuss</a><br>'.format(vols_names, paper_id)
         
-            discussed_link = '<a href="http://coffee.astro.ucla.edu/discussed/discussed.php?ID={0}">Mark paper as discussed</a>'.format(paper_id)
+            discussed_link = '<a href="http://pritha.astro.ucla.edu/~abhimat/astrocoffee/discussed/discussed.php?ID={0}">Mark paper as discussed</a>'.format(paper_id)
             
             action_text = '<p class="small">' + volunteer_text + discussed_link + '</p>'
                 
@@ -662,7 +662,7 @@ def makehtml(papers, papers_ids, papers_discussed, papers_discussed_ids, papers_
         ## Constructing action text
         paper_id = papers_ids[paper_index]
         
-        volunteer_text = '<a href="http://coffee.astro.ucla.edu/volunteer/volunteer.php?ID={0}">Volunteer to discuss</a><br>'.format(paper_id)
+        volunteer_text = '<a href="http://pritha.astro.ucla.edu/~abhimat/astrocoffee/volunteer/volunteer.php?ID={0}">Volunteer to discuss</a><br>'.format(paper_id)
         if paper_id in papers_volunteers:
             cur_vols = papers_volunteers[paper_id]
             vols_names = cur_vols[0]
@@ -670,9 +670,9 @@ def makehtml(papers, papers_ids, papers_discussed, papers_discussed_ids, papers_
                 for vol in cur_vols[1:]:
                     vols_names += ', {0}'.format(vol)
             
-            volunteer_text = 'Volunteers: {0} | <a href="http://coffee.astro.ucla.edu/volunteer/volunteer.php?ID={1}">Volunteer to discuss</a><br>'.format(vols_names, paper_id)
+            volunteer_text = 'Volunteers: {0} | <a href="http://pritha.astro.ucla.edu/~abhimat/astrocoffee/volunteer/volunteer.php?ID={1}">Volunteer to discuss</a><br>'.format(vols_names, paper_id)
         
-        discussed_link = '<a href="http://coffee.astro.ucla.edu/discussed/discussed.php?ID={0}">Mark paper as discussed</a>'.format(paper_id)
+        discussed_link = '<a href="http://pritha.astro.ucla.edu/~abhimat/astrocoffee/discussed/discussed.php?ID={0}">Mark paper as discussed</a>'.format(paper_id)
         
         action_text = '<p class="small">' + volunteer_text + discussed_link + '</p>'
         
@@ -751,7 +751,7 @@ def makehtml(papers, papers_ids, papers_discussed, papers_discussed_ids, papers_
         
         # ## Constructing discussed link
         # paper_id = papers_discussed[paper_index]
-        # discussed_link = ' <a href="http://coffee.astro.ucla.edu/discussed/discussed.php?ID={0}">Discussed?</a>'.format(paper_id)
+        # discussed_link = ' <a href="http://pritha.astro.ucla.edu/~abhimat/astrocoffee/discussed/discussed.php?ID={0}">Discussed?</a>'.format(paper_id)
         # paper.sources.append(discussed_link)
         
         date = paper.date

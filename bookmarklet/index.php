@@ -58,7 +58,7 @@
 		<section class="blocks">
 			<article class="block">
 				<h2>Bookmarklet</h2>
-				<center><a class="large semibold" href="javascript:(function(){location.href='http://coffee.astro.ucla.edu/bookmarker.php?article='+encodeURIComponent(location.href);})();">Add to Astro Coffee</a></center>
+				<center><a class="large semibold" href="javascript:(function(){location.href='http://pritha.astro.ucla.edu/~abhimat/astrocoffee/bookmarker.php?article='+encodeURIComponent(location.href);})();">Add to Astro Coffee</a></center>
 				<p>Drag the above “Add to Astro Coffee” link to your browser’s bookmarks bar to set up the bookmarklet. Clicking the bookmarklet on a paper’s page will add the paper to the Astro Coffee page. Nifty and convenient, right?</p>
                 <p>On iOS and use the <a href="https://itunes.apple.com/us/app/workflow-powerful-automation/id915249334?mt=8&at=10lsEw">Workflow app</a>? Grab the <a href="https://workflow.is/workflows/16a1e09e3b59407bb6dd8188ae442774">Add to Astro Coffee workflow</a> to make adding papers to Astro Coffee even faster and easier!</p>
 			</article>
