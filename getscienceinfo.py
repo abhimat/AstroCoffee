@@ -1,4 +1,5 @@
 #!/usr/bin/env python
+# encoding: utf-8
 
 def getscienceinfo(url, html):
     """Convert HTML from a Science journal page to a preprint object."""
@@ -31,12 +32,12 @@ def getscienceinfo(url, html):
 
     # Grab the title
     try:
-        paper.title = soup.find(\
-                      attrs={"name":re.compile("DC.Title",re.I)})['content']
+        paper.title = str(soup.find(attrs={"name":re.compile("DC.Title",re.I)})['content'].encode("utf-8"))
     except:
         paper.errors = "1"
         paper.title   = "Error Grabbing Title"
-#    print paper.title
+
+    print paper.title
 
     # Grab the date
     try:

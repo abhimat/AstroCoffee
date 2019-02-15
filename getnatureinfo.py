@@ -83,10 +83,17 @@ def getnatureinfo(url, html):
     # Get the abstract as one big long string, sans any html or script crap
     #   this does keep the footnote numbers unfortunately, but big whoop
     paper.abstract = ''
+    
+    paper.abstract = ''.join(soup.find(
+                             "div",
+                             attrs={"id": "Abs1-content"}).findAll(text=True))
+    print('I got here!')
+    
     try:
         paper.abstract = ''.join(soup.find(
                                  "div",
                                  attrs={"id": "Abs1-content"}).findAll(text=True))
+        print('I got here!')
     except:
         try:
             paper.abstract = ''.join(soup.find(
@@ -96,7 +103,7 @@ def getnatureinfo(url, html):
             paper.abstract = ''.join(soup.find(
                              "meta",
                              attrs={"name": "description"})['content'])
-
+    
     if paper.abstract == 'None' or paper.abstract == '':
         paper.abstract = "Error Grabbing Abstract"
     else:

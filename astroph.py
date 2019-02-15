@@ -971,16 +971,11 @@ def docoffeepage(file, discussed_file, next_file, volunteers_file, url, day, hou
     #     outstat = outstat + 'Could not generate HTML code\n\n'
 
     # Write the file
+    import io
+    with io.open(url, 'w', encoding="utf-8") as f:
+        for cur_line in html:
+            f.write(cur_line.decode('utf8', 'ignore'))
     
-    # with open(url, 'w') as f:
-    #     f.writelines(html)
-    
-    try:
-        f = open(url, 'w')
-        f.writelines(html)
-        f.close()
-    except:
-        outstat = outstat + 'Could not write HTML code to file ' + url + "\n\n"
 
     outstat = str(outstat) + str(arcstat) + str(paperrs)
     return (html, outstat)
