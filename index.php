@@ -108,7 +108,7 @@ if ((!isset($_POST["submit"])) and (!isset($_POST["submitcheck"])))
 	
 	<footer class="small wrap">
 		<center><p class="small"><strong>Astro Coffee 2</strong><br>by <a href="http://astro.ucla.edu/~abhimat/">Abhimat Gautam</a></p></center>
-		<center><p class="small">Based on previous versions of astroph.py by<br>Ryan T. Hamilton, Ian J. Crossfield, and Nathaniel Ross.</p></center>
+        <!-- <center><p class="small">Based on previous versions of astroph.py by<br>Ryan T. Hamilton, Ian J. Crossfield, and Nathaniel Ross.</p></center> -->
 		<center><p class="small"><a href="https://github.com/abhimat/AstroCoffee">Contribute on GitHub!</a></p></center>
 	</footer>
 </body>
@@ -125,7 +125,7 @@ if ((!isset($_POST["submit"])) and (!isset($_POST["submitcheck"])))
   echo "<p>You submitted ".$article."</p>";
   
   # Check for invalid characters
-  if (preg_match("/[^A-Za-z0-9\:\.\/]/", $article))
+  if (preg_match("/[^A-Za-z0-9\:\.\/\?\_\#\-\=]/", $article))
   {
   	echo '<p><strong>But your submission contains invalid characters!</strong></p>';
   	echo '<p>If you think this is an error, tell the coffee website manager.</p>';
