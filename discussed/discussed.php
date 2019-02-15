@@ -48,7 +48,7 @@ echo '<META HTTP-EQUIV=Refresh CONTENT="1;url=../">';
 echo "<p>You submitted ".$ID."</p>";
 
 // Check for invalid characters
-if (preg_match("/[^A-Za-z0-9\:\.\/]/", $ID)) {
+if (preg_match("/[^A-Za-z0-9\:\.\/\?\_\#\-\=]/", $ID)) {
     echo '<p><strong>But the paper ID contains invalid characters!</strong></p>';
     echo '<p>If you think this is an error, tell the coffee website manager.</p>';
     echo "<p>You will be returned to the main page in 1 second</p>";

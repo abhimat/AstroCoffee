@@ -52,7 +52,7 @@ echo '<META HTTP-EQUIV=Refresh CONTENT="3;'.$article.'">';
 echo "<p>You submitted ".$article."</p>";
 
 # Check for invalid characters
-if (preg_match("/[^A-Za-z0-9\:\.\/]/", $article))
+if (preg_match("/[^A-Za-z0-9\:\.\/\?\_\#\-\=]/", $article))
 {
 	echo '<p><strong>But your submission contains invalid characters!</strong></p>';
 	echo '<p>If you think this is an error, tell the coffee website manager.</p>';
