@@ -53,7 +53,7 @@ def clean_arxiv_id(id):
     id = id[pdf_ind + 4:]   # Extract arXiv id from remaining text
     return id
 
-def getinfo(id, server='http://arxiv.org/abs/'):
+def getinfo(id, server='https://arxiv.org/abs/'):
     """Take an ArXiV ID and return the title, authors, abstract, sub. date
 
     INPUT:
@@ -75,7 +75,8 @@ def getinfo(id, server='http://arxiv.org/abs/'):
     from get_prl_info import get_prl_info
     from getvoxchartainfo import getvoxchartainfo
     from getwebinfo import getwebinfo
-    import urllib2, cookielib
+    import urllib2, cookielib, certifi
+    import requests, ssl
     
     servererr = False
     # Set up the ID
@@ -118,7 +119,7 @@ def getinfo(id, server='http://arxiv.org/abs/'):
         else:
             isValidArxiv = False
     
-    # HTTP request for a webpage URL
+    # HTTP request for a webpage URL    
     try:
         ## Cookies Support
         cookies = cookielib.LWPCookieJar()
@@ -138,9 +139,13 @@ def getinfo(id, server='http://arxiv.org/abs/'):
                'Connection': 'keep-alive'}
     
     
-        request = urllib2.Request(id, headers=hdr)
+        ssl._create_default_https_context = ssl._create_unverified_context
+        context = ssl._create_unverified_context()
     
-        html = opener.open(request).read()
+        request = urllib2.Request(id, headers=hdr)
+
+        html = urllib2.urlopen(request, context=context).read()
+        
         urlpage = id  # For compatibility down lower in the code
     except urllib2.HTTPError, e:
         print e.code
@@ -148,17 +153,17 @@ def getinfo(id, server='http://arxiv.org/abs/'):
         urlpage = id
         servererr = True
     except:
-        # Hm...didn't open, and not a 404 or something; try adding http://
-        if (id.startswith('http://') is False):
-            urlpage = 'http://' + id
+        # Hm...didn't open, and not a 404 or something; try adding https://        
+        if (id.startswith('https://') is False):
+            urlpage = 'https://' + id
             try:
                 html = urllib2.urlopen(urlpage).read()
             except:
                 # Ok...try adding www. if it's not there
-                if (urlpage.startswith('http://www.') is False):
-                    urlpage = 'http://www.' + id
+                if (urlpage.startswith('https://www.') is False):
+                    urlpage = 'https://www.' + id
                 try:
-                    html = urllib2.urlopen(urlpage).read()
+                    html = requests.get(urlpage).text
                 except:
                     html = '<html><head>' + \
                            '<title>BAD LINK: ' + id + \
@@ -170,6 +175,7 @@ def getinfo(id, server='http://arxiv.org/abs/'):
                    '<title>BAD LINK: ' + id + \
                    '</title>' + \
                    '</head><body></body></html>'
+        urlpage = id
     
     if servererr == False:
         # Nature Article
@@ -698,7 +704,7 @@ def makehtml(papers, papers_ids, papers_discussed, papers_discussed_ids, papers_
                 body.append('%s' % title)
                 if paper.numauth > 5 and \
                    paper.author != "Error Grabbing Authors":
-                    authremain = paper.numauth-5
+                    authremain = paper.numauth - 5
                     aexstring = ", + " + str(authremain) + " more"
                     paper.author = paper.author + aexstring
                 body.append('<div class="authors small">%s</div>' % paper.author)
