@@ -37,7 +37,7 @@ def getarxivinfo(url, html):
 
     # Grab the Title, Date, and Authors, and all the other stuff
     try:
-        paper.title = soup.find('h1',  {'class':'title mathjax'}).contents[1].string
+        paper.title = soup.find('h1',  {'class':'title mathjax'}).contents[1].string.encode("utf-8")
     except:
         paper.errors = "1"
         paper.title = "Error Grabbing Title"

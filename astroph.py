@@ -622,14 +622,13 @@ def makehtml(papers, papers_ids, papers_discussed, papers_discussed_ids, papers_
                     if paper.sources != '':
                         if date != "":
                             body.append('<article class="block">')
-                            body.append('<div class="date small">%s</div>' % paper.date)
+                            body.append('<div class="date small">{0}</div>'.format(paper.date))
                         # Remove any stray/extra whitespaces
                         paper.sources = paper.sources.lstrip()
                         paper.sources = paper.sources.rstrip()
                         body.append('<div class="links small">[ %s ]</div>' %
                                     paper.sources)
-                        title = '<h3><a href="%s">%s</a></h3>' \
-                                % (paper.url, paper.title)
+                        title = '<h3><a href="{0}">{1}</a></h3>'.format(paper.url, paper.title)
                     else:
                         if date != "":
                             body.append('<article class="block">')
@@ -697,14 +696,13 @@ def makehtml(papers, papers_ids, papers_discussed, papers_discussed_ids, papers_
                 if paper.sources != '':
                     if date != "":
                         body.append('<article class="block">')
-                        body.append('<div class="date small">%s</div>' % paper.date)
+                        body.append('<div class="date small">{0}</div>'.format(paper.date))
                     # Remove any stray/extra whitespaces
                     paper.sources = paper.sources.lstrip()
                     paper.sources = paper.sources.rstrip()
                     body.append('<div class="links small">[ %s ]</div>' %
                                 paper.sources)
-                    title = '<h3><a href="%s">%s</a></h3>' \
-                            % (paper.url, paper.title)
+                    title = '<h3><a href="{0}">{1}</a></h3>'.format(paper.url, paper.title)
                 else:
                     if date != "":
                         body.append('<article class="block">')
