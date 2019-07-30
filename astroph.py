@@ -508,8 +508,8 @@ def makeheader(day, hour, min, php=False):
     # If there are two meetings, use following
     ## Get previous date astro-ph coffee is held in week
     nextdate_early_0 = nextdate+relativedelta(days=-1)
-    datestr_early_0 = nextdate_early_0.strftime('%a, %b %d, %Y')
-    datestr_next_early_0 = (nextdate_early_0 + relativedelta(days=+7)).strftime('%a, %b %d, %Y')
+    datestr_early_0 = nextdate_early_0.strftime('%a, %b %d')
+    datestr_next_early_0 = (nextdate_early_0 + relativedelta(days=+7)).strftime('%a, %b %d')
 
     titleString2 = '<center><p>Suggested papers for<br><strong>{0}</strong> and <strong>{1}</strong> at <strong>{2}</strong></p></center>\n'.format(datestr_early_0, datestr, timestr)
     titleString2_next = '<hr><center><p>Suggested papers for<br><strong>{0}</strong> and <strong>{1}</strong> at <strong>{2}</strong></p></center>\n'.format(datestr_next_early_0, datestr_next, timestr)
@@ -517,8 +517,8 @@ def makeheader(day, hour, min, php=False):
     # If there are three meetings, use following
     ## Get previous date astro-ph coffee is held in week
     nextdate_early_1 = nextdate+relativedelta(days=-3)
-    datestr_early_1 = nextdate_early_1.strftime('%a, %b %d, %Y')
-    datestr_next_early_1 = (nextdate_early_1 + relativedelta(days=+7)).strftime('%a, %b %d, %Y')
+    datestr_early_1 = nextdate_early_1.strftime('%a, %b %d')
+    datestr_next_early_1 = (nextdate_early_1 + relativedelta(days=+7)).strftime('%a, %b %d')
     
     titleString2 = '<center><p>Suggested papers for<br><strong>{0}</strong>, <strong>{1}</strong>, and <strong>{2}</strong> at <strong>11 am</strong></p></center>\n'.format(datestr_early_1, datestr_early_0, datestr, timestr)
     titleString2_next = '<hr><center><p>Suggested papers for<br><strong>{0}</strong>,  <strong>{1}</strong>, and <strong>{2}</strong></p></center>\n'.format(datestr_next_early_1, datestr_next_early_0, datestr_next, timestr)
@@ -560,8 +560,30 @@ def makefooter(php=False):
 
     return foot
 
+def makebody(papers, papers_ids,
+             papers_discussed, papers_discussed_ids,
+             papers_next, papers_next_ids,
+             papers_volunteers):
+    body = []
+    date = ''
+    
+    # Write out newest papers first
+    
+    # Write out last week's papers next
+    
+    # Write out discussed papers last
+    
+    print('test')
 
-def makehtml(papers, papers_ids, papers_discussed, papers_discussed_ids, papers_next, papers_next_ids, papers_volunteers, day, hour, min, idcomments=False, php=False):
+def makebody_paper():
+    print('test')
+
+def makehtml(papers, papers_ids,
+             papers_discussed, papers_discussed_ids,
+             papers_next, papers_next_ids,
+             papers_volunteers,
+             day, hour, min,
+             idcomments=False, php=False):
     """Return HTML code for a public ArXiV web page from paper list.
 
     INPUT:
