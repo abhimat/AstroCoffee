@@ -60,7 +60,7 @@
 				<h2>Bookmarklet</h2>
 				<center><a class="large semibold" href="javascript:(function(){location.href='http://pritha.astro.ucla.edu/~abhimat/astrocoffee/bookmarker.php?article='+encodeURIComponent(location.href);})();">Add to Astro Coffee</a></center>
 				<p>Drag the above “Add to Astro Coffee” link to your browser’s bookmarks bar to set up the bookmarklet. Clicking the bookmarklet on a paper’s page will add the paper to the Astro Coffee page. Nifty and convenient, right?</p>
-                <p>On iOS and use the <a href="https://itunes.apple.com/us/app/workflow-powerful-automation/id915249334?mt=8&at=10lsEw">Workflow app</a>? Grab the <a href="https://workflow.is/workflows/16a1e09e3b59407bb6dd8188ae442774">Add to Astro Coffee workflow</a> to make adding papers to Astro Coffee even faster and easier!</p>
+                <p>On iOS and use the <a href="https://support.apple.com/guide/shortcuts/welcome/ios">Shortcuts app</a>? Grab the <a href="https://www.icloud.com/shortcuts/4adcb3a066a8470d8449452ed05e0ad9">Add to Astro Coffee shortcut</a> to make adding papers to Astro Coffee even faster and easier through the share sheet menus!</p>
 			</article>
 			<img src="../images/HappyPaper_2x.png" srcset="../images/HappyPaper_1x.png 1x, ../images/HappyPaper_2x.png 2x" alt="Happy Paper!"/>
 		</section> <!-- /blocks -->
@@ -68,7 +68,6 @@
 
 	<footer class="small wrap">
 		<center><p class="small"><strong>Astro Coffee 2</strong><br>by <a href="http://astro.ucla.edu/~abhimat/">Abhimat Gautam</a></p></center>
-		<center><p class="small">Based on previous versions of astroph.py by<br>Ryan T. Hamilton, Ian J. Crossfield, and Nathaniel Ross.</p></center>
 		<center><p class="small"><a href="https://github.com/abhimat/AstroCoffee">Contribute on GitHub!</a></p></center>
 	</footer>
 </body>
