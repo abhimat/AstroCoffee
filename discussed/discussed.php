@@ -57,7 +57,7 @@ if (preg_match("/[^A-Za-z0-9\:\.\/\?\_\#\-\=]/", $ID)) {
 }
 
 # Testing for coffee time (can't submit otherwise (silly robots :( ))
-if (!(((date('H') >= 11 and date('H') < 12) or (date('H') >= 14 and date('H') < 15)) and (date('w') <= 5 and date('w') >= 1))) {
+if (!(((date('H') >= 10 and date('H') < 12) or (date('H') >= 15 and date('H') < 17)) and (date('w') <= 5 and date('w') >= 1))) {
 	echo '<p><strong>Not coffee time!</strong></p>';
 	echo '<p>Paper not added to discussed list. Please wait until coffee time to add.</p>';
     echo "<p>Returning to the main page automatically in 1 second</p>";
