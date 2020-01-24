@@ -109,7 +109,8 @@ def getinfo(id, server='https://arxiv.org/abs/'):
         #   valid arxiv.org addresses that were submitted
         if (id.find('arxiv')>-1 or id.find('arXiv')>-1) and \
            (id.find('.org') == -1) and \
-           (id.find('.gov') == -1):
+           (id.find('.gov') == -1) and \
+           (id.find('adsabs') == -1):
             isValidArxiv = True
             id = server + id
         elif (id.find('astro-ph') > -1) and \
