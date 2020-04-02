@@ -494,7 +494,6 @@ def makeheader(day, hour, min, php=False):
     titleString1 = '<article class="block small">'
     
     # If there is only one meeting
-    # Need this dummy return value because of the way I write the status file
     mgs = ''
     msg, nextdate = getnextduedate(day, hour, min)#+relativedelta(minutes=-60)
     nextdate = nextdate + relativedelta(hours=-1)
@@ -508,7 +507,7 @@ def makeheader(day, hour, min, php=False):
 
     # If there are two meetings, use following
     ## Get previous date astro-ph coffee is held in week
-    nextdate_early_0 = nextdate+relativedelta(days=-2)
+    nextdate_early_0 = nextdate+relativedelta(days=-1)
     datestr_early_0 = nextdate_early_0.strftime('%a, %b %d')
     datestr_next_early_0 = (nextdate_early_0 + relativedelta(days=+7)).strftime('%a, %b %d')
 
