@@ -80,7 +80,10 @@ if ((!isset($_POST["submit"])) and (!isset($_POST["submitcheck"])))
 	<header>
 		<!-- <p><a href="http://www.astro.ucla.edu"><semibold><em>UCLA</em> Astronomy and Astrophysics</semibold></a></p> -->
 		<!-- <h1>Astro Coffee</h1> -->
-		<img src="images/Header_2x.png" srcset="images/Header_1x.png 1x, images/Header_2x.png 2x" alt="Astro Coffee" />
+		<picture>
+      <source srcset="./images/Header-Dark_1x.png 1x, ./images/Header-Dark_2x.png 2x" media="(prefers-color-scheme: dark)">
+      <img src="./images/Header_2x.png" srcset="./images/Header_1x.png 1x, ./images/Header_2x.png 2x" alt="Astro Coffee" />
+    </picture>
 		
 		<center><ul class="pages">
 			<li><strong>Current Articles</strong></li>
@@ -121,6 +124,11 @@ if ((!isset($_POST["submit"])) and (!isset($_POST["submitcheck"])))
 // If submit-form _was_ submitted, display this instead:
 } elseif (isset($_POST["submit"])) {
   $minlength = 5;
+  
+  echo "<head>";
+  echo "	<link rel=\"stylesheet\" href=\"./styles.css\" type=\"text/css\" media=\"screen\" />";
+  echo "</head>";
+  
   echo '<META HTTP-EQUIV=Refresh CONTENT="10">';
   echo "<p>You submitted ".$article."</p>";
   
