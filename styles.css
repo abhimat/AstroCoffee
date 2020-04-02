@@ -9,16 +9,51 @@
     padding: 0;
 }
 
+/*Support for dark mode*/
+:root {
+    color-scheme: light dark;
+    
+    --background-color: #ffffff;
+    --body-color: #444444;
+    
+    --a-color: #0d6685;
+    --a-header-color: #444444;
+    
+    --input-color: #111;
+    
+    --body-font-weight: 400;
+    
+    --image-brightness: 100%;
+    
+    
+}
+
+@media (prefers-color-scheme: dark) {
+    :root {
+        --background-color: #151515;
+        --body-color: #e6e6e6;
+        
+        --a-color: #00d3d3;
+        --a-header-color: #bdbdbd;
+        
+        --input-color: #e6e6e6;
+        
+        --body-font-weight: 400;
+        
+        --image-brightness: 100%;
+    }
+}
+
 
 /*Typography*/
 
 body {
-    color: #444444;
-    background: #ffffff;
+    background: var(--background-color);
+	color: var(--body-color);
     font-family: 'Source Sans Pro', Verdana, Sans-Serif;
     font-size: 100%;
     line-height: 1.4;
-    font-weight: 400;
+    font-weight: var(--body-font-weight);
     text-rendering: optimizeLegibility;
     font-feature-settings: "kern" on;
 }
@@ -160,7 +195,7 @@ header h1, header p {
 }
 
 header a, a.block-title {
-    color: #444444;
+    color: var(--a-header-color);
 }
 
 a.block-title:hover {
@@ -235,6 +270,11 @@ ul.pages-small li a {
     border-radius: 16px;
 }
 
+.submission input, textarea, ::placeholder{
+    color: var(--input-color);
+    opacity: 1;
+}
+
 .submission input:focus {
     outline: none;
 }
@@ -251,22 +291,23 @@ ul.pages-small li a {
 
 .submission ::-webkit-input-placeholder {
    text-align: center;
-   color: #111;
+   color: var(--input-color);
+   
 }
 
 .submission :-moz-placeholder { /* Firefox 18- */
    text-align: center;
-   color: #111;
+   color: var(--input-color);
 }
 
 .submission ::-moz-placeholder {  /* Firefox 19+ */
    text-align: center;
-   color: #111;
+   color: var(--input-color);
 }
 
 .submission :-ms-input-placeholder {  
    text-align: center;
-   color: #111;
+   color: var(--input-color);
 }
 
 /*Content Styles*/
@@ -319,7 +360,7 @@ article {
 }
 
 a {
-    color: #0d6685;
+    color: var(--a-color);
     text-decoration: none;
 }
 

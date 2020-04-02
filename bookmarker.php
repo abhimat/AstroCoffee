@@ -47,7 +47,11 @@ $ipOfSubmitter=$_SERVER["REMOTE_ADDR"];
 
 
 $minlength = 5;
-// echo '<META HTTP-EQUIV=Refresh CONTENT="10">';
+
+echo "<head>";
+echo "	<link rel=\"stylesheet\" href=\"./styles.css\" type=\"text/css\" media=\"screen\" />";
+echo "</head>";
+
 echo '<META HTTP-EQUIV=Refresh CONTENT="3;'.$article.'">';
 echo "<p>You submitted ".$article."</p>";
 
