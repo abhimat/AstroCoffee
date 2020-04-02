@@ -909,6 +909,7 @@ def doarchivepage(papers_ids, papers_discussed_ids, papers_next_ids, papers_volu
             new_papers_ids = []
             
             f = open(file, 'w')
+            f.write('\n')
             for cur_id in papers_next_ids:
                 if cur_id not in papers_discussed_ids:
                     f.write(cur_id + '\n')
