@@ -75,10 +75,10 @@ def getarxivinfo(url, html):
         paper.date = "Error Grabbing Date"
 
     # print paper.errors + paper.date + "\n"
-
-
+    
     try:
-        paper.abstract = soup.find('blockquote',{'class':'abstract mathjax'}).contents[1].encode('utf-8')
+        paper.abstract = soup.find('blockquote', {'class':'abstract mathjax'}).contents[2].encode('utf-8')
+        paper.abstract = paper.abstract.lstrip()
     except:
         paper.errors = "1"
         paper.abstract = "Error Grabbing Abstract"

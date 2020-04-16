@@ -8,6 +8,7 @@ from getarxivinfo import getarxivinfo
 import urllib2, ssl
 
 url = 'https://arxiv.org/abs/1904.10977'
+url = 'https://arxiv.org/abs/2004.06685'
 id = url
 html = ''
 # HTTP request for a webpage URL
@@ -86,3 +87,4 @@ print(paper.abstract + '\n')
 print(paper.sources + '\n')
 print(paper.subject + '\n')
 print(paper.url + '\n')
+print(paper.errors + '\n')
