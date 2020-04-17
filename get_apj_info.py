@@ -18,15 +18,15 @@ def get_apj_info(url, html):
     paper.url = url
     
     try:
-        # Use Selenium to download html, because ApJ found out we're a bot (oh no)
-        from selenium import webdriver
-        import pdb
-
-        driver = webdriver.Safari()
-        driver.get(url)
-        html = driver.page_source
-        # pdb.set_trace()
-        driver.close()
+        # # Use Selenium to download html, because ApJ found out we're a bot (oh no)
+        # from selenium import webdriver
+        # import pdb
+        #
+        # driver = webdriver.Safari()
+        # driver.get(url)
+        # html = driver.page_source
+        # # pdb.set_trace()
+        # driver.close()
         
         fhtml =re.sub(re.compile("<!--.*?-->",re.DOTALL),"",html)
         soup = BeautifulSoup(fhtml)
