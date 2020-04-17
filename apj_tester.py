@@ -8,6 +8,7 @@ from get_apj_info import get_apj_info
 import urllib2, ssl
 
 url = 'https://iopscience.iop.org/article/10.3847/2041-8213/ab0ec7'
+url = 'https://iopscience.iop.org/article/10.3847/2041-8213/ab745b'
 id = url
 html = ''
 # HTTP request for a webpage URL

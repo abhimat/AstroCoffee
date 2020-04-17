@@ -7,7 +7,7 @@
 # Abhimat Gautam
 
 def get_apj_info(url, html):
-    """Convert HTML from a MNRAS journal page to a preprint object."""
+    """Convert HTML from an ApJ journal page to a preprint object."""
 
     from BeautifulSoup import BeautifulSoup
     import re
@@ -17,9 +17,17 @@ def get_apj_info(url, html):
     paper = preprint()
     paper.url = url
     
-    # Remove all the muck that screws up the BeautifulSoup parser
-    # Will fail on PDF submission, so take care of that exception first
     try:
+        # Use Selenium to download html, because ApJ found out we're a bot (oh no)
+        from selenium import webdriver
+        import pdb
+
+        driver = webdriver.Safari()
+        driver.get(url)
+        html = driver.page_source
+        # pdb.set_trace()
+        driver.close()
+        
         fhtml =re.sub(re.compile("<!--.*?-->",re.DOTALL),"",html)
         soup = BeautifulSoup(fhtml)
         paper.errors = "0"
@@ -34,6 +42,7 @@ def get_apj_info(url, html):
         paper.subject = "Error Grabbing Subject"
         paper.comments = "Error Grabbing Comments"
         return paper
+    
     
     # Grab the paper info
     
