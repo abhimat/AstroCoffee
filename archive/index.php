@@ -64,6 +64,8 @@
 		<section class="blocks">
 			<article class="block">
                 <ul style="columns: 2; list-style-type: none;">
+                    <li><a href="2020-04-24-papers.php">2020-04-24</a></li>
+                    <li><a href="2020-04-17-papers.php">2020-04-17</a></li>
                     <li><a href="2020-04-10-papers.php">2020-04-10</a></li>
                     <li><a href="2020-04-03-papers.php">2020-04-03</a></li>
                     <li><a href="2020-03-27-papers.php">2020-03-27</a></li>
