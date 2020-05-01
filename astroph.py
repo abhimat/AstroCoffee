@@ -68,6 +68,7 @@ def getinfo(id, server='https://arxiv.org/abs/'):
     from getadsinfo import getadsinfo
     from getarxivinfo import getarxivinfo
     from get_apj_info import get_apj_info
+    from get_atel_info import get_atel_info
     from getmnrasinfo import getmnrasinfo
     from getvixrainfo import getvixrainfo
     from get_nature_info import get_nature_info
@@ -223,6 +224,14 @@ def getinfo(id, server='https://arxiv.org/abs/'):
         # ApJ Article
         elif urlpage.find('iopscience.iop.org/article/')>-1:
             thispaper = get_apj_info(urlpage, html)
+            if thispaper.errors == '0':
+                thispaper.errors = 'Success reading ' + urlpage
+            else:
+                thispaper.errors = 'Some ERRORS reading ' + urlpage
+            thispaper.id = ''
+        # ATel listing
+        elif urlpage.find('astronomerstelegram.org')>-1:
+            thispaper = get_atel_info(urlpage, html)
             if thispaper.errors == '0':
                 thispaper.errors = 'Success reading ' + urlpage
             else:
