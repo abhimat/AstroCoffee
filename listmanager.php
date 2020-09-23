@@ -109,7 +109,7 @@ function trim_value(&$value)
 
 elseif (((md5($_POST['txtUsername'].$salt)==$username and md5($_POST['txtPassword'].$salt)== $password)) and (isset($_POST['save_file']))) { 
     if (isset($_POST["save_file"])){
-        echo '<p>The new contents are:</p>';
+        // echo '<p>The new contents are:</p>';
 		
 		$contents_next = explode("\n",$_POST["savecontent_next"]);
         $contents = explode("\n",$_POST["savecontent"]);
@@ -117,11 +117,19 @@ elseif (((md5($_POST['txtUsername'].$salt)==$username and md5($_POST['txtPasswor
         $contents_volunteers = explode("\n",$_POST["savecontent_volunteers"]);
         
 		# papers_next file
-		echo "<p>Papers added this week (papers_next)</p>";
+        // echo "<p>Papers added this week (papers_next)</p>";
 		array_walk($contents_next, 'trim_value');
         $i=0;
         foreach ($contents_next as $con){
-            echo $con."<br>";
+            // echo $con."<br>";
+            if (preg_match("/[^A-Za-z0-9\:\.\/\?\_\#\-\=]/", $con))
+            {
+            	echo "<p><strong>Your submission contains invalid characters!</strong></p>";
+            	echo "<p>If you think this is an error, tell the coffee website manager.</p>";
+                echo '<META HTTP-EQUIV=Refresh CONTENT="10">';
+              die;
+            }
+                      
             $contents_next["$i"] = trim($con);
             $i=$i+1;
         }
@@ -140,11 +148,19 @@ elseif (((md5($_POST['txtUsername'].$salt)==$username and md5($_POST['txtPasswor
         $loadcontent_next = $_POST["savecontent_next"];
 		
 		# papers file
-		echo "<p>Papers added last week (papers)</p>";
+        // echo "<p>Papers added last week (papers)</p>";
 		array_walk($contents, 'trim_value');
         $i=0;
         foreach ($contents as $con){
-            echo $con."<br>";
+            // echo $con."<br>";
+            if (preg_match("/[^A-Za-z0-9\:\.\/\?\_\#\-\=]/", $con))
+            {
+            	echo "<p><strong>Your submission contains invalid characters!</strong></p>";
+            	echo "<p>If you think this is an error, tell the coffee website manager.</p>";
+                echo '<META HTTP-EQUIV=Refresh CONTENT="10">';
+              die;
+            }
+            
             $contents["$i"] = trim($con);
             $i=$i+1;
         }
@@ -163,11 +179,18 @@ elseif (((md5($_POST['txtUsername'].$salt)==$username and md5($_POST['txtPasswor
         $loadcontent = $_POST["savecontent"];
 		
 		# papers_discussed file
-		echo "<p>Papers already discussed (papers_discussed)</p>";
-		array_walk($contents_discussed, 'trim_value');
+        // echo "<p>Papers already discussed (papers_discussed)</p>";
+        array_walk($contents_discussed, 'trim_value');
         $i=0;
         foreach ($contents_discussed as $con){
-            echo $con."<br>";
+            // echo $con."<br>";
+            if (preg_match("/[^A-Za-z0-9\:\.\/\?\_\#\-\=]/", $con))
+            {
+                echo "<p><strong>Your submission contains invalid characters!</strong></p>";
+                echo "<p>If you think this is an error, tell the coffee website manager.</p>";
+                echo '<META HTTP-EQUIV=Refresh CONTENT="10">';
+                die;
+            }
             $contents_discussed["$i"] = trim($con);
             $i=$i+1;
         }
@@ -186,11 +209,18 @@ elseif (((md5($_POST['txtUsername'].$salt)==$username and md5($_POST['txtPasswor
         $loadcontent_discussed = $_POST["savecontent_discussed"];
         
 		# papers_volunteers file
-		echo "<p>Volunteers for papers (papers_volunteers)</p>";
+        // echo "<p>Volunteers for papers (papers_volunteers)</p>";
 		array_walk($contents_volunteers, 'trim_value');
         $i=0;
         foreach ($contents_volunteers as $con){
-            echo $con."<br>";
+            // echo $con."<br>";
+            if (preg_match("/[^A-Za-z0-9\:\.\/\?\_\#\-\=]/", $con))
+            {
+                echo "<p><strong>Your submission contains invalid characters!</strong></p>";
+                echo "<p>If you think this is an error, tell the coffee website manager.</p>";
+                echo '<META HTTP-EQUIV=Refresh CONTENT="10">';
+                die;
+            }
             $contents_volunteers["$i"] = trim($con);
             $i=$i+1;
         }
@@ -212,7 +242,7 @@ elseif (((md5($_POST['txtUsername'].$salt)==$username and md5($_POST['txtPasswor
         $numlines = count(file($paperFile_next)) + count(file($paperFile));
         $time  = $numlines * 10;
         echo "<p>It may be several minutes before the main page updates.</p>";
-        echo "<p>$numlines items to update, so >$time seconds to finish.</p>";
+        echo "<p>Return to the <a href='./'>main page</a></p>";
 
         // # Testing for duplicates
         // foreach ($lines as $pap){
@@ -225,8 +255,7 @@ elseif (((md5($_POST['txtUsername'].$salt)==$username and md5($_POST['txtPasswor
     }
 }
 else{
-    echo "<h3>No way, dude(tte).</h3>";
-    echo "<p>You didn't enter the correct username/password!<br>";
+    echo "<p>You didn't enter the correct username/password.<br>";
     echo "Reloading the page in 5 seconds, to let ";
     echo 'you try again... </p>';
     echo '<META HTTP-EQUIV=Refresh CONTENT="5">';

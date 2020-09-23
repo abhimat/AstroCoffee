@@ -70,10 +70,10 @@
             $volunteer_name = $_POST['volunteer_name'];
             
             // Check for invalid characters
-            if (preg_match("/[^A-Za-z0-9]/", $volunteer_name) and preg_match("/[^A-Za-z0-9\:\.\/\?\_\#\-\=]/", $ID)) {
+            if (preg_match("/[^A-Za-z0-9]/", $volunteer_name) or preg_match("/[^A-Za-z0-9\:\.\/\?\_\#\-\=]/", $ID)) {
                 echo '<META HTTP-EQUIV=Refresh CONTENT="10;url=../">';
 
-                echo '<p><strong>But the paper ID or your name contains invalid characters!</strong></p>';
+                echo '<p><strong>The paper ID or your name contains invalid characters!</strong></p>';
                 echo '<p>If you think this is an error, tell the coffee website manager.</p>';
                 echo "<p>You will be returned to the main page in 10 seconds.</p>";
                 die;

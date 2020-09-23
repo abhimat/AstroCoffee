@@ -39,7 +39,7 @@
 
 $ID = $_GET['ID'];
 
-$python = '/Users/abhimat/software/Ureka/variants/common/bin/python';
+// $python = '/Users/abhimat/software/Ureka/variants/common/bin/python';
 
 // CHOOSE YOUR TIMEZONE FROM THE LINK BELOW AND SET IT HERE
 $CurrentVer = phpversion();
@@ -57,11 +57,11 @@ $ipOfSubmitter=$_SERVER["REMOTE_ADDR"];
 $minlength = 5;
 // echo '<META HTTP-EQUIV=Refresh CONTENT="10">';
 echo '<META HTTP-EQUIV=Refresh CONTENT="1;url=../">';
-echo "<p>You submitted ".$ID."</p>";
+// echo "<p>You submitted ".$ID."</p>";
 
 // Check for invalid characters
 if (preg_match("/[^A-Za-z0-9\:\.\/\?\_\#\-\=]/", $ID)) {
-    echo '<p><strong>But the paper ID contains invalid characters!</strong></p>';
+    echo '<p><strong>The paper ID contains invalid characters!</strong></p>';
     echo '<p>If you think this is an error, tell the coffee website manager.</p>';
     echo "<p>You will be returned to the main page in 1 second</p>";
     echo "<p>If not, click <a href='../'>here</a></p>";

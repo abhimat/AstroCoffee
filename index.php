@@ -130,12 +130,12 @@ if ((!isset($_POST["submit"])) and (!isset($_POST["submitcheck"])))
   echo "</head>";
   
   echo '<META HTTP-EQUIV=Refresh CONTENT="10">';
-  echo "<p>You submitted ".$article."</p>";
+  // echo "<p>You submitted ".$article."</p>";
   
   # Check for invalid characters
   if (preg_match("/[^A-Za-z0-9\:\.\/\?\_\#\-\=]/", $article))
   {
-  	echo '<p><strong>But your submission contains invalid characters!</strong></p>';
+  	echo '<p><strong>Your submission contains invalid characters!</strong></p>';
   	echo '<p>If you think this is an error, tell the coffee website manager.</p>';
   	echo "<p>You will be returned to your original page in 10 seconds.</p>";
   	echo "<p>If not, click <a href='./'>here</a></p>";
@@ -146,7 +146,7 @@ if ((!isset($_POST["submit"])) and (!isset($_POST["submitcheck"])))
   $papers = file($paperFile) or die("can't open file: ".$paperFile);
   foreach ($papers as $pap){
      if (trim($article) == trim($pap)) {
-         echo '<p>But it is a duplicate of a paper already submitted!</p>';
+         echo '<p>Your submission is a duplicate of a paper already submitted!</p>';
          echo '<p>If you think this is an error, tell the coffee czar.</p>';
          echo "<p>Returning to the main page automatically in 10 seconds</p>";
          echo "<p>If not, click <a href='./'>here</a></p>";
