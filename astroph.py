@@ -509,28 +509,28 @@ def makeheader(day, hour, min, php=False):
     datestr = nextdate.strftime('%a, %b %d, %Y')
     datestr_next = (nextdate + relativedelta(days=+7)).strftime('%a, %b %d, %Y')
 
-    timestr = nextdate.strftime('%I:%M %p')
+    timestr = nextdate.strftime('%-I:%M %p')
 
     titleString2 = '<center><p>Suggested papers for<br><strong>{0}</strong> at <strong>{1}</strong></p></center>\n'.format(datestr, timestr)
-    titeString2_next = '<hr><center><p>Suggested papers for<br><strong>{0}</strong> at <strong>{1}</strong></p></center>\n'.format(datestr_next, timestr)
+    titleString2_next = '<hr><center><p>Suggested papers for<br><strong>{0}</strong> at <strong>{1}</strong></p></center>\n'.format(datestr_next, timestr)
 
-    # If there are two meetings, use following
-    ## Get previous date astro-ph coffee is held in week
-    nextdate_early_0 = nextdate+relativedelta(days=-1)
-    datestr_early_0 = nextdate_early_0.strftime('%a, %b %d')
-    datestr_next_early_0 = (nextdate_early_0 + relativedelta(days=+7)).strftime('%a, %b %d')
-
-    titleString2 = '<center><p>Suggested papers for<br><strong>{0}</strong> and <strong>{1}</strong> at <strong>{2}</strong></p></center>\n'.format(datestr_early_0, datestr, timestr)
-    titleString2_next = '<hr><center><p>Suggested papers for<br><strong>{0}</strong> and <strong>{1}</strong> at <strong>{2}</strong></p></center>\n'.format(datestr_next_early_0, datestr_next, timestr)
-    
-    # If there are three meetings, use following
-    ## Get previous date astro-ph coffee is held in week
-    nextdate_early_1 = nextdate+relativedelta(days=-3)
-    datestr_early_1 = nextdate_early_1.strftime('%a, %b %d')
-    datestr_next_early_1 = (nextdate_early_1 + relativedelta(days=+7)).strftime('%a, %b %d')
-    
-    titleString2 = '<center><p>Suggested papers for<br><strong>{0}</strong>, <strong>{1}</strong>, and <strong>{2}</strong></p></center>\n'.format(datestr_early_1, datestr_early_0, datestr, timestr)
-    titleString2_next = '<hr><center><p>Suggested papers for<br><strong>{0}</strong>,  <strong>{1}</strong>, and <strong>{2}</strong></p></center>\n'.format(datestr_next_early_1, datestr_next_early_0, datestr_next, timestr)
+    # # If there are two meetings, use following
+    # ## Get previous date astro-ph coffee is held in week
+    # nextdate_early_0 = nextdate+relativedelta(days=-1)
+    # datestr_early_0 = nextdate_early_0.strftime('%a, %b %d')
+    # datestr_next_early_0 = (nextdate_early_0 + relativedelta(days=+7)).strftime('%a, %b %d')
+    #
+    # titleString2 = '<center><p>Suggested papers for<br><strong>{0}</strong> and <strong>{1}</strong> at <strong>{2}</strong></p></center>\n'.format(datestr_early_0, datestr, timestr)
+    # titleString2_next = '<hr><center><p>Suggested papers for<br><strong>{0}</strong> and <strong>{1}</strong> at <strong>{2}</strong></p></center>\n'.format(datestr_next_early_0, datestr_next, timestr)
+    #
+    # # If there are three meetings, use following
+    # ## Get previous date astro-ph coffee is held in week
+    # nextdate_early_1 = nextdate+relativedelta(days=-3)
+    # datestr_early_1 = nextdate_early_1.strftime('%a, %b %d')
+    # datestr_next_early_1 = (nextdate_early_1 + relativedelta(days=+7)).strftime('%a, %b %d')
+    #
+    # titleString2 = '<center><p>Suggested papers for<br><strong>{0}</strong>, <strong>{1}</strong>, and <strong>{2}</strong></p></center>\n'.format(datestr_early_1, datestr_early_0, datestr, timestr)
+    # titleString2_next = '<hr><center><p>Suggested papers for<br><strong>{0}</strong>,  <strong>{1}</strong>, and <strong>{2}</strong></p></center>\n'.format(datestr_next_early_1, datestr_next_early_0, datestr_next, timestr)
     
     
     # Construct header from title strings
@@ -666,9 +666,8 @@ def makehtml(papers, papers_ids,
                             body.append('<div class="date small">%s</div>' % paper.date)
                         title = '<h3><a href="%s">%s</a></h3>' % (paper.url, paper.title)
                     body.append('%s' % title)
-                    if paper.numauth > 5 and \
-                       paper.author != "Error Grabbing Authors":
-                        authremain = paper.numauth-5
+                    if paper.numauth > 4 and paper.author != "Error Grabbing Authors":
+                        authremain = paper.numauth - 4
                         aexstring = ", + " + str(authremain) + " more"
                         paper.author = paper.author + aexstring
                     body.append('<div class="authors small">%s</div>' % paper.author)
@@ -740,9 +739,8 @@ def makehtml(papers, papers_ids,
                         body.append('<div class="date small">%s</div>' % paper.date)
                     title = '<h3><a href="%s">%s</a></h3>' % (paper.url, paper.title)
                 body.append('%s' % title)
-                if paper.numauth > 5 and \
-                   paper.author != "Error Grabbing Authors":
-                    authremain = paper.numauth - 5
+                if paper.numauth > 4 and paper.author != "Error Grabbing Authors":
+                    authremain = paper.numauth - 4
                     aexstring = ", + " + str(authremain) + " more"
                     paper.author = paper.author + aexstring
                 body.append('<div class="authors small">%s</div>' % paper.author)
@@ -818,9 +816,8 @@ def makehtml(papers, papers_ids,
                         body.append('<div class="date small">%s</div>' % paper.date)
                     title = '<h3><a href="%s">%s</a></h3>' % (paper.url, paper.title)
                 body.append('%s' % title)
-                if paper.numauth > 5 and \
-                   paper.author != "Error Grabbing Authors":
-                    authremain = paper.numauth-5
+                if paper.numauth > 4 and paper.author != "Error Grabbing Authors":
+                    authremain = paper.numauth - 4
                     aexstring = ", + " + str(authremain) + " more"
                     paper.author = paper.author + aexstring
                 body.append('<div class="authors small">%s</div>' % paper.author)
