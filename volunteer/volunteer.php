@@ -37,7 +37,17 @@
         // $python = '/usr/bin/python';
 
         $ID = $_GET['ID'];
+        
+        // Check for invalid characters
+        if (preg_match("/[^A-Za-z0-9\:\.\/\?\_\#\-\=]/", $ID)) {
+            echo '<META HTTP-EQUIV=Refresh CONTENT="10;url=../">';
 
+            echo '<p><strong>The paper ID contains invalid characters!</strong></p>';
+            echo '<p>If you think this is an error, tell the coffee website manager.</p>';
+            echo "<p>You will be returned to the main page in 10 seconds.</p>";
+            die;
+        }
+        
         $python = '/Users/abhimat/software/Ureka/variants/common/bin/python';
 
         // CHOOSE YOUR TIMEZONE FROM THE LINK BELOW AND SET IT HERE
@@ -51,7 +61,7 @@
 
         $logFile = "../dregs.log";
         $listManager = "../listmanager.php";
-        // $ID = $_POST["article"];
+        
         $ipOfSubmitter=$_SERVER["REMOTE_ADDR"];
 
         $minlength = 2;
