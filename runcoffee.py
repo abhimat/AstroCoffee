@@ -6,7 +6,7 @@ from dateutil.relativedelta import relativedelta, MO, TU, WE, TH, FR, SA, SU
 
 # Change this to control the next meeting date & time
 day=FR
-hour=15
+hour=10
 min=30
 
 # Change this to send the error emails to the appropriate people

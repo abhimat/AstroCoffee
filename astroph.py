@@ -514,15 +514,15 @@ def makeheader(day, hour, min, php=False):
     titleString2 = '<center><p>Suggested papers for<br><strong>{0}</strong> at <strong>{1}</strong></p></center>\n'.format(datestr, timestr)
     titleString2_next = '<hr><center><p>Suggested papers for<br><strong>{0}</strong> at <strong>{1}</strong></p></center>\n'.format(datestr_next, timestr)
 
-    # # If there are two meetings, use following
-    # ## Get previous date astro-ph coffee is held in week
-    # nextdate_early_0 = nextdate+relativedelta(days=-1)
-    # datestr_early_0 = nextdate_early_0.strftime('%a, %b %d')
-    # datestr_next_early_0 = (nextdate_early_0 + relativedelta(days=+7)).strftime('%a, %b %d')
-    #
-    # titleString2 = '<center><p>Suggested papers for<br><strong>{0}</strong> and <strong>{1}</strong> at <strong>{2}</strong></p></center>\n'.format(datestr_early_0, datestr, timestr)
-    # titleString2_next = '<hr><center><p>Suggested papers for<br><strong>{0}</strong> and <strong>{1}</strong> at <strong>{2}</strong></p></center>\n'.format(datestr_next_early_0, datestr_next, timestr)
-    #
+    # If there are two meetings, use following
+    ## Get previous date astro-ph coffee is held in week
+    nextdate_early_0 = nextdate+relativedelta(days=-3)
+    datestr_early_0 = nextdate_early_0.strftime('%a, %b %d')
+    datestr_next_early_0 = (nextdate_early_0 + relativedelta(days=+7)).strftime('%a, %b %d')
+
+    titleString2 = '<center><p>Suggested papers for<br><strong>{0}</strong> and <strong>{1}</strong> at <strong>{2}</strong></p></center>\n'.format(datestr_early_0, datestr, timestr)
+    titleString2_next = '<hr><center><p>Suggested papers for<br><strong>{0}</strong> and <strong>{1}</strong> at <strong>{2}</strong></p></center>\n'.format(datestr_next_early_0, datestr_next, timestr)
+
     # # If there are three meetings, use following
     # ## Get previous date astro-ph coffee is held in week
     # nextdate_early_1 = nextdate+relativedelta(days=-3)
