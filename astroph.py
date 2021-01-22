@@ -150,8 +150,8 @@ def getinfo(id, server='https://arxiv.org/abs/'):
         html = urllib2.urlopen(request, context=context).read()
         
         urlpage = id  # For compatibility down lower in the code
-    except urllib2.HTTPError, e:
-        print e.code
+    except urllib2.HTTPError as e:
+        print(e.code)
         html = e.read()
         urlpage = id
         servererr = True
@@ -996,7 +996,7 @@ def docoffeepage(file, discussed_file, next_file, volunteers_file, url, day, hou
         paperrs_discussed, papers_discussed = readlist(papers_discussed_ids, sleep=sleep)
         paperrs_next, papers_next = readlist(papers_next_ids, sleep=sleep)
         html = []
-    except Exception, why:
+    except Exception as why:
         html = ['Could not get the papers info']
         papers = []
         papers_discussed = []

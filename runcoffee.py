@@ -59,7 +59,7 @@ if paper_time > web_time or paper_discussed_time > web_time or paper_next_time >
     #         print line
     #         f.write(line)
     #     f.close()
-    print output
+    print(output)
     after = datetime.datetime.now()
     tdiff = after-before
 
@@ -84,7 +84,7 @@ if paper_time > web_time or paper_discussed_time > web_time or paper_next_time >
     try:
         shutil.move(temp_file, main_file)
         f.write("Success!\n")
-    except Exception, why:
+    except Exception as why:
         f.write("Error encountered during the move process: \n")
         f.write(str(why) + "\n")
     f.close()
