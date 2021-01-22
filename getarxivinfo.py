@@ -9,7 +9,7 @@ def getarxivinfo(url, html):
     # 2014~2015        FBD: Correctly parses the pages after mathjax update
     # 2015-03-17       FBD: Now uses the UCLA arXiv mirror
 
-    from BeautifulSoup import BeautifulSoup
+    from bs4 import BeautifulSoup
     # from bs4 import BeautifulSoup
     import re
     import datetime

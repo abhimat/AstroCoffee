@@ -9,7 +9,7 @@
 def get_apj_info(url, html):
     """Convert HTML from an ApJ journal page to a preprint object."""
 
-    from BeautifulSoup import BeautifulSoup
+    from bs4 import BeautifulSoup
     import re
     import datetime
     from astroph import preprint

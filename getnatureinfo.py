@@ -8,7 +8,7 @@ def getnatureinfo(url, html):
     #                         numerous fixes and changes, shouldn't bork the
     #                         entire page if something isn't found anymore
 
-    from BeautifulSoup import BeautifulSoup
+    from bs4 import BeautifulSoup
     import re
     import datetime
     from astroph import preprint

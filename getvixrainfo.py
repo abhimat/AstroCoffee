@@ -3,7 +3,7 @@
 def getvixrainfo(url, html):
     """Convert HTML from a viXra page to a preprint object."""
 
-    from BeautifulSoup import BeautifulSoup
+    from bs4 import BeautifulSoup
     # from bs4 import BeautifulSoup
     import re
     import datetime

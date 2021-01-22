@@ -5,7 +5,7 @@ def getscienceinfo(url, html):
     """Convert HTML from a Science journal page to a preprint object."""
     # 2015-3-6 First attempt at making this work. (FBD)
 
-    from BeautifulSoup import BeautifulSoup
+    from bs4 import BeautifulSoup
     import re
     import datetime
     from astroph import preprint

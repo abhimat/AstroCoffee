@@ -4,7 +4,7 @@
 def getvoxchartainfo(url, html):
     """Convert HTML from a Vox Charta page to a preprint object, via the getarxivinfo function"""
     
-    from BeautifulSoup import BeautifulSoup
+    from bs4 import BeautifulSoup
     import re
     import datetime
     from astroph import preprint, getunique

@@ -1,0 +1,6 @@
+#LWP-Cookies-2.0
+Set-Cookie3: MACHINE_LAST_SEEN="2017-05-02T21%3A46%3A34.906-07%3A00"; path="/"; domain=".scitation.org"; path_spec; domain_dot; expires="2018-02-27 04:46:34Z"; version=0
+Set-Cookie3: MAID="+/0JVNg3sai/hXTPEnQenQ=="; path="/"; domain=".scitation.org"; path_spec; domain_dot; expires="2018-02-27 04:46:34Z"; version=0
+Set-Cookie3: I2KBRCK=1; path="/"; domain="physicstoday.scitation.org"; path_spec; expires="2018-05-03 04:46:34Z"; version=0
+Set-Cookie3: MACHINE_LAST_SEEN="2017-05-02T21%3A46%3A34.906-07%3A00"; path="/"; domain="physicstoday.scitation.org"; path_spec; expires="2018-02-27 04:46:34Z"; version=0
+Set-Cookie3: MAID="+/0JVNg3sai/hXTPEnQenQ=="; path="/"; domain="physicstoday.scitation.org"; path_spec; expires="2018-02-27 04:46:34Z"; version=0
