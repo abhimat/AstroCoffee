@@ -35,7 +35,7 @@ def get_nature_info(url, html):
     
     ## Grab title
     try:
-        paper.title = str(soup.find('h1', {'itemprop':'name headline'}).text.encode("utf-8"))
+        paper.title = str(soup.find('h1', {'class':'c-article-title'}).text.encode("utf-8"))
     except:
         paper.errors = "1"
         paper.title   = "Error Grabbing Title"

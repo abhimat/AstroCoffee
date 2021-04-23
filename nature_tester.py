@@ -1,6 +1,5 @@
 #!/usr/bin/env python
 
-from getnatureinfo import getnatureinfo
 from get_nature_info import get_nature_info
 import urllib2
 
@@ -8,6 +7,7 @@ url = 'http://www.nature.com/articles/s41550-017-0166'
 url = 'https://www.nature.com/articles/s41550-017-0224-z'
 url = 'https://www.nature.com/articles/nature25149'
 url = 'https://www.nature.com/articles/s41550-018-0603-0'
+url = 'https://www.nature.com/articles/s41550-021-01335-x'
 id = url
 html = ''
 # HTTP request for a webpage URL
