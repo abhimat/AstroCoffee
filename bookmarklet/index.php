@@ -11,9 +11,9 @@
 	<title>UCLA Astro Coffee: Bookmarklet</title>
 	
 	<!-- Google Web Fonts -->
-	<link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:400,600,700,900,400italic,600italic,700italic,900italic' rel='stylesheet' type='text/css'>
-	<link href='http://fonts.googleapis.com/css?family=Bree+Serif' rel='stylesheet' type='text/css'>
-	<link href='http://fonts.googleapis.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css'>
+	<link href='https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,600,700,900,400italic,600italic,700italic,900italic' rel='stylesheet' type='text/css'>
+	<link href='https://fonts.googleapis.com/css?family=Bree+Serif' rel='stylesheet' type='text/css'>
+	<link href='https://fonts.googleapis.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css'>
 	
 	<meta name=viewport content='width=device-width, initial-scale=1'>
 	
@@ -61,7 +61,7 @@
 		<section class="blocks">
 			<article class="block">
 				<h2>Bookmarklet</h2>
-				<center><a class="large semibold" href="javascript:(function(){location.href='http://pritha.astro.ucla.edu/~abhimat/astrocoffee/bookmarker.php?article='+encodeURIComponent(location.href);})();">Add to Astro Coffee</a></center>
+				<center><a class="large semibold" href="javascript:(function(){location.href='http://coffee.astro.ucla.edu/bookmarker.php?article='+encodeURIComponent(location.href);})();">Add to Astro Coffee</a></center>
 				<p>Drag the above “Add to Astro Coffee” link to your browser’s bookmarks bar to set up the bookmarklet. Clicking the bookmarklet on a paper’s page will add the paper to the Astro Coffee page. Nifty and convenient, right?</p>
                 <p>On iOS and use the <a href="https://support.apple.com/guide/shortcuts/welcome/ios">Shortcuts app</a>? Grab the <a href="https://www.icloud.com/shortcuts/4adcb3a066a8470d8449452ed05e0ad9">Add to Astro Coffee shortcut</a> to make adding papers to Astro Coffee even faster and easier through the share sheet menus!</p>
 			</article>

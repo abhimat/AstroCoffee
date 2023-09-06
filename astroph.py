@@ -516,7 +516,7 @@ def makeheader(day, hour, min, php=False):
 
     # If there are two meetings, use following
     ## Get previous date astro-ph coffee is held in week
-    nextdate_early_0 = nextdate+relativedelta(days=-3)
+    nextdate_early_0 = nextdate+relativedelta(days=-2)
     datestr_early_0 = nextdate_early_0.strftime('%a, %b %d')
     datestr_next_early_0 = (nextdate_early_0 + relativedelta(days=+7)).strftime('%a, %b %d')
 
@@ -631,7 +631,7 @@ def makehtml(papers, papers_ids,
             ## Constructing action text
             paper_id = papers_next_ids[paper_index]
             
-            volunteer_text = '<a href="http://pritha.astro.ucla.edu/~abhimat/astrocoffee/volunteer/volunteer.php?ID={0}">Volunteer to discuss</a><br>'.format(paper_id)
+            volunteer_text = '<a href="https://coffee.astro.ucla.edu/volunteer/volunteer.php?ID={0}">Volunteer to discuss</a><br>'.format(paper_id)
             if paper_id in papers_volunteers:
                 cur_vols = papers_volunteers[paper_id]
                 vols_names = cur_vols[0]
@@ -639,9 +639,9 @@ def makehtml(papers, papers_ids,
                     for vol in cur_vols[1:]:
                         vols_names += ', {0}'.format(vol)
             
-                volunteer_text = 'Volunteers: {0} | <a href="http://pritha.astro.ucla.edu/~abhimat/astrocoffee/volunteer/volunteer.php?ID={1}">Volunteer to discuss</a><br>'.format(vols_names, paper_id)
+                volunteer_text = 'Volunteers: {0} | <a href="https://coffee.astro.ucla.edu/volunteer/volunteer.php?ID={1}">Volunteer to discuss</a><br>'.format(vols_names, paper_id)
         
-            discussed_link = '<a href="http://pritha.astro.ucla.edu/~abhimat/astrocoffee/discussed/discussed.php?ID={0}">Mark paper as discussed</a>'.format(paper_id)
+            discussed_link = '<a href="https://coffee.astro.ucla.edu/discussed/discussed.php?ID={0}">Mark paper as discussed</a>'.format(paper_id)
             
             action_text = '<p class="small">' + volunteer_text + discussed_link + '</p>'
                 
@@ -706,7 +706,7 @@ def makehtml(papers, papers_ids,
         ## Constructing action text
         paper_id = papers_ids[paper_index]
         
-        volunteer_text = '<a href="http://pritha.astro.ucla.edu/~abhimat/astrocoffee/volunteer/volunteer.php?ID={0}">Volunteer to discuss</a><br>'.format(paper_id)
+        volunteer_text = '<a href="https://coffee.astro.ucla.edu/volunteer/volunteer.php?ID={0}">Volunteer to discuss</a><br>'.format(paper_id)
         if paper_id in papers_volunteers:
             cur_vols = papers_volunteers[paper_id]
             vols_names = cur_vols[0]
@@ -714,9 +714,9 @@ def makehtml(papers, papers_ids,
                 for vol in cur_vols[1:]:
                     vols_names += ', {0}'.format(vol)
             
-            volunteer_text = 'Volunteers: {0} | <a href="http://pritha.astro.ucla.edu/~abhimat/astrocoffee/volunteer/volunteer.php?ID={1}">Volunteer to discuss</a><br>'.format(vols_names, paper_id)
+            volunteer_text = 'Volunteers: {0} | <a href="https://coffee.astro.ucla.edu/volunteer/volunteer.php?ID={1}">Volunteer to discuss</a><br>'.format(vols_names, paper_id)
         
-        discussed_link = '<a href="http://pritha.astro.ucla.edu/~abhimat/astrocoffee/discussed/discussed.php?ID={0}">Mark paper as discussed</a>'.format(paper_id)
+        discussed_link = '<a href="https://coffee.astro.ucla.edu/discussed/discussed.php?ID={0}">Mark paper as discussed</a>'.format(paper_id)
         
         action_text = '<p class="small">' + volunteer_text + discussed_link + '</p>'
         
@@ -793,7 +793,7 @@ def makehtml(papers, papers_ids,
         
         # ## Constructing discussed link
         # paper_id = papers_discussed[paper_index]
-        # discussed_link = ' <a href="http://pritha.astro.ucla.edu/~abhimat/astrocoffee/discussed/discussed.php?ID={0}">Discussed?</a>'.format(paper_id)
+        # discussed_link = ' <a href="https://coffee.astro.ucla.edu/discussed/discussed.php?ID={0}">Discussed?</a>'.format(paper_id)
         # paper.sources.append(discussed_link)
         
         date = paper.date
@@ -991,6 +991,11 @@ def docoffeepage(file, discussed_file, next_file, volunteers_file, url, day, hou
     paperrs = ''
     
     # Read in the papers
+    
+    # paperrs, papers = readlist(papers_ids, sleep=sleep)
+    # paperrs_discussed, papers_discussed = readlist(papers_discussed_ids, sleep=sleep)
+    # paperrs_next, papers_next = readlist(papers_next_ids, sleep=sleep)
+    # html = []
     try:
         paperrs, papers = readlist(papers_ids, sleep=sleep)
         paperrs_discussed, papers_discussed = readlist(papers_discussed_ids, sleep=sleep)

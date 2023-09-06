@@ -14,9 +14,9 @@
 	<meta name="ROBOTS" content="INDEX, NOFOLLOW">
 	
 	<!-- Google Web Fonts -->
-	<link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:400,600,700,900,400italic,600italic,700italic,900italic' rel='stylesheet' type='text/css'>
-	<link href='http://fonts.googleapis.com/css?family=Bree+Serif' rel='stylesheet' type='text/css'>
-	<link href='http://fonts.googleapis.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css'>
+	<link href='https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,600,700,900,400italic,600italic,700italic,900italic' rel='stylesheet' type='text/css'>
+	<link href='https://fonts.googleapis.com/css?family=Bree+Serif' rel='stylesheet' type='text/css'>
+	<link href='https://fonts.googleapis.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css'>
 	
 	<meta name=viewport content='width=device-width, initial-scale=1'>
 	
@@ -64,6 +64,92 @@
 		<section class="blocks">
 			<article class="block">
                 <ul style="columns: 2; list-style-type: none;">
+                    <li><a href="2022-07-21-papers.php">2022-07-21</a></li>
+                    <li><a href="2022-07-14-papers.php">2022-07-14</a></li>
+                    <li><a href="2022-06-30-papers.php">2022-06-30</a></li>
+                    <li><a href="2022-06-23-papers.php">2022-06-23</a></li>
+                    <li><a href="2022-06-16-papers.php">2022-06-16</a></li>
+                    <li><a href="2022-06-09-papers.php">2022-06-09</a></li>
+                    <li><a href="2022-05-19-papers.php">2022-05-19</a></li>
+                    <li><a href="2022-05-12-papers.php">2022-05-12</a></li>
+                    <li><a href="2022-05-05-papers.php">2022-05-05</a></li>
+                    <li><a href="2022-04-28-papers.php">2022-04-28</a></li>
+                    <li><a href="2022-04-21-papers.php">2022-04-21</a></li>
+                    <li><a href="2022-04-14-papers.php">2022-04-14</a></li>
+                    <li><a href="2022-04-07-papers.php">2022-04-07</a></li>
+                    <li><a href="2022-03-31-papers.php">2022-03-31</a></li>
+                    <li><a href="2022-03-24-papers.php">2022-03-24</a></li>
+                    <li><a href="2022-03-17-papers.php">2022-03-17</a></li>
+                    <li><a href="2022-03-10-papers.php">2022-03-10</a></li>
+                    <li><a href="2022-03-03-papers.php">2022-03-03</a></li>
+                    <li><a href="2022-02-24-papers.php">2022-02-24</a></li>
+                    <li><a href="2022-02-17-papers.php">2022-02-17</a></li>
+                    <li><a href="2022-02-10-papers.php">2022-02-10</a></li>
+                    <li><a href="2022-02-03-papers.php">2022-02-03</a></li>
+                    <li><a href="2022-01-27-papers.php">2022-01-27</a></li>
+                    <li><a href="2022-01-20-papers.php">2022-01-20</a></li>
+                    <li><a href="2022-01-13-papers.php">2022-01-13</a></li>
+                    <li><a href="2022-01-06-papers.php">2022-01-06</a></li>
+                    <li><a href="2021-12-30-papers.php">2021-12-30</a></li>
+                    <li><a href="2021-12-09-papers.php">2021-12-09</a></li>
+                    <li><a href="2021-12-02-papers.php">2021-12-02</a></li>
+                    <li><a href="2021-11-25-papers.php">2021-11-25</a></li>
+                    <li><a href="2021-11-18-papers.php">2021-11-18</a></li>
+                    <li><a href="2021-11-11-papers.php">2021-11-11</a></li>
+                    <li><a href="2021-11-04-papers.php">2021-11-04</a></li>
+                    <li><a href="2021-10-28-papers.php">2021-10-28</a></li>
+                    <li><a href="2021-10-21-papers.php">2021-10-21</a></li>
+                    <li><a href="2021-10-14-papers.php">2021-10-14</a></li>
+                    <li><a href="2021-10-08-papers.php">2021-10-08</a></li>
+                    <li><a href="2021-10-01-papers.php">2021-10-01</a></li>
+                    <li><a href="2021-09-24-papers.php">2021-09-24</a></li>
+                    <li><a href="2021-09-17-papers.php">2021-09-17</a></li>
+                    <li><a href="2021-09-10-papers.php">2021-09-10</a></li>
+                    <li><a href="2021-09-03-papers.php">2021-09-03</a></li>
+                    <li><a href="2021-08-27-papers.php">2021-08-27</a></li>
+                    <li><a href="2021-08-06-papers.php">2021-08-06</a></li>
+                    <li><a href="2021-07-16-papers.php">2021-07-16</a></li>
+                    <li><a href="2021-07-02-papers.php">2021-07-02</a></li>
+                    <li><a href="2021-06-25-papers.php">2021-06-25</a></li>
+                    <li><a href="2021-06-18-papers.php">2021-06-18</a></li>
+                    <li><a href="2021-06-11-papers.php">2021-06-11</a></li>
+                    <li><a href="2021-06-04-papers.php">2021-06-04</a></li>
+                    <li><a href="2021-05-28-papers.php">2021-05-28</a></li>
+                    <li><a href="2021-05-21-papers.php">2021-05-21</a></li>
+                    <li><a href="2021-05-14-papers.php">2021-05-14</a></li>
+                    <li><a href="2021-05-07-papers.php">2021-05-07</a></li>
+                    <li><a href="2021-04-30-papers.php">2021-04-30</a></li>
+                    <li><a href="2021-04-23-papers.php">2021-04-23</a></li>
+                    <li><a href="2021-04-16-papers.php">2021-04-16</a></li>
+                    <li><a href="2021-04-09-papers.php">2021-04-09</a></li>
+                    <li><a href="2021-04-02-papers.php">2021-04-02</a></li>
+                    <li><a href="2021-03-26-papers.php">2021-03-26</a></li>
+                    <li><a href="2021-03-19-papers.php">2021-03-19</a></li>
+                    <li><a href="2021-03-12-papers.php">2021-03-12</a></li>
+                    <li><a href="2021-03-05-papers.php">2021-03-05</a></li>
+                    <li><a href="2021-02-26-papers.php">2021-02-26</a></li>
+                    <li><a href="2021-02-19-papers.php">2021-02-19</a></li>
+                    <li><a href="2021-02-12-papers.php">2021-02-12</a></li>
+                    <li><a href="2021-02-05-papers.php">2021-02-05</a></li>
+                    <li><a href="2021-01-29-papers.php">2021-01-29</a></li>
+                    <li><a href="2021-01-22-papers.php">2021-01-22</a></li>
+                    <li><a href="2021-01-15-papers.php">2021-01-15</a></li>
+                    <li><a href="2021-01-08-papers.php">2021-01-08</a></li>
+                    <li><a href="2021-01-01-papers.php">2021-01-01</a></li>
+                    <li><a href="2020-12-25-papers.php">2020-12-25</a></li>
+                    <li><a href="2020-12-18-papers.php">2020-12-18</a></li>
+                    <li><a href="2020-12-11-papers.php">2020-12-11</a></li>
+                    <li><a href="2020-12-04-papers.php">2020-12-04</a></li>
+                    <li><a href="2020-11-27-papers.php">2020-11-27</a></li>
+                    <li><a href="2020-11-20-papers.php">2020-11-20</a></li>
+                    <li><a href="2020-11-13-papers.php">2020-11-13</a></li>
+                    <li><a href="2020-11-06-papers.php">2020-11-06</a></li>
+                    <li><a href="2020-10-30-papers.php">2020-10-30</a></li>
+                    <li><a href="2020-10-23-papers.php">2020-10-23</a></li>
+                    <li><a href="2020-10-16-papers.php">2020-10-16</a></li>
+                    <li><a href="2020-10-09-papers.php">2020-10-09</a></li>
+                    <li><a href="2020-10-02-papers.php">2020-10-02</a></li>
+                    <li><a href="2020-09-25-papers.php">2020-09-25</a></li>
                     <li><a href="2020-09-18-papers.php">2020-09-18</a></li>
                     <li><a href="2020-09-11-papers.php">2020-09-11</a></li>
                     <li><a href="2020-09-04-papers.php">2020-09-04</a></li>

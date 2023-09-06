@@ -15,9 +15,9 @@
 <head>
   <!-- <title>Astro Coffee Papers Discussed Page</title> -->
 	<!-- Google Web Fonts -->
-  <!-- <link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:400,600,700,900,400italic,600italic,700italic,900italic' rel='stylesheet' type='text/css'>
-  <link href='http://fonts.googleapis.com/css?family=Bree+Serif' rel='stylesheet' type='text/css'>
-  <link href='http://fonts.googleapis.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css'> -->
+  <!-- <link href='https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,600,700,900,400italic,600italic,700italic,900italic' rel='stylesheet' type='text/css'>
+  <link href='https://fonts.googleapis.com/css?family=Bree+Serif' rel='stylesheet' type='text/css'>
+  <link href='https://fonts.googleapis.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css'> -->
 	
 	<!-- Styles -->
 	<link rel="stylesheet" href="../styles.css" type="text/css" media="screen" />
@@ -69,7 +69,7 @@ if (preg_match("/[^A-Za-z0-9\:\.\/\?\_\#\-\=]/", $ID)) {
 }
 
 # Testing for coffee time (can't submit otherwise (silly robots :( ))
-if (!(((date('H') >= 10.5 and date('H') < 12) or (date('H') >= 15 and date('H') < 16.5)) and (date('w') <= 5 and date('w') >= 1))) {
+if (!(((date('H') >= 10 and date('H') < 15)) and (date('w') <= 5 and date('w') >= 1))) {
 	echo '<p><strong>Not coffee time!</strong></p>';
 	echo '<p>Paper not added to discussed list. Please wait until coffee time to add.</p>';
     echo "<p>Returning to the main page automatically in 1 second</p>";

@@ -21,7 +21,7 @@ def getarxivinfo(url, html):
     # Will fail on PDF submission, so take care of that exception first
     try:
         fhtml =re.sub(re.compile("<!--.*?-->",re.DOTALL),"",html)
-        soup = BeautifulSoup(fhtml)
+        soup = BeautifulSoup(fhtml, features="html5lib")
         paper.errors = "0"
     except:
         paper.errors = "1"
