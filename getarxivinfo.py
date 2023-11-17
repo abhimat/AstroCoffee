@@ -20,7 +20,7 @@ def getarxivinfo(url, html):
     # Remove all the muck that screws up the BeautifulSoup parser
     # Will fail on PDF submission, so take care of that exception first
     try:
-        fhtml =re.sub(re.compile("<!--.*?-->",re.DOTALL),"",html)
+        fhtml = html.decode("utf-8")
         soup = BeautifulSoup(fhtml, features="html5lib")
         paper.errors = "0"
     except:
@@ -34,15 +34,17 @@ def getarxivinfo(url, html):
         paper.subject = "Error Grabbing Subject"
         paper.comments = "Error Grabbing Comments"
         return paper
-
+    
+    print(paper.url)
+    
     # Grab the Title, Date, and Authors, and all the other stuff
     try:
-        paper.title = soup.find('h1',  {'class':'title mathjax'}).contents[1].string.encode("utf-8")
+        paper.title = soup.find('h1',  {'class':'title mathjax'}).contents[1]   # .string.encode("utf-8")
     except:
         paper.errors = "1"
         paper.title = "Error Grabbing Title"
 
-    print paper.title + "\n"
+    print(paper.title + "\n")
 
     try:
         authors = soup.find('div', {'class':'authors'})
@@ -62,13 +64,17 @@ def getarxivinfo(url, html):
         paper.author = "Error Grabbing Authors"
 
     # print paper.errors + paper.author + "\n"
-
-
+    
     try:
         date = soup.find('div', {'class':'submission-history'})
         date = date.findAll(text=True) # Remove HTML tags
-        date = getunique(date) # Cheap way of ignoring multiple \n's
+    
+        # Clean up dates text
+        for date_index, date_line in enumerate(date):
+            date[date_index] = date_line.lstrip()
+        date = getunique(date)
         date = date[-1].split() # Most recent revision date will be the last
+        
         paper.date = date[1] + ' ' + date[2] + ' ' + date[3]
     except:
         paper.errors = "1"
@@ -77,13 +83,13 @@ def getarxivinfo(url, html):
     # print paper.errors + paper.date + "\n"
     
     try:
-        paper.abstract = soup.find('blockquote', {'class':'abstract mathjax'}).contents[2].encode('utf-8')
+        paper.abstract = soup.find('blockquote', {'class':'abstract mathjax'}).contents[2]  # .encode('utf-8')
         paper.abstract = paper.abstract.lstrip()
     except:
         paper.errors = "1"
         paper.abstract = "Error Grabbing Abstract"
 
-    # print paper.errors + paper.abstract + "\n"
+    print(paper.errors + paper.abstract + "\n")
 
     try:
         sources = soup.find('div', {'class':'full-text'})
