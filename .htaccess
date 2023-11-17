@@ -1,0 +1,4 @@
+# .htaccessRewriteEngine on
+# RewriteRule ^/?Some-text-goes-here/([0-9]+)$ /picture.php?id=$1
+
+RewriteRule ^coffee.astro.ucla.edu/([a-zA-Z0-9_-]+)$ aadhya.astro.ucla.edu/~abhimat/astrocoffee/$1

@@ -21,7 +21,7 @@ try:
     html = urllib2.urlopen(request).read()
     urlpage = id  # For compatibility down lower in the code
 except urllib2.HTTPError, e:
-    print e.code
+    print(e.code)
     html = e.read()
     urlpage = id
     servererr = True
