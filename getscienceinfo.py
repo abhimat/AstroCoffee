@@ -37,7 +37,7 @@ def getscienceinfo(url, html):
         paper.errors = "1"
         paper.title   = "Error Grabbing Title"
 
-    print paper.title
+    print(paper.title)
 
     # Grab the date
     try:

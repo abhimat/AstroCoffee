@@ -77,7 +77,7 @@ def getinfo(id, server='https://arxiv.org/abs/'):
     from get_prl_info import get_prl_info
     from getvoxchartainfo import getvoxchartainfo
     from getwebinfo import getwebinfo
-    import urllib2, cookielib, certifi
+    import urllib, http.cookiejar, certifi
     import requests, ssl
     
     servererr = False
@@ -122,16 +122,16 @@ def getinfo(id, server='https://arxiv.org/abs/'):
         else:
             isValidArxiv = False
     
-    # HTTP request for a webpage URL    
+    # HTTP request for a webpage URL
     try:
         ## Cookies Support
-        cookies = cookielib.LWPCookieJar()
+        cookies = http.cookiejar.LWPCookieJar()
         handlers = [
-            urllib2.HTTPHandler(),
-            urllib2.HTTPSHandler(),
-            urllib2.HTTPCookieProcessor(cookies)
+            urllib.request.HTTPHandler(),
+            urllib.request.HTTPSHandler(),
+            urllib.request.HTTPCookieProcessor(cookies)
             ]
-        opener = urllib2.build_opener(*handlers)
+        opener = urllib.request.build_opener(*handlers)
     
         ## Add headers to HTTP request so don't get 403 error
         hdr = {'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_6) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/13.1 Safari/605.1.15',
@@ -145,12 +145,12 @@ def getinfo(id, server='https://arxiv.org/abs/'):
         ssl._create_default_https_context = ssl._create_unverified_context
         context = ssl._create_unverified_context()
     
-        request = urllib2.Request(id, headers=hdr)
+        request = urllib.request.Request(id, headers=hdr)
 
-        html = urllib2.urlopen(request, context=context).read()
+        html = urllib.request.urlopen(request, context=context).read()
         
         urlpage = id  # For compatibility down lower in the code
-    except urllib2.HTTPError as e:
+    except urllib.error.HTTPError as e:
         print(e.code)
         html = e.read()
         urlpage = id
@@ -160,7 +160,7 @@ def getinfo(id, server='https://arxiv.org/abs/'):
         if (id.startswith('https://') is False):
             urlpage = 'https://' + id
             try:
-                html = urllib2.urlopen(urlpage).read()
+                html = urllib.urlopen(urlpage).read()
             except:
                 # Ok...try adding www. if it's not there
                 if (urlpage.startswith('https://www.') is False):
@@ -992,10 +992,10 @@ def docoffeepage(file, discussed_file, next_file, volunteers_file, url, day, hou
     
     # Read in the papers
     
-    # paperrs, papers = readlist(papers_ids, sleep=sleep)
-    # paperrs_discussed, papers_discussed = readlist(papers_discussed_ids, sleep=sleep)
-    # paperrs_next, papers_next = readlist(papers_next_ids, sleep=sleep)
-    # html = []
+    paperrs, papers = readlist(papers_ids, sleep=sleep)
+    paperrs_discussed, papers_discussed = readlist(papers_discussed_ids, sleep=sleep)
+    paperrs_next, papers_next = readlist(papers_next_ids, sleep=sleep)
+    html = []
     try:
         paperrs, papers = readlist(papers_ids, sleep=sleep)
         paperrs_discussed, papers_discussed = readlist(papers_discussed_ids, sleep=sleep)
@@ -1021,7 +1021,7 @@ def docoffeepage(file, discussed_file, next_file, volunteers_file, url, day, hou
     import io
     with io.open(url, 'w', encoding="utf-8") as f:
         for cur_line in html:
-            f.write(cur_line.decode('utf8', 'ignore'))
+            f.write(cur_line)
     
 
     outstat = str(outstat) + str(arcstat) + str(paperrs)

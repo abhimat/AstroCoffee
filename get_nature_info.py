@@ -40,7 +40,7 @@ def get_nature_info(url, html):
         paper.errors = "1"
         paper.title   = "Error Grabbing Title"
     
-    print paper.title + "\n"
+    print(paper.title + "\n")
     
     ## Grab date
     try:
